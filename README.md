@@ -76,4 +76,4 @@ breaking token rename/removal. Update consumers by bumping the `#vX.Y.Z` ref.
 
 ## License
 
-Apache-2.0 — see [LICENSE](./LICENSE).
+MIT — see [LICENSE](./LICENSE).

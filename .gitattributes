@@ -1,0 +1,9 @@
+# Force LF for all text so git-dependency consumers receive byte-identical
+# files to the master source (SCC desktop app), regardless of their autocrlf.
+* text=auto eol=lf
+
+# Binary assets — never touch.
+*.png binary
+*.ico binary
+*.woff binary
+*.woff2 binary

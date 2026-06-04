@@ -1,0 +1,145 @@
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+) {
+  appearance: none;
+  outline: none;
+  cursor: var(--cursor-pointer, pointer);
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):is(:disabled, [aria-disabled="true"]) {
+  opacity: 0.65;
+  color: var(--ctrl-disabled-text, rgba(174, 197, 210, 0.88));
+  border-color: var(--ctrl-disabled-border, rgba(82, 193, 230, 0.2));
+  box-shadow: none;
+  cursor: var(--cursor-default, default);
+  pointer-events: none;
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):not(:disabled, [aria-disabled="true"]):hover {
+  color: var(--ctrl-hover-text, var(--text, #eaf6ff));
+  background: var(--ctrl-hover-bg, transparent);
+  border-color: var(--ctrl-hover-border, rgba(125, 213, 240, 0.6));
+  box-shadow: var(--ctrl-hover-shadow, 0 0 10px rgba(125, 213, 240, 0.28));
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):not(:disabled, [aria-disabled="true"]):active {
+  transform: translateY(1px);
+  box-shadow: var(--ctrl-active-shadow, inset 0 0 0 1px rgba(125, 213, 240, 0.25));
+  cursor: var(--cursor-active, var(--scc-cursor-active));
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):focus-visible {
+  outline: 2px solid var(--ctrl-focus-ring, rgba(148, 234, 255, 0.95));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ctrl-focus-contrast, rgba(9, 25, 37, 0.92)),
+    var(--ctrl-focus-glow, 0 0 0 4px rgba(125, 213, 240, 0.35));
+}
+
+.ui-control-primary {
+  --ctrl-hover-shadow: 0 0 14px rgba(82, 193, 230, 0.36);
+}
+
+.ui-control-secondary {
+  --ctrl-hover-bg: rgba(18, 50, 70, 0.32);
+}
+
+.ui-control-icon {
+  --ctrl-hover-bg: rgba(18, 50, 70, 0.45);
+  --ctrl-hover-shadow: none;
+  --ctrl-active-shadow: none;
+}
+
+.ui-control-link {
+  --ctrl-hover-bg: none;
+  --ctrl-hover-border: transparent;
+  --ctrl-hover-shadow: none;
+  --ctrl-active-shadow: none;
+}
+
+.settings-select,
+.space-select-button {
+  --ctrl-hover-border: rgba(125, 213, 240, 0.75);
+  --ctrl-hover-shadow:
+    inset 0 0 0 1px rgba(125, 213, 240, 0.32),
+    inset 0 1px 0 rgba(125, 213, 240, 0.2),
+    0 0 20px rgba(82, 193, 230, 0.38);
+  --ctrl-active-shadow:
+    inset 0 0 0 1px rgba(125, 213, 240, 0.35),
+    inset 0 1px 0 rgba(125, 213, 240, 0.18),
+    0 0 14px rgba(82, 193, 230, 0.32);
+  --ctrl-focus-contrast: rgba(6, 20, 30, 0.96);
+  --ctrl-focus-glow:
+    inset 0 0 0 1px rgba(125, 213, 240, 0.42),
+    0 0 0 3px rgba(8, 24, 34, 0.95),
+    0 0 0 5px rgba(125, 213, 240, 0.38);
+}
+
+.space-select.is-disabled .space-select-button {
+  opacity: 0.55;
+  cursor: var(--cursor-default, default);
+  pointer-events: none;
+}
+
+.toggle input:not(:disabled) + .toggle-track {
+  cursor: var(--cursor-pointer, pointer);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.12s ease;
+}
+
+.toggle input:not(:disabled):hover + .toggle-track {
+  border-color: var(--ctrl-hover-border, rgba(125, 213, 240, 0.6));
+  box-shadow: var(--ctrl-hover-shadow, 0 0 10px rgba(125, 213, 240, 0.28));
+}
+
+.toggle input:not(:disabled):active + .toggle-track {
+  transform: translateY(1px);
+  box-shadow: var(--ctrl-active-shadow, inset 0 0 0 1px rgba(125, 213, 240, 0.25));
+}
+
+.toggle input:focus-visible + .toggle-track {
+  outline: 2px solid var(--ctrl-focus-ring, rgba(148, 234, 255, 0.95));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ctrl-focus-contrast, rgba(9, 25, 37, 0.92)),
+    var(--ctrl-focus-glow, 0 0 0 4px rgba(125, 213, 240, 0.35));
+}
+
+.toggle input:disabled + .toggle-track {
+  opacity: 0.65;
+  border-color: var(--ctrl-disabled-border, rgba(82, 193, 230, 0.2));
+  cursor: var(--cursor-default, default);
+}

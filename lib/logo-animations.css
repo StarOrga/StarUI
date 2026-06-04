@@ -1,0 +1,950 @@
+/**
+ * SCC Logo — Quantum Core Animation System
+ *
+ * All animations are GPU-accelerated via transform/opacity/filter only.
+ * No layout-triggering properties (width, height, top, left, margin, padding)
+ * are ever animated. Every class uses will-change for compositor hints.
+ *
+ * Design tokens referenced here intentionally duplicate the palette so this
+ * file can be embedded in standalone contexts (tray, loading screen) without
+ * importing design-tokens.css.
+ *
+ * Color palette:
+ *   --logo-cyan:    #52c1e6   (primary accent)
+ *   --logo-bright:  #7dd5f0   (bright accent)
+ *   --logo-dark:    #0d2635   (surface dark)
+ *   --logo-gold:    #c8a84b   (notification / gold state)
+ *   --logo-danger:  #c0392b   (error state)
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TIMING CUSTOM PROPERTIES
+   Adjust these to globally speed up / slow down categories of animation.
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Speed multiplier — lower = faster; multiply all durations by this value  */
+  --logo-speed:             1;
+
+  /* Per-category base durations (seconds)                                     */
+  --logo-t-breathe:         4s;
+  --logo-t-heartbeat:       1.6s;
+  --logo-t-awareness:       8s;
+  --logo-t-orbit-slow:      20s;
+  --logo-t-orbit-medium:    12s;
+  --logo-t-orbit-fast:      8s;
+  --logo-t-orbit-drift:     30s;
+  --logo-t-glow-pulse:      3s;
+  --logo-t-glow-surge:      0.8s;
+  --logo-t-glow-warm:       2.4s;
+  --logo-t-glow-fade:       3s;
+  --logo-t-particle-float:  12s;
+  --logo-t-particle-twink:  3s;
+  --logo-t-data-stream:     2s;
+  --logo-t-tray-spin:       1.2s;
+  --logo-t-tray-pulse:      2.6s;
+  --logo-t-tray-alert:      1.4s;
+  --logo-t-tray-error:      0.6s;
+
+  /* Ring breathe + SCC reveal — these MUST share the same duration value.
+   * Changing --logo-t-ring-breathe automatically keeps scc-reveal in lock-step
+   * because both classes reference this single variable.                        */
+  --logo-t-ring-breathe:    3s;
+  --logo-t-node-pulse:      2s;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 1  LIVING / BREATHING EFFECTS
+   These simulate organic biological rhythm. Avoid perfectly even in/out timing.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .life-breathe
+ * A slow scale + opacity swell that feels like a chest rising and falling.
+ * Inhale is slightly faster than exhale — mimics real breathing physiology.
+ */
+.life-breathe {
+  will-change: transform, opacity;
+  animation: kf-life-breathe var(--logo-t-breathe) cubic-bezier(0.45, 0.05, 0.55, 0.95)
+    infinite;
+}
+
+@keyframes kf-life-breathe {
+  0%   { transform: scale(1.000); opacity: 0.82; }
+  35%  { transform: scale(1.048); opacity: 1.00; }   /* peak — inhale faster  */
+  60%  { transform: scale(1.032); opacity: 0.95; }   /* slight hold at top    */
+  100% { transform: scale(1.000); opacity: 0.82; }   /* exhale slower         */
+}
+
+/**
+ * .life-heartbeat
+ * Two-beat cardiac rhythm: quick double-thump then a rest.
+ * The second beat is softer than the first — as in a real heartbeat (S1/S2).
+ */
+.life-heartbeat {
+  will-change: transform;
+  animation: kf-life-heartbeat var(--logo-t-heartbeat) ease-out infinite;
+}
+
+@keyframes kf-life-heartbeat {
+  0%   { transform: scale(1.00); }
+  10%  { transform: scale(1.10); }   /* S1 — first beat (larger)   */
+  20%  { transform: scale(0.96); }   /* recoil                      */
+  30%  { transform: scale(1.05); }   /* S2 — second beat (softer)   */
+  45%  { transform: scale(1.00); }   /* settle                      */
+  100% { transform: scale(1.00); }   /* rest until next cycle       */
+}
+
+/**
+ * .life-awareness
+ * Subtle positional drift that avoids mechanical feel by using many uneven
+ * keyframe steps. Suggests an entity that is aware of its environment.
+ */
+.life-awareness {
+  will-change: transform;
+  animation: kf-life-awareness var(--logo-t-awareness) linear infinite;
+}
+
+@keyframes kf-life-awareness {
+  0%   { transform: translate(0px,    0px)   rotate(0.0deg); }
+  8%   { transform: translate(0.8px, -1.2px) rotate(0.3deg); }
+  17%  { transform: translate(-0.5px,-0.4px) rotate(-0.2deg); }
+  27%  { transform: translate(1.2px,  0.7px) rotate(0.5deg); }
+  38%  { transform: translate(-0.3px, 1.4px) rotate(-0.3deg); }
+  49%  { transform: translate(0.9px, -0.8px) rotate(0.1deg); }
+  61%  { transform: translate(-1.1px, 0.3px) rotate(-0.4deg); }
+  72%  { transform: translate(0.4px,  1.1px) rotate(0.2deg); }
+  83%  { transform: translate(-0.7px,-0.9px) rotate(-0.1deg); }
+  92%  { transform: translate(0.3px,  0.5px) rotate(0.3deg); }
+  100% { transform: translate(0px,    0px)   rotate(0.0deg); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 2  ORBITAL ANIMATIONS
+   Irregularities are introduced via easing and multi-step keyframes so orbits
+   feel gravitationally influenced rather than motor-driven.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .orbit-slow
+ * Outer ring — 20 s, subtle wobble in scale to break the perfect-circle feel.
+ */
+.orbit-slow {
+  will-change: transform;
+  animation: kf-orbit-slow var(--logo-t-orbit-slow) linear infinite;
+}
+
+@keyframes kf-orbit-slow {
+  0%   { transform: rotate(0deg)   scaleX(1.000) scaleY(1.000); }
+  22%  { transform: rotate(79deg)  scaleX(1.012) scaleY(0.991); }
+  47%  { transform: rotate(168deg) scaleX(0.994) scaleY(1.008); }
+  73%  { transform: rotate(263deg) scaleX(1.007) scaleY(0.997); }
+  100% { transform: rotate(360deg) scaleX(1.000) scaleY(1.000); }
+}
+
+/**
+ * .orbit-medium
+ * Middle ring — 12 s, counter-clockwise, offset wobble phase.
+ */
+.orbit-medium {
+  will-change: transform;
+  animation: kf-orbit-medium var(--logo-t-orbit-medium) linear infinite;
+}
+
+@keyframes kf-orbit-medium {
+  0%   { transform: rotate(0deg)    scaleX(1.000) scaleY(1.000); }
+  18%  { transform: rotate(-64deg)  scaleX(0.988) scaleY(1.015); }
+  44%  { transform: rotate(-158deg) scaleX(1.010) scaleY(0.993); }
+  68%  { transform: rotate(-244deg) scaleX(0.995) scaleY(1.006); }
+  100% { transform: rotate(-360deg) scaleX(1.000) scaleY(1.000); }
+}
+
+/**
+ * .orbit-fast
+ * Inner ring — 8 s, clockwise, tighter wobble.
+ */
+.orbit-fast {
+  will-change: transform;
+  animation: kf-orbit-fast var(--logo-t-orbit-fast) cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+@keyframes kf-orbit-fast {
+  0%   { transform: rotate(0deg)   scale(1.000); }
+  25%  { transform: rotate(92deg)  scale(1.018); }
+  50%  { transform: rotate(182deg) scale(0.985); }
+  75%  { transform: rotate(272deg) scale(1.010); }
+  100% { transform: rotate(360deg) scale(1.000); }
+}
+
+/**
+ * .orbit-drift
+ * Particle macro-drift — extremely slow rotation combined with subtle scale
+ * changes, making particle fields feel like they are breathing independently.
+ */
+.orbit-drift {
+  will-change: transform, opacity;
+  animation:
+    kf-orbit-drift      var(--logo-t-orbit-drift) linear         infinite,
+    kf-orbit-drift-fade var(--logo-t-orbit-drift) ease-in-out    infinite;
+}
+
+@keyframes kf-orbit-drift {
+  0%   { transform: rotate(0deg)   scale(0.96); }
+  33%  { transform: rotate(118deg) scale(1.04); }
+  67%  { transform: rotate(241deg) scale(0.98); }
+  100% { transform: rotate(360deg) scale(0.96); }
+}
+
+@keyframes kf-orbit-drift-fade {
+  0%,100% { opacity: 0.55; }
+  50%     { opacity: 0.80; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 3  GLOW / ENERGY EFFECTS
+   All glow is achieved via filter: drop-shadow so it GPU-composites without
+   triggering layout. Fallback for no-filter environments: opacity only.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .glow-pulse
+ * Steady rhythmic core glow — the "heartbeat of light" behind breathing.
+ */
+.glow-pulse {
+  will-change: filter, opacity;
+  animation: kf-glow-pulse var(--logo-t-glow-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-glow-pulse {
+  0%, 100% {
+    filter:  drop-shadow(0 0  6px rgba(82, 193, 230, 0.50))
+             drop-shadow(0 0 18px rgba(82, 193, 230, 0.20));
+    opacity: 0.88;
+  }
+  50% {
+    filter:  drop-shadow(0 0 12px rgba(82, 193, 230, 0.90))
+             drop-shadow(0 0 32px rgba(82, 193, 230, 0.45))
+             drop-shadow(0 0 64px rgba(82, 193, 230, 0.18));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .glow-surge
+ * Instant bright flash (notification / quantum-jump event), then slow decay.
+ * Intended for one-shot use — add class programmatically, remove after 1 cycle.
+ */
+.glow-surge {
+  will-change: filter, opacity;
+  animation: kf-glow-surge var(--logo-t-glow-surge) cubic-bezier(0.2, 0, 0.8, 1) 1 forwards;
+}
+
+@keyframes kf-glow-surge {
+  0%  {
+    filter:  drop-shadow(0 0  4px rgba(125, 213, 240, 0.60));
+    opacity: 0.9;
+  }
+  8%  {
+    filter:  drop-shadow(0 0 24px rgba(125, 213, 240, 1.00))
+             drop-shadow(0 0 64px rgba(125, 213, 240, 0.70))
+             drop-shadow(0 0 96px rgba(125, 213, 240, 0.40));
+    opacity: 1.0;
+  }
+  100% {
+    filter:  drop-shadow(0 0  8px rgba(82, 193, 230, 0.40))
+             drop-shadow(0 0 20px rgba(82, 193, 230, 0.18));
+    opacity: 0.9;
+  }
+}
+
+/**
+ * .glow-warm
+ * Boot / connection warm-up: dim blue to full brightness over ~2.4 s.
+ * Use at startup; transition naturally into .glow-pulse afterwards.
+ */
+.glow-warm {
+  will-change: filter, opacity;
+  animation: kf-glow-warm var(--logo-t-glow-warm) cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    1 forwards;
+}
+
+@keyframes kf-glow-warm {
+  0% {
+    filter:  drop-shadow(0 0  2px rgba(82, 193, 230, 0.10));
+    opacity: 0.20;
+  }
+  40% {
+    filter:  drop-shadow(0 0  5px rgba(82, 193, 230, 0.35));
+    opacity: 0.55;
+  }
+  75% {
+    filter:  drop-shadow(0 0 10px rgba(82, 193, 230, 0.70))
+             drop-shadow(0 0 28px rgba(82, 193, 230, 0.30));
+    opacity: 0.92;
+  }
+  100% {
+    filter:  drop-shadow(0 0 12px rgba(82, 193, 230, 0.85))
+             drop-shadow(0 0 32px rgba(82, 193, 230, 0.40));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .glow-fade
+ * Idle / sleep dim-down. The core retreats inward and dims to a maintenance glow.
+ */
+.glow-fade {
+  will-change: filter, opacity;
+  animation: kf-glow-fade var(--logo-t-glow-fade) cubic-bezier(0.55, 0, 1, 0.45)
+    1 forwards;
+}
+
+@keyframes kf-glow-fade {
+  0% {
+    filter:  drop-shadow(0 0 12px rgba(82, 193, 230, 0.85))
+             drop-shadow(0 0 32px rgba(82, 193, 230, 0.40));
+    opacity: 1.00;
+  }
+  60% {
+    filter:  drop-shadow(0 0  5px rgba(82, 193, 230, 0.30));
+    opacity: 0.50;
+  }
+  100% {
+    filter:  drop-shadow(0 0  3px rgba(82, 193, 230, 0.15));
+    opacity: 0.28;
+  }
+}
+
+/**
+ * .glow-gold
+ * Notification state — same rhythm as .glow-pulse but in gold.
+ */
+.glow-gold {
+  will-change: filter, opacity;
+  animation: kf-glow-gold var(--logo-t-glow-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-glow-gold {
+  0%, 100% {
+    filter:  drop-shadow(0 0  6px rgba(200, 168, 75, 0.55))
+             drop-shadow(0 0 16px rgba(200, 168, 75, 0.22));
+    opacity: 0.88;
+  }
+  50% {
+    filter:  drop-shadow(0 0 14px rgba(232, 201, 107, 0.95))
+             drop-shadow(0 0 36px rgba(200, 168, 75, 0.50))
+             drop-shadow(0 0 60px rgba(200, 168, 75, 0.20));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .glow-danger
+ * Error state — red pulse, faster cadence to convey urgency.
+ */
+.glow-danger {
+  will-change: filter, opacity;
+  animation: kf-glow-danger calc(var(--logo-t-glow-pulse) * 0.7) ease-in-out infinite;
+}
+
+@keyframes kf-glow-danger {
+  0%, 100% {
+    filter:  drop-shadow(0 0  5px rgba(192, 57, 43, 0.55))
+             drop-shadow(0 0 14px rgba(192, 57, 43, 0.20));
+    opacity: 0.85;
+  }
+  50% {
+    filter:  drop-shadow(0 0 12px rgba(192, 57, 43, 0.95))
+             drop-shadow(0 0 30px rgba(192, 57, 43, 0.50))
+             drop-shadow(0 0 56px rgba(192, 57, 43, 0.22));
+    opacity: 1.00;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 4  STATE TRANSITIONS
+   These are one-shot animations (fill: forwards) combined with class toggling.
+   The caller should add/remove the class programmatically.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .state-wake
+ * Boot to active: scale + opacity come up together with glow intensifying.
+ * Duration: 1.4 s
+ */
+.state-wake {
+  will-change: transform, opacity, filter;
+  animation: kf-state-wake 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1 forwards;
+}
+
+@keyframes kf-state-wake {
+  0% {
+    transform: scale(0.80);
+    opacity:   0.15;
+    filter:    drop-shadow(0 0  2px rgba(82, 193, 230, 0.10));
+  }
+  55% {
+    transform: scale(1.06);
+    opacity:   0.90;
+    filter:    drop-shadow(0 0 18px rgba(82, 193, 230, 0.80))
+               drop-shadow(0 0 40px rgba(82, 193, 230, 0.35));
+  }
+  80% {
+    transform: scale(0.97);
+    opacity:   0.96;
+  }
+  100% {
+    transform: scale(1.00);
+    opacity:   1.00;
+    filter:    drop-shadow(0 0 12px rgba(82, 193, 230, 0.70))
+               drop-shadow(0 0 28px rgba(82, 193, 230, 0.30));
+  }
+}
+
+/**
+ * .state-sleep
+ * Active to idle: everything decelerates and dims; orbits slow implied via
+ * the overall element fading — pair orbit elements with animation-play-state.
+ * Duration: 2.0 s
+ */
+.state-sleep {
+  will-change: transform, opacity, filter;
+  animation: kf-state-sleep 2.0s cubic-bezier(0.55, 0.055, 0.675, 0.19) 1 forwards;
+}
+
+@keyframes kf-state-sleep {
+  0% {
+    transform: scale(1.00);
+    opacity:   1.00;
+    filter:    drop-shadow(0 0 12px rgba(82, 193, 230, 0.70));
+  }
+  35% {
+    transform: scale(0.98);
+    opacity:   0.70;
+    filter:    drop-shadow(0 0  6px rgba(82, 193, 230, 0.35));
+  }
+  100% {
+    transform: scale(0.94);
+    opacity:   0.28;
+    filter:    drop-shadow(0 0  3px rgba(82, 193, 230, 0.15));
+  }
+}
+
+/**
+ * .state-alert
+ * Snap-attention then settle: quick scale punch, then dampened oscillation.
+ * Duration: 1.0 s
+ */
+.state-alert {
+  will-change: transform, filter;
+  animation: kf-state-alert 1.0s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1 forwards;
+}
+
+@keyframes kf-state-alert {
+  0%   { transform: scale(1.00); filter: drop-shadow(0 0 10px rgba(82, 193, 230, 0.60)); }
+  12%  { transform: scale(1.18); filter: drop-shadow(0 0 24px rgba(125, 213, 240, 1.00))
+                                         drop-shadow(0 0 48px rgba(125, 213, 240, 0.50)); }
+  26%  { transform: scale(0.92); }
+  42%  { transform: scale(1.08); }
+  58%  { transform: scale(0.97); }
+  72%  { transform: scale(1.03); }
+  86%  { transform: scale(0.99); }
+  100% { transform: scale(1.00); filter: drop-shadow(0 0 12px rgba(82, 193, 230, 0.70)); }
+}
+
+/**
+ * .state-error
+ * Shifts color context to danger red, dims orbits (brightness drop).
+ * Does not animate position — just recolors and dims.
+ * Duration: 0.6 s
+ */
+.state-error {
+  will-change: filter, opacity;
+  animation: kf-state-error 0.6s ease-out 1 forwards;
+}
+
+@keyframes kf-state-error {
+  0% {
+    filter:  drop-shadow(0 0 12px rgba(82,  193, 230, 0.70))
+             brightness(1.0)
+             saturate(1.0);
+    opacity: 1.0;
+  }
+  40% {
+    filter:  drop-shadow(0 0 18px rgba(192, 57,  43,  1.00))
+             drop-shadow(0 0 36px rgba(192, 57,  43,  0.50))
+             brightness(0.8)
+             saturate(0.4)
+             hue-rotate(180deg);
+    opacity: 0.90;
+  }
+  100% {
+    filter:  drop-shadow(0 0 10px rgba(192, 57,  43,  0.80))
+             drop-shadow(0 0 24px rgba(192, 57,  43,  0.35))
+             brightness(0.75)
+             saturate(0.35)
+             hue-rotate(180deg);
+    opacity: 0.85;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5  PARTICLE / DETAIL EFFECTS
+   Applied to individual dot, spark, or path elements within the SVG logo.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .particle-float
+ * Slow, looping vertical drift with slight horizontal sway — buoyancy effect.
+ */
+.particle-float {
+  will-change: transform;
+  animation: kf-particle-float var(--logo-t-particle-float) ease-in-out infinite;
+}
+
+@keyframes kf-particle-float {
+  0%   { transform: translate( 0.0px,  0.0px); }
+  14%  { transform: translate( 0.8px, -2.4px); }
+  28%  { transform: translate(-0.4px, -4.2px); }
+  42%  { transform: translate( 1.0px, -5.8px); }
+  50%  { transform: translate( 0.2px, -6.5px); }  /* apex               */
+  64%  { transform: translate(-0.9px, -4.6px); }
+  78%  { transform: translate( 0.5px, -2.1px); }
+  90%  { transform: translate(-0.3px, -0.5px); }
+  100% { transform: translate( 0.0px,  0.0px); }
+}
+
+/* .particle-twinkle is defined in § 5d below with the full 10-step pattern.
+ * The keyframe alias here keeps the legacy name resolvable if referenced
+ * externally (e.g. from a template that sets animation-name directly).     */
+@keyframes kf-particle-twinkle {
+  0%   { opacity: 0.85; }
+  11%  { opacity: 0.40; }
+  19%  { opacity: 0.90; }
+  33%  { opacity: 0.60; }
+  47%  { opacity: 1.00; }
+  58%  { opacity: 0.30; }
+  70%  { opacity: 0.75; }
+  81%  { opacity: 0.55; }
+  91%  { opacity: 0.95; }
+  100% { opacity: 0.85; }
+}
+
+/**
+ * .data-stream
+ * Flowing stroke-dashoffset animation for SVG path elements that represent
+ * data lines. Apply to a <path> with stroke-dasharray set to path length.
+ *
+ * Usage in SVG:
+ *   <path class="data-stream" style="--stream-len: 240"
+ *         stroke-dasharray="var(--stream-len, 200)"
+ *         stroke-dashoffset="var(--stream-len, 200)" />
+ */
+.data-stream {
+  will-change: stroke-dashoffset, opacity;
+  animation:
+    kf-data-stream-flow    var(--logo-t-data-stream) linear      infinite,
+    kf-data-stream-opacity var(--logo-t-data-stream) ease-in-out infinite;
+}
+
+@keyframes kf-data-stream-flow {
+  0%   { stroke-dashoffset: var(--stream-len, 200); }
+  100% { stroke-dashoffset: calc(var(--stream-len, 200) * -1); }
+}
+
+@keyframes kf-data-stream-opacity {
+  0%, 100% { opacity: 0.0; }
+  15%       { opacity: 0.9; }
+  85%       { opacity: 0.9; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5b  RING BREATHE + SCC REVEAL  (synchronized pair)
+   --logo-t-ring-breathe is the single source of truth for both classes.
+   The keyframe percentages that trigger the SCC reveal are chosen so that the
+   text becomes visible only during the ~30 % window around the ring's maximum
+   scale (roughly 35 %–65 % of the cycle), then dissolves as the ring contracts.
+
+   Synchronization map (3 s cycle):
+     0 %   ring @ 0.97 ─── scc opacity 0    (hidden at rest)
+     20 %  ring rising ─── scc opacity 0    (still invisible on ascent)
+     35 %  ring @ 1.00 ─── scc opacity 0→1  (text begins to materialise)
+     50 %  ring @ 1.03 ─── scc opacity 1.0  (peak: ring largest, text fully in)
+     65 %  ring descend── scc opacity 0.8→0 (ring shrinking, text dissolves)
+     80 %  ring @ 1.00 ─── scc opacity 0    (text gone before ring is back at min)
+    100 %  ring @ 0.97 ─── scc opacity 0    (resting state, ready for next breath)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .ring-breathe
+ * Applied to the outer circle frame element.
+ * The cubic-bezier (0.42, 0, 0.58, 1) gives an ease-in-out that feels
+ * lung-like: acceleration at the start of expansion, deceleration toward peak,
+ * then the reverse on the exhale — organic, not mechanical.
+ */
+.ring-breathe {
+  will-change: transform;
+  transform-origin: center;
+  animation: kf-ring-breathe var(--logo-t-ring-breathe)
+             cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+@keyframes kf-ring-breathe {
+  0%   { transform: scale(0.97); }   /* rest — slightly contracted             */
+  20%  { transform: scale(0.99); }   /* beginning to expand                    */
+  50%  { transform: scale(1.03); }   /* PEAK — ring at maximum; SCC visible    */
+  80%  { transform: scale(1.00); }   /* contracting back through baseline      */
+  100% { transform: scale(0.97); }   /* back to resting state                  */
+}
+
+/**
+ * .scc-reveal
+ * Applied to the SCC text element.  Must share --logo-t-ring-breathe duration.
+ *
+ * The opacity curve is deliberately asymmetric:
+ *   - fast fade-in  (20 %→50 %) — text appears quickly as ring expands
+ *   - brief hold    (50 %→65 %) — visible at ring peak with slight hold
+ *   - faster fade-out (65 %→80 %) — dissolves decisively as ring contracts
+ * This makes the reveal feel "delivered" rather than symmetrically pulsed.
+ *
+ * The paired scale effect (0.95 → 1.00 → 0.97) amplifies the materialisation:
+ * text seems to grow out of the ring's expansion and recede with it.
+ */
+.scc-reveal {
+  will-change: opacity, transform;
+  transform-origin: center;
+  /* Duration MUST equal --logo-t-ring-breathe — change both together          */
+  animation: kf-scc-reveal var(--logo-t-ring-breathe)
+             cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+@keyframes kf-scc-reveal {
+  /*  0–20 %: ring is below baseline — text fully hidden                       */
+  0%   { opacity: 0;    transform: scale(0.95); }
+  20%  { opacity: 0;    transform: scale(0.95); }
+
+  /*  20–50 %: ring expands toward peak — text materialises and grows          */
+  50%  { opacity: 1.0;  transform: scale(1.00); }
+
+  /*  50–65 %: brief hold at peak visibility                                   */
+  65%  { opacity: 0.8;  transform: scale(1.00); }
+
+  /*  65–80 %: ring contracting — text dissolves and shrinks back              */
+  80%  { opacity: 0;    transform: scale(0.97); }
+
+  /* 80–100 %: ring returns to rest — text stays hidden                        */
+  100% { opacity: 0;    transform: scale(0.95); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5c  NEURAL NETWORK DATA STREAM LINES
+   Applied to SVG <line> or <path> elements that represent broadcast data lines.
+   Set stroke-dasharray inline on the SVG element to control dash pattern,
+   e.g. stroke-dasharray="2 6" gives short dashes with larger gaps.
+   The dashoffset flows from 0 to -40 so dashes appear to travel outward
+   from the centre of the logo (increasing negative offset = outward motion).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .data-stream  (extended variant — replaces the §5 stub)
+ * stroke-dasharray should be set inline on the SVG element, e.g.:
+ *   <line class="data-stream" stroke-dasharray="2 6" ... />
+ *
+ * The dashoffset travels 0 → -40 so the pattern moves outward continuously.
+ * Duration: 2 s linear — matches --logo-t-data-stream.
+ *
+ * NOTE: The §5 version uses path-length-based --stream-len for arced paths.
+ * This version is the simpler broadcast-line variant for straight radial lines.
+ * Both classes share the same name; place this block after §5 so it wins when
+ * applied to straight-line elements that do not set --stream-len.
+ */
+.data-stream {
+  will-change: stroke-dashoffset;
+  animation: kf-data-stream-broadcast var(--logo-t-data-stream) linear infinite;
+}
+
+@keyframes kf-data-stream-broadcast {
+  0%   { stroke-dashoffset: 0;   }   /* dashes start at origin                */
+  100% { stroke-dashoffset: -40; }   /* dashes march outward by 40 px / cycle */
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5d  NEURAL NETWORK NODE EFFECTS
+   Applied to individual dot / circle elements that represent neural nodes.
+   Use animation-delay (set via inline style) to stagger siblings so nodes
+   never all flash in unison — the field should feel alive, not synchronised.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .particle-twinkle  (extended — 10-step irregular pattern, 4 s cycle)
+ * Opacity range: 0.3 – 1.0.  The step sizes are deliberately uneven so the
+ * pattern does not resolve to a perceived sinusoid.  Set animation-delay per
+ * node in the SVG template, e.g. style="animation-delay: 1.3s".
+ */
+.particle-twinkle {
+  will-change: opacity;
+  animation: kf-particle-twinkle-nodes 4s ease-in-out infinite;
+}
+
+@keyframes kf-particle-twinkle-nodes {
+  0%   { opacity: 0.65; }
+  9%   { opacity: 0.30; }   /* sudden dip                                      */
+  18%  { opacity: 0.85; }   /* quick recovery                                  */
+  27%  { opacity: 0.50; }   /* mid-low                                         */
+  38%  { opacity: 1.00; }   /* spike to full brightness                        */
+  48%  { opacity: 0.40; }   /* sharp drop                                      */
+  57%  { opacity: 0.75; }   /* partial recovery                                */
+  67%  { opacity: 0.30; }   /* second deep dip                                 */
+  78%  { opacity: 0.90; }   /* near-peak                                       */
+  89%  { opacity: 0.55; }   /* settling                                        */
+  100% { opacity: 0.65; }   /* back to base, loops smoothly                    */
+}
+
+/**
+ * .node-pulse
+ * Subtle scale pop for neural nodes, layered on top of .particle-twinkle.
+ * Scale 1.0 → 1.3 → 1.0 over 2 s.  Stagger via animation-delay on each node
+ * (same delay as .particle-twinkle on that node keeps the scale spike aligned
+ * with the brightness spike for a satisfying "spark" feel).
+ */
+.node-pulse {
+  will-change: transform;
+  transform-origin: center;
+  animation: kf-node-pulse var(--logo-t-node-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-node-pulse {
+  0%,100% { transform: scale(1.0); }
+  40%     { transform: scale(1.3); }   /* quick scale-up at pulse peak          */
+  60%     { transform: scale(1.1); }   /* slight overshoot hold before settling */
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 6  HOVER INTERACTIONS
+   --animation-speed-multiplier lets JS or parent CSS override the speed.
+   Using calc() on animation-duration is not yet broadly supported, so we
+   use animation-play-state + filter boost as the primary mechanism.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .hover-excite
+ * Apply to the logo root container. On hover, child animations that declare
+ * --logo-hover-boost will transition to that intensity.
+ *
+ * Child elements should also apply the .hover-boost-target class to
+ * participate in the glow intensification.
+ */
+.hover-excite {
+  --animation-speed-multiplier: 1;
+  transition: filter 0.25s ease-out;
+}
+
+.hover-excite:hover {
+  --animation-speed-multiplier: 0.6;   /* documentary value for JS consumers  */
+  filter: brightness(1.15) saturate(1.20)
+          drop-shadow(0 0 16px rgba(82, 193, 230, 0.55))
+          drop-shadow(0 0 40px rgba(82, 193, 230, 0.25));
+}
+
+/**
+ * .hover-boost-target
+ * Place on elements that should individually glow more on parent hover.
+ */
+.hover-excite:hover .hover-boost-target {
+  transition: filter 0.25s ease-out;
+  filter: brightness(1.25) drop-shadow(0 0 8px rgba(125, 213, 240, 0.70));
+}
+
+/**
+ * .hover-orbit-speed
+ * Place on orbit ring elements. On parent hover the animation-duration is
+ * overridden to run at 65 % of base speed (requires the element to reference
+ * the custom property in its own animation-duration via CSS variables).
+ *
+ * Each orbit class is re-declared here with a boosted duration variable.
+ */
+.hover-excite:hover .orbit-slow   { animation-duration: calc(var(--logo-t-orbit-slow)   * 0.60); }
+.hover-excite:hover .orbit-medium { animation-duration: calc(var(--logo-t-orbit-medium) * 0.60); }
+.hover-excite:hover .orbit-fast   { animation-duration: calc(var(--logo-t-orbit-fast)   * 0.60); }
+
+/**
+ * Hover speed-ups for the new animation classes.
+ *
+ * ring-breathe + scc-reveal: both must be overridden to the SAME value (2 s)
+ * to keep the ring-peak ↔ text-reveal synchronisation intact.
+ *
+ * data-stream: speeds up from 2 s → 1.2 s (broadcast urgency on hover).
+ *
+ * particle-twinkle (node variant): speeds up from 4 s → 2.5 s.
+ * node-pulse: speeds up proportionally from 2 s → 1.25 s.
+ *
+ * Glow intensification: drop-shadow radius and opacity approximately doubled
+ * via an additive filter on the specific child elements.
+ */
+.hover-excite:hover .ring-breathe {
+  animation-duration: 2s;
+  filter: drop-shadow(0 0 14px rgba(82, 193, 230, 0.80))
+          drop-shadow(0 0 36px rgba(82, 193, 230, 0.40));
+}
+
+/* scc-reveal must match ring-breathe exactly — both set to 2 s             */
+.hover-excite:hover .scc-reveal {
+  animation-duration: 2s;
+  filter: drop-shadow(0 0 8px rgba(125, 213, 240, 0.75));
+}
+
+.hover-excite:hover .data-stream {
+  animation-duration: 1.2s;
+}
+
+.hover-excite:hover .particle-twinkle {
+  animation-duration: 2.5s;
+}
+
+.hover-excite:hover .node-pulse {
+  animation-duration: 1.25s;
+  filter: drop-shadow(0 0 6px rgba(82, 193, 230, 0.80));
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 7  TRAY-SPECIFIC ANIMATIONS  (16 px context, minimal footprint)
+   Keep these lightweight — the tray renders at tiny sizes and must remain
+   legible and non-distracting on the system taskbar.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .tray-spin
+ * Steady rotation for "processing" / "thinking" state.
+ */
+.tray-spin {
+  will-change: transform;
+  animation: kf-tray-spin var(--logo-t-tray-spin) linear infinite;
+}
+
+@keyframes kf-tray-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/**
+ * .tray-pulse
+ * Gentle scale breath for idle / connected state.
+ */
+.tray-pulse {
+  will-change: transform, opacity;
+  animation: kf-tray-pulse var(--logo-t-tray-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-tray-pulse {
+  0%, 100% { transform: scale(1.00); opacity: 0.80; }
+  50%       { transform: scale(1.12); opacity: 1.00; }
+}
+
+/**
+ * .tray-alert-pulse
+ * Gold flash cycling for pending notification — draws attention without
+ * the aggression of the error flash.
+ */
+.tray-alert-pulse {
+  will-change: filter, opacity;
+  animation: kf-tray-alert-pulse var(--logo-t-tray-alert) ease-in-out infinite;
+}
+
+@keyframes kf-tray-alert-pulse {
+  0%, 100% {
+    filter:  drop-shadow(0 0 2px rgba(200, 168, 75, 0.50));
+    opacity: 0.75;
+  }
+  50% {
+    filter:  drop-shadow(0 0 6px rgba(232, 201, 107, 1.00))
+             drop-shadow(0 0 14px rgba(200, 168, 75, 0.60));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .tray-error-flash
+ * Hard red blink — urgent error requiring user action.
+ * Uses step timing so the flash is abrupt and unmissable.
+ */
+.tray-error-flash {
+  will-change: filter, opacity;
+  animation: kf-tray-error-flash var(--logo-t-tray-error) steps(1, end) infinite;
+}
+
+@keyframes kf-tray-error-flash {
+  0%  {
+    filter:  drop-shadow(0 0 6px rgba(192, 57, 43, 1.00))
+             drop-shadow(0 0 16px rgba(192, 57, 43, 0.70));
+    opacity: 1.00;
+  }
+  50% {
+    filter:  none;
+    opacity: 0.40;
+  }
+  100% {
+    filter:  drop-shadow(0 0 6px rgba(192, 57, 43, 1.00))
+             drop-shadow(0 0 16px rgba(192, 57, 43, 0.70));
+    opacity: 1.00;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY — PAUSE / REDUCE-MOTION OVERRIDES
+   Respects the OS "reduce motion" accessibility preference.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .life-breathe,
+  .life-heartbeat,
+  .life-awareness,
+  .orbit-slow,
+  .orbit-medium,
+  .orbit-fast,
+  .orbit-drift,
+  .glow-pulse,
+  .glow-surge,
+  .glow-warm,
+  .glow-fade,
+  .glow-gold,
+  .glow-danger,
+  .state-wake,
+  .state-sleep,
+  .state-alert,
+  .state-error,
+  .particle-float,
+  .particle-twinkle,
+  .data-stream,
+  .ring-breathe,
+  .scc-reveal,
+  .node-pulse,
+  .tray-spin,
+  .tray-pulse,
+  .tray-alert-pulse,
+  .tray-error-flash {
+    animation: none;
+    transition: none;
+  }
+
+  /* Keep SCC text visible at rest when animations are disabled               */
+  .scc-reveal { opacity: 1; }
+}
+
+/**
+ * .logo-animations-paused
+ * Add to the root logo container to pause all child animations (e.g. when
+ * the window is hidden or the app is backgrounded).
+ */
+.logo-animations-paused *,
+.logo-animations-paused {
+  animation-play-state: paused !important;
+}

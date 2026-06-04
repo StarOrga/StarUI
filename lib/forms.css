@@ -1,0 +1,1006 @@
+/* ============================================================
+   SCC Design System — Form Element Base Styles
+   Source of truth for text inputs, selects, checkboxes, toggles.
+   Interaction states (hover, active, focus, disabled) are in
+   control-states.css — this file defines appearance only.
+   ============================================================ */
+
+/* --- Text Input ------------------------------------------- */
+
+.scc-input {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-xs, 8px) var(--space-sm, 10px);
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  color: var(--text-primary, #e8ebed);
+
+  background: var(--surface-panel, #123246);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  outline: none;
+  cursor: var(--cursor-text, text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scc-input::placeholder {
+  color: var(--text-secondary, #9fb3c8);
+  opacity: 0.7;
+}
+
+.scc-input:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+}
+
+.scc-input:focus:not(:disabled) {
+  border-color: var(--accent-primary, rgba(82, 193, 230, 0.7));
+  box-shadow: var(--shadow-glow, 0 0 16px rgba(82, 193, 230, 0.25));
+  outline: none;
+}
+
+/* Text selection — moved to design-tokens.css as global ::selection */
+
+.scc-input:disabled {
+  opacity: 0.65;
+  cursor: var(--cursor-default, default);
+}
+
+.scc-input--error {
+  border-color: var(--accent-danger, #c0392b);
+}
+
+.scc-input--error:focus {
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.25);
+}
+
+.scc-input--success {
+  border-color: var(--status-success, #5fd698);
+}
+
+/* --- Select / Dropdown ------------------------------------ */
+
+.scc-select {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs, 8px) var(--space-sm, 10px);
+  padding-right: 28px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-primary, #e8ebed);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  background: var(--surface-panel, #123246);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2352c1e6' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  outline: none;
+  cursor: var(--cursor-pointer, pointer);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scc-select:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  box-shadow: var(--shadow-elevated,
+    0 0 0 1px rgba(82, 193, 230, 0.15),
+    0 0 12px rgba(82, 193, 230, 0.12));
+}
+
+.scc-select:focus:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  box-shadow: var(--shadow-glow, 0 0 16px rgba(82, 193, 230, 0.25));
+}
+
+.scc-select:disabled {
+  opacity: 0.65;
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Checkbox --------------------------------------------- */
+
+.scc-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: var(--cursor-pointer, pointer);
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  color: var(--text-primary, #e8ebed);
+  user-select: none;
+}
+
+.scc-checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+
+  background: var(--surface-panel, #123246);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-sm, 2px);
+  cursor: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scc-checkbox input[type="checkbox"]:checked {
+  background: var(--accent-primary, #52c1e6);
+  border-color: var(--accent-primary, #52c1e6);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' fill='none' stroke='%230d2635' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.scc-checkbox input[type="checkbox"]:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.2);
+}
+
+.scc-checkbox input[type="checkbox"]:focus-visible {
+  outline: 2px solid rgba(148, 234, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.scc-checkbox:has(input[type="checkbox"]:disabled) {
+  cursor: var(--cursor-default, default);
+  opacity: 0.65;
+}
+
+.scc-checkbox input[type="checkbox"]:disabled {
+  opacity: 1; /* opacity handled by parent label */
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Toggle Switch ---------------------------------------- */
+
+.scc-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: var(--cursor-pointer, pointer);
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  color: var(--text-primary, #e8ebed);
+  user-select: none;
+}
+
+.scc-toggle input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+
+  background: var(--surface-panel-strong, #164664);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: 10px; /* exception: toggles use pill shape */
+  cursor: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.scc-toggle input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--text-secondary, #9fb3c8);
+  border-radius: 50%; /* exception: toggle thumb is circular */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.scc-toggle input[type="checkbox"]:checked {
+  background: rgba(82, 193, 230, 0.25);
+  border-color: var(--accent-primary, #52c1e6);
+}
+
+.scc-toggle input[type="checkbox"]:checked::after {
+  transform: translateX(16px);
+  background: var(--accent-primary, #52c1e6);
+}
+
+.scc-toggle input[type="checkbox"]:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+}
+
+.scc-toggle input[type="checkbox"]:focus-visible {
+  outline: 2px solid rgba(148, 234, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.scc-toggle:has(input[type="checkbox"]:disabled) {
+  cursor: var(--cursor-default, default);
+  opacity: 0.65;
+}
+
+.scc-toggle input[type="checkbox"]:disabled {
+  opacity: 1; /* opacity handled by parent label */
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Toggle Slider (legacy span) --------------------------
+   Some templates include <span class="scc-toggle-slider">
+   next to the checkbox.  The visual thumb is rendered by the
+   input::after pseudo-element above; the span is redundant.
+   Hide it so it neither creates extra spacing in the flex
+   container nor overlaps the pseudo-element thumb.           */
+.scc-toggle-slider {
+  display: none;
+}
+
+/* --- Form Label ------------------------------------------- */
+
+.scc-label {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary, #9fb3c8);
+  text-transform: uppercase;
+}
+
+/* --- Form Group ------------------------------------------- */
+
+.scc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scc-form-group + .scc-form-group {
+  margin-top: var(--space-sm, 10px);
+}
+
+/* --- Hotkey Badge ----------------------------------------- */
+/* Inline keyboard/mouse key indicator. Uses symbols for
+   non-alphanumeric keys (Enter → ↵, Shift → ⇧, etc.)      */
+
+.scc-hotkey {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(82, 193, 230, 0.65);
+  white-space: nowrap;
+
+  background: linear-gradient(
+    180deg,
+    rgba(50, 100, 130, 0.5) 0%,
+    rgba(20, 50, 70, 0.65) 50%,
+    rgba(12, 35, 50, 0.75) 100%
+  );
+  border: none;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 0 0.5px rgba(82, 193, 230, 0.2),
+    inset 0 1px 0 rgba(140, 220, 250, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.scc-hotkey--sm {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 9px;
+}
+
+.scc-hotkey--symbol {
+  font-size: 13px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.scc-hotkey--sm.scc-hotkey--symbol {
+  font-size: 11px;
+}
+
+/* Separator between combined keys (e.g. Ctrl + S) */
+.scc-hotkey-combo {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.scc-hotkey-combo .scc-hotkey-sep {
+  font-size: 9px;
+  color: rgba(200, 220, 235, 0.3);
+}
+
+/* Mouse buttons */
+.scc-hotkey--mouse {
+  font-size: 11px;
+  padding: 0 5px;
+}
+
+/* --- Input Submit Hint ------------------------------------ */
+/* Shows a hotkey badge inside a text input on focus.
+   Wrap the <input> in .scc-input-wrapper, add a
+   .scc-input-hint element after it.                         */
+
+.scc-input-wrapper {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+.scc-input-wrapper > .scc-input {
+  padding-right: 32px;
+}
+
+.scc-input-hint {
+  position: absolute;
+  right: 7px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 18px;
+  pointer-events: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  padding: 0 4px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(82, 193, 230, 0.5);
+
+  background: linear-gradient(
+    180deg,
+    rgba(50, 100, 130, 0.5) 0%,
+    rgba(20, 50, 70, 0.65) 50%,
+    rgba(12, 35, 50, 0.75) 100%
+  );
+  border: none;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 0 0.5px rgba(82, 193, 230, 0.2),
+    inset 0 1px 0 rgba(140, 220, 250, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+  opacity: 0;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Show hint only when the sibling input is focused */
+.scc-input-wrapper > .scc-input:focus ~ .scc-input-hint {
+  opacity: 1;
+}
+
+/* Subtle accent on hover over the hint area (while input focused) */
+.scc-input-wrapper > .scc-input:focus ~ .scc-input-hint:hover {
+  color: rgba(200, 220, 235, 0.5);
+  border-color: rgba(82, 193, 230, 0.2);
+}
+
+/* --- Input Action (interactive icon button inside input) --- */
+/* For clickable icons (e.g. folder browse) placed inside an
+   input field. Unlike scc-input-hint this is always visible
+   and receives pointer events.
+   Usage:
+     <div class="scc-input-wrapper">
+       <input class="scc-input" ... />
+       <button class="scc-input-action" ...>
+         <!-- icon svg -->
+       </button>
+     </div>
+   The input text truncates automatically before the button.  */
+
+.scc-input-wrapper > .scc-input-action {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 0 calc(var(--radius-md, 4px) - 1px) calc(var(--radius-md, 4px) - 1px) 0;
+  padding: 0;
+  color: rgba(82, 193, 230, 0.4);
+  cursor: var(--cursor-pointer, pointer);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.scc-input-wrapper > .scc-input-action:hover {
+  color: rgba(82, 193, 230, 0.85);
+}
+
+.scc-input-wrapper > .scc-input-action svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* --- Custom Dropdown (JS-driven) -------------------------
+   Usage: .scc-dropdown > .scc-dropdown-trigger + .scc-dropdown-menu
+   Toggle .is-open on .scc-dropdown to show/hide the menu.
+   --------------------------------------------------------- */
+
+.scc-dropdown {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.scc-dropdown-trigger {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: var(--text-primary, #e8ebed);
+  text-align: left;
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 1.4;
+  cursor: var(--cursor-pointer, pointer);
+  background: linear-gradient(145deg, rgba(15, 36, 52, 0.96), rgba(8, 19, 30, 0.98));
+  border: 1px solid rgba(82, 193, 230, 0.32);
+  border-radius: var(--radius-md, 4px);
+  box-shadow:
+    inset 0 1px 0 rgba(178, 232, 255, 0.08),
+    0 0 14px rgba(82, 193, 230, 0.06);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.scc-dropdown-trigger:hover:not(:disabled):not(.is-static) {
+  border-color: rgba(82, 193, 230, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(178, 232, 255, 0.1),
+    0 0 20px rgba(82, 193, 230, 0.12);
+}
+
+.scc-dropdown.is-open .scc-dropdown-trigger {
+  border-color: rgba(125, 213, 240, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(190, 236, 255, 0.12),
+    0 0 0 1px rgba(125, 213, 240, 0.1),
+    0 0 24px rgba(82, 193, 230, 0.18);
+}
+
+.scc-dropdown-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scc-dropdown-hint {
+  color: var(--text-secondary, #9fb3c8);
+  opacity: 0.65;
+  font-style: italic;
+}
+
+.scc-dropdown-meta {
+  color: var(--text-secondary, #9fb3c8);
+  opacity: 0.7;
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+.scc-dropdown-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 13px;
+  color: rgba(125, 213, 240, 0.85);
+}
+
+/* Inline SCC-style SVG icons — line-art, inherits accent color via currentColor. */
+.scc-dropdown-icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgba(82, 193, 230, 0.35));
+}
+
+.scc-dropdown-item:hover .scc-dropdown-icon,
+.scc-dropdown-item.is-selected .scc-dropdown-icon,
+.scc-dropdown-item.is-focused .scc-dropdown-icon {
+  color: rgba(178, 232, 255, 0.98);
+}
+
+.scc-dropdown-caret {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.scc-dropdown-caret::after {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid rgba(125, 213, 240, 0.8);
+  border-bottom: 1.5px solid rgba(125, 213, 240, 0.8);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.scc-dropdown.is-open .scc-dropdown-caret::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+/* --- Dropdown Menu --- */
+
+.scc-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: min(280px, 45vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px;
+  border-radius: var(--radius-md, 4px);
+  border: 1px solid rgba(82, 193, 230, 0.28);
+  background: linear-gradient(150deg, rgba(10, 24, 36, 0.99), rgba(14, 34, 48, 0.97));
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(82, 193, 230, 0.08),
+    inset 0 1px 0 rgba(185, 231, 255, 0.06);
+  z-index: 50;
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 193, 230, 0.15) transparent;
+}
+
+.scc-dropdown.is-open .scc-dropdown-menu {
+  display: block;
+  animation: scc-dropdown-reveal 0.15s ease-out;
+}
+
+@keyframes scc-dropdown-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Dropdown Items --- */
+
+.scc-dropdown-item {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-primary, #e8ebed);
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: left;
+  cursor: var(--cursor-pointer, pointer);
+  transition: background 0.12s ease, color 0.12s ease;
+  position: relative;
+}
+
+/* Text label inside items — truncates when icon + text exceed item width */
+.scc-dropdown-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scc-dropdown-item + .scc-dropdown-item {
+  margin-top: 2px;
+}
+
+.scc-dropdown-item:hover,
+.scc-dropdown-item:focus-visible {
+  background: rgba(82, 193, 230, 0.12);
+  color: rgba(227, 246, 255, 0.98);
+  outline: none;
+}
+
+.scc-dropdown-item.is-selected {
+  font-weight: 600;
+  color: var(--accent-strong, #7dd5f0);
+  background: rgba(82, 193, 230, 0.08);
+}
+
+.scc-dropdown-item.is-selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--accent-primary, #52c1e6);
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.4);
+}
+
+.scc-dropdown-item .scc-dropdown-meta {
+  font-weight: 400;
+}
+
+.scc-dropdown-item .scc-dropdown-icon {
+  font-size: 14px;
+}
+
+.scc-dropdown-item .scc-dropdown-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* --- Single-entry (non-interactive) --- */
+
+.scc-dropdown.is-single .scc-dropdown-trigger,
+.scc-dropdown-trigger.is-static {
+  cursor: var(--cursor-default, default);
+  border-style: solid;
+  border-color: rgba(82, 193, 230, 0.18);
+  background: linear-gradient(145deg, rgba(13, 29, 42, 0.92), rgba(8, 19, 30, 0.96));
+  box-shadow: inset 0 1px 0 rgba(178, 232, 255, 0.05);
+}
+
+.scc-dropdown.is-single .scc-dropdown-trigger:hover,
+.scc-dropdown-trigger.is-static:hover {
+  border-color: rgba(82, 193, 230, 0.18);
+  box-shadow: inset 0 1px 0 rgba(178, 232, 255, 0.05);
+}
+
+/* --- Disabled --- */
+
+.scc-dropdown.is-disabled .scc-dropdown-trigger {
+  opacity: 0.5;
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Placeholder (nothing selected) --- */
+
+.scc-dropdown.is-placeholder .scc-dropdown-trigger {
+  border-style: dashed;
+}
+
+/* --- Range Slider ----------------------------------------- */
+/* RSI-style track + thumb. Cyan accent, sharp edges.
+   Wrap in .scc-slider-wrap (from settings-block.css) for
+   layout with a value readout.                              */
+
+.scc-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(82, 193, 230, 0.15);
+  border-radius: 0;
+  outline: none;
+  cursor: var(--cursor-pointer, pointer);
+  transition: background 0.2s ease;
+}
+
+.scc-slider:hover {
+  background: rgba(82, 193, 230, 0.25);
+}
+
+/* Track — WebKit */
+.scc-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgba(82, 193, 230, 0.15);
+  border-radius: 0;
+}
+
+.scc-slider:hover::-webkit-slider-runnable-track {
+  background: rgba(82, 193, 230, 0.25);
+}
+
+/* Thumb — WebKit */
+.scc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  background: var(--accent-primary, #52c1e6);
+  border: 2px solid rgba(125, 213, 240, 0.6);
+  border-radius: var(--radius-sm, 2px);
+  cursor: var(--cursor-pointer, pointer);
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.3);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.scc-slider:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 12px rgba(82, 193, 230, 0.5);
+  border-color: rgba(125, 213, 240, 0.8);
+}
+
+.scc-slider:active::-webkit-slider-thumb {
+  background: var(--accent-strong, #7dd5f0);
+  box-shadow: 0 0 16px rgba(82, 193, 230, 0.6);
+}
+
+/* Track — Firefox */
+.scc-slider::-moz-range-track {
+  height: 4px;
+  background: rgba(82, 193, 230, 0.15);
+  border: none;
+  border-radius: 0;
+}
+
+.scc-slider:hover::-moz-range-track {
+  background: rgba(82, 193, 230, 0.25);
+}
+
+/* Thumb — Firefox */
+.scc-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--accent-primary, #52c1e6);
+  border: 2px solid rgba(125, 213, 240, 0.6);
+  border-radius: var(--radius-sm, 2px);
+  cursor: var(--cursor-pointer, pointer);
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.3);
+}
+
+.scc-slider:hover::-moz-range-thumb {
+  box-shadow: 0 0 12px rgba(82, 193, 230, 0.5);
+  border-color: rgba(125, 213, 240, 0.8);
+}
+
+.scc-slider:active::-moz-range-thumb {
+  background: var(--accent-strong, #7dd5f0);
+  box-shadow: 0 0 16px rgba(82, 193, 230, 0.6);
+}
+
+.scc-slider:disabled {
+  opacity: 0.4;
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Number Input ----------------------------------------- */
+/* Hide native spinners; use .scc-input on number inputs.    */
+
+.scc-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.scc-input[type="number"]::-webkit-inner-spin-button,
+.scc-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* --- Glass Popup (Borderless) ----------------------------------
+   Frosted-glass popup panel with no visible border.
+   Uses backdrop-filter for translucency and a gradient highlight
+   line at the top edge for subtle definition.
+   Apply .scc-glass-popup to the popup container, toggle .is-open.
+   Nested menus: use .scc-glass-menu for sub-dropdowns.
+   ---------------------------------------------------------------- */
+
+.scc-glass-popup {
+  border: none;
+  border-radius: var(--radius-lg, 4px);
+  background: rgba(8, 18, 28, 0.88);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(82, 193, 230, 0.1);
+  overflow: hidden;
+  display: none;
+}
+
+.scc-glass-popup.is-open {
+  display: block;
+  animation: scc-glass-popup-reveal 0.25s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.scc-glass-popup__highlight {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(82, 193, 230, 0.25), transparent);
+}
+
+@keyframes scc-glass-popup-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.scc-glass-menu {
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  background: rgba(8, 18, 28, 0.92);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(82, 193, 230, 0.08);
+}
+
+.scc-glass-menu.is-open {
+  animation: scc-glass-menu-reveal 0.15s ease-out;
+}
+
+.scc-glass-menu__highlight {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(82, 193, 230, 0.2), transparent);
+}
+
+@keyframes scc-glass-menu-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================================
+   SCC Design System — Button Component
+   Base class: .scc-btn
+   Variants:   .scc-btn--primary  (filled accent)
+               .scc-btn--secondary (outlined)
+               .scc-btn--ghost    (text-only, no border)
+               .scc-btn--danger   (destructive action)
+   Sizes:      .scc-btn--sm  .scc-btn--lg
+   ============================================================= */
+
+.scc-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-decoration: none;
+
+  background: transparent;
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  color: var(--text-primary, #e8ebed);
+  cursor: var(--cursor-pointer, pointer);
+  outline: none;
+  user-select: none;
+
+  transition: color 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+/* ── Primary ─────────────────────────────────────────────── */
+.scc-btn--primary {
+  background: rgba(82, 193, 230, 0.18);
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  color: var(--accent-strong, #7dd5f0);
+  box-shadow: var(--shadow-soft, 0 0 0 1px rgba(82, 193, 230, 0.2));
+}
+
+.scc-btn--primary:not(:disabled):hover {
+  background: rgba(82, 193, 230, 0.28);
+  border-color: var(--accent-primary, #52c1e6);
+  box-shadow: var(--shadow-glow, 0 0 16px rgba(82, 193, 230, 0.25));
+}
+
+/* ── Secondary ───────────────────────────────────────────── */
+.scc-btn--secondary {
+  border-color: var(--border-default, rgba(82, 193, 230, 0.3));
+  color: var(--text-secondary, #9fb3c8);
+}
+
+.scc-btn--secondary:not(:disabled):hover {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  color: var(--text-primary, #e8ebed);
+  background: rgba(18, 50, 70, 0.32);
+}
+
+/* ── Ghost ───────────────────────────────────────────────── */
+.scc-btn--ghost {
+  border-color: transparent;
+  color: var(--text-secondary, #9fb3c8);
+}
+
+.scc-btn--ghost:not(:disabled):hover {
+  color: var(--accent-primary, #52c1e6);
+  background: rgba(82, 193, 230, 0.08);
+  border-color: transparent;
+}
+
+/* ── Danger ──────────────────────────────────────────────── */
+.scc-btn--danger {
+  border-color: rgba(192, 57, 43, 0.4);
+  color: var(--accent-danger-light, #ff8282);
+}
+
+.scc-btn--danger:not(:disabled):hover {
+  background: rgba(192, 57, 43, 0.12);
+  border-color: var(--accent-danger, #c0392b);
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.25);
+}
+
+/* ── Shared hover/active/focus/disabled states ───────────── */
+.scc-btn:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.scc-btn:focus-visible {
+  outline: 2px solid rgba(148, 234, 255, 0.95);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(9, 25, 37, 0.92),
+    0 0 0 4px rgba(125, 213, 240, 0.35);
+}
+
+.scc-btn:disabled {
+  opacity: 0.5;
+  cursor: var(--cursor-default, default);
+  pointer-events: none;
+}
+
+/* ── Size variants ───────────────────────────────────────── */
+.scc-btn--sm {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+.scc-btn--lg {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}

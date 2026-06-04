@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SCC Asset Preview — All Icons & Logos</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1929;
+    --surface: #112840;
+    --border: #1e3a5f;
+    --text: #c8d6e5;
+    --accent: #52c1e6;
+    --gold: #c8a84b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    padding: 40px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent);
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: .1em;
+  }
+  .subtitle {
+    text-align: center;
+    color: #6b8bad;
+    margin-bottom: 48px;
+    font-size: 14px;
+  }
+  section {
+    margin-bottom: 56px;
+  }
+  h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent);
+    font-size: 16px;
+    letter-spacing: .08em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: end;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .item .label {
+    font-size: 11px;
+    color: #6b8bad;
+    text-align: center;
+    max-width: 120px;
+    word-break: break-all;
+  }
+  .item .size {
+    font-size: 10px;
+    color: #4a6a8a;
+  }
+
+  /* Logo section */
+  .logo-row {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .logo-container {
+    text-align: center;
+  }
+  .logo-container .label {
+    font-size: 12px;
+    color: #6b8bad;
+    margin-top: 8px;
+  }
+
+  /* Tray animation */
+  .processing-sim {
+    width: 24px; height: 24px;
+    position: relative;
+  }
+  .processing-sim svg, .processing-sim img {
+    position: absolute; top: 0; left: 0;
+    opacity: 0;
+    animation: procFrame 1.2s steps(1) infinite;
+  }
+  .processing-sim img:nth-child(1) { animation-delay: 0s; }
+  .processing-sim img:nth-child(2) { animation-delay: 0.3s; }
+  .processing-sim img:nth-child(3) { animation-delay: 0.6s; }
+  .processing-sim img:nth-child(4) { animation-delay: 0.9s; }
+  @keyframes procFrame {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+  }
+
+  /* Tray grid items — dark bg, no border */
+  .tray-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .tray-icon-box {
+    background: #000;
+    padding: 8px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>STAR CITIZEN COMPANION</h1>
+<p class="subtitle">Complete Asset Preview — Icons, Logos & Tray States</p>
+
+<!-- ===== APP LOGO (15% margin version) ===== -->
+<section>
+  <h2>APP LOGO — Full animated logo with SCC text and ambient nebula — used for loading screens and splash</h2>
+  <div class="logo-row">
+    <div class="logo-container">
+      <img src="app-logo-margin-preview.svg" width="300" height="300">
+      <div class="label">300px</div>
+    </div>
+    <div class="logo-container">
+      <img src="app-logo-margin-preview.svg" width="200" height="200">
+      <div class="label">200px</div>
+    </div>
+    <div class="logo-container">
+      <img src="app-logo-margin-preview.svg" width="128" height="128">
+      <div class="label">128px</div>
+    </div>
+    <div class="logo-container">
+      <img src="app-logo-margin-preview.svg" width="64" height="64">
+      <div class="label">64px</div>
+    </div>
+  </div>
+
+  <h3 style="color:#6b8bad;margin:32px 0 16px;font-size:13px">On different backgrounds</h3>
+  <div class="logo-row">
+    <div class="logo-container">
+      <div style="width:280px;height:280px;background:repeating-conic-gradient(#1a2f45 0% 25%, #0d2035 0% 50%) 0 0/16px 16px;display:flex;align-items:center;justify-content:center">
+        <img src="app-logo-margin-preview.svg" width="280" height="280">
+      </div>
+      <div class="label">Transparent</div>
+    </div>
+    <div class="logo-container">
+      <div style="width:280px;height:280px;background:#000;display:flex;align-items:center;justify-content:center">
+        <img src="app-logo-margin-preview.svg" width="280" height="280">
+      </div>
+      <div class="label">On black</div>
+    </div>
+    <div class="logo-container">
+      <div style="width:280px;height:280px;background:#112840;display:flex;align-items:center;justify-content:center">
+        <img src="app-logo-margin-preview.svg" width="280" height="280">
+      </div>
+      <div class="label">On surface (#112840)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APP ICONS (Size Comparison) ===== -->
+<section>
+  <h2>APP ICONS — Size Comparison (taskbar design, all PNG sizes)</h2>
+  <div class="grid" style="align-items:end">
+    <div class="item">
+      <img src="../modules/desktop/resources/icons/app-icon-16.png" width="16" height="16">
+      <div class="label">16px</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/icons/app-icon-32.png" width="32" height="32">
+      <div class="label">32px</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/icons/app-icon-48.png" width="48" height="48">
+      <div class="label">48px</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/icons/app-icon-128.png" width="128" height="128">
+      <div class="label">128px</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/icons/app-icon-256.png" width="256" height="256">
+      <div class="label">256px</div>
+    </div>
+  </div>
+
+  <h3 style="color:#6b8bad;margin:24px 0 12px;font-size:13px">ICO bundle + standalone PNG</h3>
+  <div class="grid">
+    <div class="item">
+      <img src="../modules/desktop/resources/app-icon.ico" width="48" height="48">
+      <div class="label">app-icon.ico<br>(BrowserWindow + installer)</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/app-icon.png" width="48" height="48">
+      <div class="label">app-icon.png<br>(non-Windows fallback)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TASKBAR & TRAY ICON — Unified design, different sizes + states ===== -->
+<section>
+  <h2>TASKBAR & TRAY ICON — Unified design</h2>
+  <p style="color:#6b8bad;font-size:12px;margin-bottom:20px">Same SVG at different sizes. Transparent background, no text, no outer nebula. Cloud ring + core + accretion disk.</p>
+
+  <h3 style="color:#6b8bad;margin:0 0 12px;font-size:13px">Size comparison (default state)</h3>
+  <div class="grid" style="align-items:end">
+    <div class="item">
+      <img src="../modules/desktop/resources/app-icon-taskbar.svg" width="64" height="64">
+      <div class="label">64px detail</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/app-icon-taskbar.svg" width="48" height="48">
+      <div class="label">48px</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/tray/tray-default.svg" width="24" height="24">
+      <div class="label">24px (taskbar)</div>
+    </div>
+    <div class="item">
+      <img src="../modules/desktop/resources/tray/tray-default.svg" width="16" height="16">
+      <div class="label">16px (tray)</div>
+    </div>
+  </div>
+
+  <!-- All states -->
+  <h3 style="color:#6b8bad;margin:24px 0 12px;font-size:13px">All states (24px)</h3>
+  <div class="grid">
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-default.svg" width="24" height="24"></div>
+      <div class="label">default</div>
+      <div class="size">Standard</div>
+    </div>
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-default-glow.svg" width="24" height="24"></div>
+      <div class="label">default-glow</div>
+      <div class="size">Hover</div>
+    </div>
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-active.svg" width="24" height="24"></div>
+      <div class="label">active</div>
+      <div class="size">SC detected</div>
+    </div>
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-idle.svg" width="24" height="24"></div>
+      <div class="label">idle</div>
+      <div class="size">Dimmed</div>
+    </div>
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-error.svg" width="24" height="24"></div>
+      <div class="label">error</div>
+      <div class="size">Red tint</div>
+    </div>
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-notification.svg" width="24" height="24"></div>
+      <div class="label">notification</div>
+      <div class="size">Gold tint</div>
+    </div>
+    <div class="tray-item">
+      <div class="tray-icon-box"><img src="../modules/desktop/resources/tray/tray-notification-glow.svg" width="24" height="24"></div>
+      <div class="label">notification-glow</div>
+      <div class="size">Gold hover</div>
+    </div>
+  </div>
+
+  <!-- Simulated Windows taskbar — dark theme -->
+  <h3 style="color:#6b8bad;margin:24px 0 12px;font-size:13px">Simulated Windows taskbar — Dark theme</h3>
+  <div style="background:#202020;border-radius:6px;padding:6px 20px;display:inline-flex;gap:16px;align-items:center">
+    <img src="../modules/desktop/resources/app-icon-taskbar.svg" width="24" height="24" title="Taskbar icon">
+    <span style="color:#4a6a8a;font-size:16px">|</span>
+    <span style="color:#6b8bad;font-size:9px;letter-spacing:.05em">TRAY</span>
+    <img src="../modules/desktop/resources/tray/tray-default.svg" width="16" height="16" title="default">
+    <img src="../modules/desktop/resources/tray/tray-active.svg" width="16" height="16" title="active">
+    <img src="../modules/desktop/resources/tray/tray-idle.svg" width="16" height="16" title="idle">
+    <img src="../modules/desktop/resources/tray/tray-error.svg" width="16" height="16" title="error">
+    <img src="../modules/desktop/resources/tray/tray-notification.svg" width="16" height="16" title="notification">
+  </div>
+
+  <!-- Simulated Windows taskbar — light theme -->
+  <h3 style="color:#6b8bad;margin:24px 0 12px;font-size:13px">Simulated Windows taskbar — Light theme</h3>
+  <div style="background:#f3f3f3;border-radius:6px;padding:6px 20px;display:inline-flex;gap:16px;align-items:center">
+    <img src="../modules/desktop/resources/app-icon-taskbar.svg" width="24" height="24" title="Taskbar icon">
+    <span style="color:#bbb;font-size:16px">|</span>
+    <span style="color:#888;font-size:9px;letter-spacing:.05em">TRAY</span>
+    <img src="../modules/desktop/resources/tray/tray-default.svg" width="16" height="16" title="default">
+    <img src="../modules/desktop/resources/tray/tray-active.svg" width="16" height="16" title="active">
+    <img src="../modules/desktop/resources/tray/tray-idle.svg" width="16" height="16" title="idle">
+    <img src="../modules/desktop/resources/tray/tray-error.svg" width="16" height="16" title="error">
+    <img src="../modules/desktop/resources/tray/tray-notification.svg" width="16" height="16" title="notification">
+  </div>
+
+  <!-- Side-by-side comparison at larger size -->
+  <h3 style="color:#6b8bad;margin:24px 0 12px;font-size:13px">All states on light vs dark (24px)</h3>
+  <div style="display:flex;gap:24px;flex-wrap:wrap">
+    <div>
+      <div style="color:#6b8bad;font-size:10px;margin-bottom:6px">Dark taskbar</div>
+      <div style="background:#202020;border-radius:6px;padding:10px 16px;display:inline-flex;gap:12px;align-items:center">
+        <img src="../modules/desktop/resources/tray/tray-default.svg" width="24" height="24" title="default">
+        <img src="../modules/desktop/resources/tray/tray-default-glow.svg" width="24" height="24" title="default-glow">
+        <img src="../modules/desktop/resources/tray/tray-active.svg" width="24" height="24" title="active">
+        <img src="../modules/desktop/resources/tray/tray-idle.svg" width="24" height="24" title="idle">
+        <img src="../modules/desktop/resources/tray/tray-error.svg" width="24" height="24" title="error">
+        <img src="../modules/desktop/resources/tray/tray-notification.svg" width="24" height="24" title="notification">
+        <img src="../modules/desktop/resources/tray/tray-notification-glow.svg" width="24" height="24" title="notification-glow">
+      </div>
+    </div>
+    <div>
+      <div style="color:#6b8bad;font-size:10px;margin-bottom:6px">Light taskbar</div>
+      <div style="background:#f3f3f3;border-radius:6px;padding:10px 16px;display:inline-flex;gap:12px;align-items:center">
+        <img src="../modules/desktop/resources/tray/tray-default.svg" width="24" height="24" title="default">
+        <img src="../modules/desktop/resources/tray/tray-default-glow.svg" width="24" height="24" title="default-glow">
+        <img src="../modules/desktop/resources/tray/tray-active.svg" width="24" height="24" title="active">
+        <img src="../modules/desktop/resources/tray/tray-idle.svg" width="24" height="24" title="idle">
+        <img src="../modules/desktop/resources/tray/tray-error.svg" width="24" height="24" title="error">
+        <img src="../modules/desktop/resources/tray/tray-notification.svg" width="24" height="24" title="notification">
+        <img src="../modules/desktop/resources/tray/tray-notification-glow.svg" width="24" height="24" title="notification-glow">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI PROVIDER ICONS ===== -->
+<section>
+  <h2>AI PROVIDER ICONS</h2>
+  <div class="grid">
+    <div class="item">
+      <div style="width:64px;height:64px;background:var(--surface);border-radius:8px;display:flex;align-items:center;justify-content:center">
+        <img src="../modules/desktop/resources/icon-anthropic.svg" width="32" height="32">
+      </div>
+      <div class="label">Anthropic</div>
+    </div>
+    <div class="item">
+      <div style="width:64px;height:64px;background:var(--surface);border-radius:8px;display:flex;align-items:center;justify-content:center">
+        <img src="../modules/desktop/resources/icon-google.svg" width="32" height="32">
+      </div>
+      <div class="label">Google</div>
+    </div>
+    <div class="item">
+      <div style="width:64px;height:64px;background:var(--surface);border-radius:8px;display:flex;align-items:center;justify-content:center">
+        <img src="../modules/desktop/resources/icon-openai.svg" width="32" height="32">
+      </div>
+      <div class="label">OpenAI</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMUNITY BADGE ===== -->
+<section>
+  <h2>COMMUNITY BADGE</h2>
+  <div class="grid">
+    <div class="item">
+      <div style="padding:16px;background:#000;border-radius:8px">
+        <img src="../modules/desktop/resources/community-made-white.png" height="40">
+      </div>
+      <div class="label">community-made-white.png</div>
+    </div>
+    <div class="item">
+      <div style="padding:16px;background:#e8ebed;border-radius:8px">
+        <img src="../modules/desktop/resources/community-made-white.png" height="40">
+      </div>
+      <div class="label">On light background</div>
+    </div>
+  </div>
+</section>
+
+<footer style="text-align:center;color:#3a5a7a;font-size:11px;margin-top:64px;padding-top:24px;border-top:1px solid var(--border)">
+  Star Citizen Companion — Asset Preview | Generated 2026-03-23
+</footer>
+
+</body>
+</html>

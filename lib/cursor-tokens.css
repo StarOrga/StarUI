@@ -1,0 +1,151 @@
+/* SCC Cursor Tokens — Generated from cursor-exploration.html */
+/* Sentinel shape cursors for Star Citizen Companion */
+/*
+ * Color palette:
+ *   Dark RSI:  #1e6a82  rgb(30, 106, 130)
+ *   Bright:    #52c1e6  rgb(82, 193, 230)
+ *   CIG Gold:  #b8952e  rgb(184, 149, 46)
+ *   Gold Hot:  #f0d060  rgb(240, 208, 96)
+ *   Red:       #c0392b  rgb(192, 57, 43)
+ *   Hull bg:   #0d2635
+ *
+ * Usage:
+ *   element { cursor: var(--scc-cursor-default); }
+ *   .clickable:hover { cursor: var(--scc-cursor-pointer); }
+ *
+ * Animated cursors (click gold dot, wait ring) require cursor-animator.service.ts.
+ * The hover cursor (--scc-cursor-pointer) works via CSS alone.
+ * The click cursor (--scc-cursor-active, gold dot at tip) requires the element
+ * to be registered in cursor-animator.service.ts as interactive.
+ *
+ * For Design System components: add data-scc-action attribute to the element
+ * in the HTML template. This is registered once in INTERACTIVE_SELECTOR and
+ * covers all DS interactive elements without per-class updates.
+ *
+ *   <div class="scc-finetune-sep" data-scc-action ...>
+ *
+ * Semantic HTML (button, a, select, label) is always covered automatically.
+ */
+
+:root {
+  /* Sentinel arrow in dark RSI blue — resting state */
+  --scc-cursor-default: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e6a82'/%3E%3Cstop offset='100%25' stop-color='%231e6a82'/%3E%3Cstop offset='100%25' stop-color='%231e6a82'/%3E%3Cstop offset='100%25' stop-color='%23123f4e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Sentinel arrow in bright cyan — hover/pointer state */
+  --scc-cursor-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2331738a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Cyan sentinel arrow + gold glow dot at tip — click/active state */
+  /* Arrow stays cyan, only the tip gets a gold glow dot */
+  --scc-cursor-active: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2331738a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='4.5' cy='3' r='4.5' fill='%23f0d060' opacity='.12'/%3E%3Ccircle cx='4.5' cy='3' r='3.3' fill='%23f0d060' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3Ccircle cx='4.5' cy='3' r='2.2' fill='%23f0d060' opacity='.5'/%3E%3Ccircle cx='4.5' cy='3' r='1.32' fill='%23f0d060' opacity='.7'/%3E%3Ccircle cx='4.5' cy='3' r='0.55' fill='%23fff888' opacity='.9'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Full gold sentinel arrow — drag/held state (entire arrow turns gold) */
+  --scc-cursor-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f0d060'/%3E%3Cstop offset='100%25' stop-color='%236e591b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='4.5' cy='3' r='4.5' fill='%23f0d060' opacity='.12'/%3E%3Ccircle cx='4.5' cy='3' r='3.3' fill='%23f0d060' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3Ccircle cx='4.5' cy='3' r='2.2' fill='%23f0d060' opacity='.5'/%3E%3Ccircle cx='4.5' cy='3' r='1.32' fill='%23f0d060' opacity='.7'/%3E%3Ccircle cx='4.5' cy='3' r='0.55' fill='%23fff888' opacity='.9'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Slim vertical I-beam — text input (muted to match selection color) */
+  --scc-cursor-text: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='11' y='3' width='2' height='18' rx='1' fill='%239fb3c8'/%3E%3C/svg%3E") 12 12, text;
+
+  /* Horizontal I-beam — vertical text selection */
+  --scc-cursor-vertical-text: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M5 12 L5 20 L7 20 L7 17.5 L25 17.5 L25 20 L27 20 L27 12 L25 12 L25 14.5 L7 14.5 L7 12 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='2' opacity='.2'/%3E%3Cpath d='M5 12 L5 20 L7 20 L7 17.5 L25 17.5 L25 20 L27 20 L27 12 L25 12 L25 14.5 L7 14.5 L7 12 Z' fill='%231e6a82'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6' opacity='.7'/%3E%3C/svg%3E") 16 16, vertical-text;
+
+  /* Quantum ring frame 0 — full blocking (animated via JS) */
+  --scc-cursor-wait: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='23.0' cy='8.8' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='25.2' cy='12.1' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='26.0' cy='16.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='26.0' cy='16.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='8.0' cy='16.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+
+  /* Sentinel arrow + loading ring badge — background task */
+  --scc-cursor-progress: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Cpath d='M25 20 A5 5 0 0 1 30 25' fill='none' stroke='%2352c1e6' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M25 30 A5 5 0 0 1 20 25' fill='none' stroke='%2352c1e6' stroke-width='1.2' stroke-linecap='round' opacity='.4'/%3E%3C/svg%3E") 4 2, progress;
+
+  /* Red prohibition circle — action blocked */
+  --scc-cursor-not-allowed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23c0392b' opacity='.1'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%23180808' stroke='%23c0392b' stroke-width='1.5'/%3E%3Cline x1='10' y1='10' x2='22' y2='22' stroke='%23c0392b' stroke-width='1.5'/%3E%3C/svg%3E") 16 16, not-allowed;
+
+  /* Sentinel arrow + red prohibition badge — drop rejected */
+  --scc-cursor-no-drop: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='6' fill='%23c0392b' opacity='.1'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%23180808'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%23c0392b' stroke-width='.8'/%3E%3Cline x1='22' y1='22' x2='28' y2='28' stroke='%23c0392b' stroke-width='1'/%3E%3C/svg%3E") 4 2, no-drop;
+
+  /* Open docking clamp — draggable element */
+  --scc-cursor-grab: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M9 9 L9 5 L11 5 L11 9 M13 8 L13 4 L15 4 L15 8 M17 8 L17 4 L19 4 L19 8 M21 9 L21 6 L23 6 L23 9' fill='none' stroke='%231e6a82' stroke-width='.8'/%3E%3Cpath d='M7 13 L7 10 Q7 9 9 9 L23 9 Q25 9 25 11 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='2' opacity='.15'/%3E%3Cpath d='M7 13 L7 10 Q7 9 9 9 L23 9 Q25 9 25 11 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.6'/%3E%3C/svg%3E") 16 14, grab;
+
+  /* Closed docking clamp in gold — actively dragging */
+  --scc-cursor-grabbing: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M7 12 L7 10 Q7 8 10 8 L22 8 Q25 8 25 10 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%23b8952e' stroke-width='2' opacity='.15'/%3E%3Cpath d='M7 12 L7 10 Q7 8 10 8 L22 8 Q25 8 25 10 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%23b8952e' stroke-width='.6'/%3E%3Cpath d='M10 8 Q10.5 10 12 10 Q13.5 10 14 8 M15 8 Q15.5 10 17 10 Q18.5 10 19 8' fill='none' stroke='%23b8952e' stroke-width='.4'/%3E%3C/svg%3E") 16 12, grabbing;
+
+  /* Sentinel arrow + cyan plus badge — copy drag */
+  --scc-cursor-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%2352c1e6' stroke-width='.5'/%3E%3Cline x1='25' y1='21.5' x2='25' y2='28.5' stroke='%2352c1e6' stroke-width='1.2'/%3E%3Cline x1='21.5' y1='25' x2='28.5' y2='25' stroke='%2352c1e6' stroke-width='1.2'/%3E%3C/svg%3E") 4 2, copy;
+
+  /* Sentinel arrow + shortcut badge — alias/link drag */
+  --scc-cursor-alias: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Cpath d='M23 22 L27 22 L27 28 L23 28 Z' fill='none' stroke='%2352c1e6' stroke-width='.5'/%3E%3Cpath d='M22 27 L25 24' stroke='%2352c1e6' stroke-width='.8'/%3E%3Cpath d='M24 24 L25 24 L25 25' fill='none' stroke='%2352c1e6' stroke-width='.6'/%3E%3C/svg%3E") 4 2, alias;
+
+  /* Four-direction arrows — element repositioning */
+  --scc-cursor-move: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 L20 9 L17.5 9 L17.5 14 L22 14 L22 12 L27 16 L22 20 L22 18 L17.5 18 L17.5 23 L20 23 L16 28 L12 23 L14.5 23 L14.5 18 L10 18 L10 20 L5 16 L10 12 L10 14 L14.5 14 L14.5 9 L12 9 Z' fill='%231e6a82'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, move;
+
+  /* Four-direction arrows — scroll in any direction */
+  --scc-cursor-all-scroll: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 L20 9 L17.5 9 L17.5 14 L22 14 L22 12 L27 16 L22 20 L22 18 L17.5 18 L17.5 23 L20 23 L16 28 L12 23 L14.5 23 L14.5 18 L10 18 L10 20 L5 16 L10 12 L10 14 L14.5 14 L14.5 9 L12 9 Z' fill='%231e6a82'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, all-scroll;
+
+  /* Horizontal double-arrow with divider — column resize */
+  --scc-cursor-col-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='14.5' y='4' width='3' height='24' rx='.5' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M13 16 L7 12 L7 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M19 16 L25 12 L25 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Ccircle cx='16' cy='16' r='.6' fill='%2352c1e6' opacity='.5'/%3E%3C/svg%3E") 16 16, col-resize;
+
+  /* Vertical double-arrow with divider — row resize */
+  --scc-cursor-row-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='4' y='14.5' width='24' height='3' rx='.5' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M16 13 L12 7 L20 7 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M16 19 L12 25 L20 25 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Ccircle cx='16' cy='16' r='.6' fill='%2352c1e6' opacity='.5'/%3E%3C/svg%3E") 16 16, row-resize;
+
+  /* Vertical double-arrow — north/south resize */
+  --scc-cursor-ns-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 L20 9 L17 9 L17 23 L20 23 L16 28 L12 23 L15 23 L15 9 L12 9 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='2' opacity='.15'/%3E%3Cpath d='M16 4 L20 9 L17 9 L17 23 L20 23 L16 28 L12 23 L15 23 L15 9 L12 9 Z' fill='%231e6a82'/%3E%3C/svg%3E") 16 16, ns-resize;
+
+  /* Horizontal double-arrow — east/west resize */
+  --scc-cursor-ew-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 16 L9 12 L9 15 L23 15 L23 12 L28 16 L23 20 L23 17 L9 17 L9 20 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='2' opacity='.15'/%3E%3Cpath d='M4 16 L9 12 L9 15 L23 15 L23 12 L28 16 L23 20 L23 17 L9 17 L9 20 Z' fill='%231e6a82'/%3E%3C/svg%3E") 16 16, ew-resize;
+
+  /* Diagonal double-arrow NE/SW — corner resize */
+  --scc-cursor-nesw-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='6' y1='26' x2='26' y2='6' stroke='%231e6a82' stroke-width='2'/%3E%3Cpath d='M22 4 L28 4 L28 10' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 28 L4 28 L4 22' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, nesw-resize;
+
+  /* Diagonal double-arrow NW/SE — corner resize */
+  --scc-cursor-nwse-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='6' y1='6' x2='26' y2='26' stroke='%231e6a82' stroke-width='2'/%3E%3Cpath d='M4 10 L4 4 L10 4' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M28 22 L28 28 L22 28' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, nwse-resize;
+
+  /* Precision crosshair with center dot — exact selection */
+  --scc-cursor-crosshair: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='16' y1='2' x2='16' y2='30' stroke='%231e6a82' stroke-width='2.5' opacity='.15'/%3E%3Cline x1='2' y1='16' x2='30' y2='16' stroke='%231e6a82' stroke-width='2.5' opacity='.15'/%3E%3Cline x1='16' y1='2' x2='16' y2='30' stroke='%231e6a82' stroke-width='1'/%3E%3Cline x1='2' y1='16' x2='30' y2='16' stroke='%231e6a82' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='5' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6'/%3E%3C/svg%3E") 16 16, crosshair;
+
+  /* Scanner ring with + — zoom in (Star Map) */
+  --scc-cursor-zoom-in: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='10' fill='%231e6a82' opacity='.1'/%3E%3Ccircle cx='14' cy='14' r='9' fill='%230d2635' stroke='%231e6a82' stroke-width='.7'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='%231e6a82' stroke-width='.3' opacity='.25'/%3E%3Cline x1='14' y1='10' x2='14' y2='18' stroke='%2352c1e6' stroke-width='1'/%3E%3Cline x1='10' y1='14' x2='18' y2='14' stroke='%2352c1e6' stroke-width='1'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%230d2635' stroke-width='3'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%231e6a82' stroke-width='1.2'/%3E%3C/svg%3E") 14 14, zoom-in;
+
+  /* Scanner ring with minus — zoom out */
+  --scc-cursor-zoom-out: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='10' fill='%231e6a82' opacity='.1'/%3E%3Ccircle cx='14' cy='14' r='9' fill='%230d2635' stroke='%231e6a82' stroke-width='.7'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='%231e6a82' stroke-width='.3' opacity='.25'/%3E%3Cline x1='10' y1='14' x2='18' y2='14' stroke='%2352c1e6' stroke-width='1'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%230d2635' stroke-width='3'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%231e6a82' stroke-width='1.2'/%3E%3C/svg%3E") 14 14, zoom-out;
+
+  /* Sentinel arrow + gold ? badge — companion info mode */
+  --scc-cursor-help: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%23b8952e' stroke-width='.5'/%3E%3Ctext x='25' y='28.5' text-anchor='middle' font-family='Orbitron,sans-serif' font-size='9' font-weight='700' fill='%23b8952e'%3E%3F%3C/text%3E%3C/svg%3E") 4 2, help;
+
+  /* Sentinel arrow + hamburger menu — right-click context */
+  --scc-cursor-context-menu: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Crect x='19' y='18' width='11' height='12' rx='1.5' fill='%230d2635' stroke='%2352c1e6' stroke-width='.6'/%3E%3Cline x1='21.5' y1='21.5' x2='27.5' y2='21.5' stroke='%2352c1e6' stroke-width='.8' stroke-linecap='round'/%3E%3Cline x1='21.5' y1='24' x2='27.5' y2='24' stroke='%2352c1e6' stroke-width='.8' stroke-linecap='round'/%3E%3Cline x1='21.5' y1='26.5' x2='27.5' y2='26.5' stroke='%2352c1e6' stroke-width='.8' stroke-linecap='round'/%3E%3C/svg%3E") 4 2, context-menu;
+
+  /* Wait animation frames (0-7) — cycled at 120ms by cursor-animator.js */
+  --scc-cursor-wait-frame-0: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='23.0' cy='8.8' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='25.2' cy='12.1' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='26.0' cy='16.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='26.0' cy='16.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='8.0' cy='16.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='26.0' cy='15.9' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='25.3' cy='19.8' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='23.1' cy='23.1' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='23.1' cy='23.1' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='10.3' cy='10.3' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='23.2' cy='23.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='19.9' cy='25.2' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='16.0' cy='26.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='16.0' cy='26.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='16.0' cy='8.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-3: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='16.1' cy='26.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='12.2' cy='25.3' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='8.9' cy='23.1' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='8.9' cy='23.1' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='21.7' cy='10.3' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='9.0' cy='23.2' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='6.8' cy='19.9' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='6.0' cy='16.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='6.0' cy='16.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='24.0' cy='16.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-5: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='6.0' cy='16.1' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='6.7' cy='12.2' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='8.9' cy='8.9' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='8.9' cy='8.9' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='21.7' cy='21.7' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-6: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='8.8' cy='9.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='12.1' cy='6.8' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='16.0' cy='6.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='16.0' cy='6.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='16.0' cy='24.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-7: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='15.9' cy='6.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='19.8' cy='6.7' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='23.1' cy='8.9' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='23.1' cy='8.9' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='10.3' cy='21.7' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+
+  /* Short aliases used throughout the codebase */
+  --cursor-default: var(--scc-cursor-default);
+  --cursor-pointer: var(--scc-cursor-pointer);
+  --cursor-active: var(--scc-cursor-active);
+  --cursor-gold: var(--scc-cursor-gold);
+  --cursor-text: var(--scc-cursor-text);
+  --cursor-wait: var(--scc-cursor-wait);
+  --cursor-progress: var(--scc-cursor-progress);
+  --cursor-not-allowed: var(--scc-cursor-not-allowed);
+  --cursor-no-drop: var(--scc-cursor-no-drop);
+  --cursor-grab: var(--scc-cursor-grab);
+  --cursor-grabbing: var(--scc-cursor-grabbing);
+  --cursor-copy: var(--scc-cursor-copy);
+  --cursor-alias: var(--scc-cursor-alias);
+  --cursor-move: var(--scc-cursor-move);
+  --cursor-all-scroll: var(--scc-cursor-all-scroll);
+  --cursor-col-resize: var(--scc-cursor-col-resize);
+  --cursor-row-resize: var(--scc-cursor-row-resize);
+  --cursor-ns-resize: var(--scc-cursor-ns-resize);
+  --cursor-ew-resize: var(--scc-cursor-ew-resize);
+  --cursor-nesw-resize: var(--scc-cursor-nesw-resize);
+  --cursor-nwse-resize: var(--scc-cursor-nwse-resize);
+  --cursor-crosshair: var(--scc-cursor-crosshair);
+  --cursor-zoom-in: var(--scc-cursor-zoom-in);
+  --cursor-zoom-out: var(--scc-cursor-zoom-out);
+  --cursor-help: var(--scc-cursor-help);
+  --cursor-context-menu: var(--scc-cursor-context-menu);
+  --cursor-vertical-text: var(--scc-cursor-vertical-text);
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@starorga/star-ui",
+  "version": "0.1.0",
+  "description": "StarUI — shared design system for the StarOrga / Star Citizen Companion ecosystem. RSI-inspired tokens, control states, forms, scrollbars, tooltips, status, and motion.",
+  "license": "Apache-2.0",
+  "author": "Jeremy Treder",
+  "homepage": "https://github.com/StarOrga/StarUI#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StarOrga/StarUI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/StarOrga/StarUI/issues"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "css",
+    "star-citizen",
+    "starorga",
+    "rsi"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "lib",
+    "shell",
+    "assets",
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve-preview.mjs"
+  }
+}

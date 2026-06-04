@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="440" height="440">
+<defs>
+  <!-- Background: fills full square, fades to transparent at edges (r=71% reaches corners) -->
+  <radialGradient id="bg" cx="50%" cy="50%" r="71%"><stop offset="0%" stop-color="#112840" stop-opacity=".88"/><stop offset="35%" stop-color="#0d2635" stop-opacity=".72"/><stop offset="65%" stop-color="#0d2635" stop-opacity=".35"/><stop offset="85%" stop-color="#0d2635" stop-opacity=".15"/><stop offset="100%" stop-color="#0d2635" stop-opacity=".05"/></radialGradient>
+  <!-- Tunnel depth -->
+  <radialGradient id="tunnel" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#0d2635" stop-opacity="0"/><stop offset="50%" stop-color="#52c1e6" stop-opacity=".02"/><stop offset="75%" stop-color="#52c1e6" stop-opacity=".08"/><stop offset="90%" stop-color="#7dd5f0" stop-opacity=".10"/><stop offset="100%" stop-color="#52c1e6" stop-opacity=".02"/></radialGradient>
+  <!-- Core glow: warm center, NOT white -->
+  <radialGradient id="coreG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#a0dcf0"/><stop offset="15%" stop-color="#7dd5f0"/><stop offset="50%" stop-color="#52c1e6" stop-opacity=".55"/><stop offset="85%" stop-color="#52c1e6" stop-opacity=".15"/><stop offset="100%" stop-color="#0d2635" stop-opacity="0"/></radialGradient>
+  <!-- Brain fill -->
+  <radialGradient id="brainG" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#d0eef8" stop-opacity=".2"/><stop offset="100%" stop-color="#52c1e6" stop-opacity=".04"/></radialGradient>
+  <!-- Halo -->
+  <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#52c1e6" stop-opacity=".28"/><stop offset="40%" stop-color="#52c1e6" stop-opacity=".08"/><stop offset="100%" stop-color="#52c1e6" stop-opacity="0"/></radialGradient>
+  <!-- Filters -->
+  <filter id="fCl" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"/></filter>
+  <!-- Outer nebula: gradient-based (no filter = no pixelation) -->
+  <radialGradient id="neb1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1e5a7a" stop-opacity=".9"/><stop offset="35%" stop-color="#154a68" stop-opacity=".5"/><stop offset="70%" stop-color="#0d3850" stop-opacity=".15"/><stop offset="100%" stop-color="#0d2635" stop-opacity="0"/></radialGradient>
+  <radialGradient id="neb2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a5070" stop-opacity=".72"/><stop offset="40%" stop-color="#124060" stop-opacity=".35"/><stop offset="100%" stop-color="#0d2635" stop-opacity="0"/></radialGradient>
+  <radialGradient id="neb3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1e5a7a" stop-opacity=".6"/><stop offset="45%" stop-color="#154a68" stop-opacity=".25"/><stop offset="100%" stop-color="#112840" stop-opacity="0"/></radialGradient>
+  <filter id="fW" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="fTw" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5"/></filter>
+  <filter id="fDk" x="-80%" y="-400%" width="260%" height="900%"><feGaussianBlur stdDeviation="3"/></filter>
+  <filter id="fCo" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="fNd" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="fBr" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="fTx" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<style>
+  /* === CLOUDS — rotate, fill corners === */
+  @keyframes cs{to{transform:rotate(360deg)}}
+  @keyframes csr{to{transform:rotate(-360deg)}}
+  .cla{animation:cs 24s linear infinite;transform-origin:150px 150px}
+  .clb{animation:csr 30s linear infinite;transform-origin:150px 150px}
+  .clc{animation:cs 20s linear infinite;transform-origin:150px 150px}
+  @keyframes wd{0%,100%{opacity:.25;transform:rotate(0) scale(1)}50%{opacity:.55;transform:rotate(8deg) scale(1.06)}}
+  @keyframes wd2{0%,100%{opacity:.2;transform:rotate(0) scale(1)}50%{opacity:.45;transform:rotate(-6deg) scale(1.04)}}
+  .wia{animation:wd 7s ease-in-out infinite;transform-origin:150px 150px}
+  .wib{animation:wd2 9s ease-in-out infinite;transform-origin:150px 150px;animation-delay:-3s}
+  @keyframes cpf{0%,100%{opacity:0}30%,70%{opacity:.4}}
+  .cp1{animation:cpf 4.5s ease-in-out infinite}.cp2{animation:cpf 5.5s ease-in-out infinite;animation-delay:-1.5s}
+
+  /* === DISK PARTICLES === */
+  @keyframes dpo{from{stroke-dashoffset:0}to{stroke-dashoffset:-585}}
+  @keyframes dpm{from{stroke-dashoffset:0}to{stroke-dashoffset:-470}}
+  @keyframes dpi{from{stroke-dashoffset:0}to{stroke-dashoffset:-370}}
+  @keyframes pal{0%{opacity:.2}15%{opacity:.9}50%{opacity:1}85%{opacity:.8}100%{opacity:.2}}
+  .dpo{animation:dpo 20s linear infinite,pal 20s ease-in-out infinite}
+  .dpm{animation:dpm 13s linear infinite,pal 13s ease-in-out infinite}
+  .dpi{animation:dpi 28s linear infinite reverse,pal 28s ease-in-out infinite}
+
+  /* === CORE BREATHE === */
+  @keyframes cbr{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.08);opacity:1}}
+  .cbr{animation:cbr 3s ease-in-out infinite;transform-origin:150px 150px}
+
+  /* === NEURAL PULSES — FIX: seamless loop ===
+     Key: stroke-dasharray "segment gap" must tile evenly over the path length.
+     Using dasharray="12 48" (period=60) with dashoffset traveling -60 per cycle
+     means each pulse segment slides exactly one full period = seamless restart */
+  @keyframes np{from{stroke-dashoffset:0}to{stroke-dashoffset:-60}}
+  .np1{animation:np 2.8s linear infinite}.np2{animation:np 3.6s linear infinite;animation-delay:.7s}
+  .np3{animation:np 4.2s linear infinite;animation-delay:1.4s}.np4{animation:np 2.2s linear infinite;animation-delay:.3s}
+  .np5{animation:np 3.1s linear infinite;animation-delay:1.9s}.np6{animation:np 5s linear infinite;animation-delay:.9s}
+
+  /* === QUANTUM PHASE (12s) === */
+  @keyframes phB{
+    0%{opacity:1;transform:scale(1)}
+    15%{opacity:1;transform:scale(1.06)}25%{opacity:1;transform:scale(1.02)}
+    38%{opacity:1;transform:scale(1.10)}48%{opacity:1;transform:scale(1.05)}
+    58.3%{opacity:1;transform:scale(1.22)}
+    66.7%{opacity:0;transform:scale(1.7)}
+    79.2%{opacity:0;transform:scale(.5)}
+    83.3%{opacity:1;transform:scale(.7)}
+    100%{opacity:1;transform:scale(1)}
+  }
+  .phb{animation:phB 12s ease-in-out infinite;transform-origin:150px 148px}
+  @keyframes phD{0%,48%{opacity:1}54%{opacity:.6}60%{opacity:0}78%{opacity:0}84%{opacity:.5}100%{opacity:1}}
+  .phd{animation:phD 12s ease-in-out infinite}
+  @keyframes phT{0%,54%{opacity:0;letter-spacing:.35em}62%{opacity:1;letter-spacing:.2em}75%{opacity:1;letter-spacing:.2em}83%{opacity:0;letter-spacing:.5em}100%{opacity:0}}
+  .pht{animation:phT 12s ease-in-out infinite}
+  @keyframes phCl{0%,38%{opacity:1;transform:scale(1)}44%{opacity:1;transform:scale(1.1)}50%,68%{opacity:1;transform:scale(.82)}80%{opacity:.6;transform:scale(1.05)}92%,100%{opacity:1;transform:scale(1)}}
+  .phcl{animation:phCl 12s ease-in-out infinite;transform-origin:150px 150px}
+
+  /* Starfield */
+  @keyframes tw{0%,100%{opacity:.08}50%{opacity:.45}}
+  .star{animation:tw var(--d,4s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}.pht{opacity:0!important}.phb{opacity:1!important}}
+</style>
+
+<!-- Full-square background (fills corners) -->
+<rect width="300" height="300" fill="url(#bg)"/>
+
+<!-- Ambient nebula (asymmetric — top-left dominant, bottom-right absent) -->
+<circle cx="-12" cy="14" r="95" fill="url(#neb1)"/>
+<circle cx="50" cy="308" r="75" fill="url(#neb2)"/>
+<circle cx="310" cy="80" r="60" fill="url(#neb3)"/>
+
+<!-- Starfield (spread across full square, including corners) -->
+<circle class="star" cx="12" cy="10" r=".7" fill="#7dd5f0" style="--d:5.1s;--dl:-0.5s"/>
+<circle class="star" cx="288" cy="14" r=".6" fill="#52c1e6" style="--d:4.8s;--dl:-2.2s"/>
+<circle class="star" cx="8" cy="290" r=".8" fill="#7dd5f0" style="--d:6.3s;--dl:-1.1s"/>
+<circle class="star" cx="292" cy="288" r=".7" fill="#52c1e6" style="--d:5.4s;--dl:-3.7s"/>
+<circle class="star" cx="38" cy="32" r=".7" fill="#7dd5f0" style="--d:5.5s;--dl:-1s"/>
+<circle class="star" cx="248" cy="58" r=".9" fill="#52c1e6" style="--d:4.2s;--dl:-3s"/>
+<circle class="star" cx="272" cy="138" r=".6" fill="#7dd5f0" style="--d:6.8s;--dl:-.4s"/>
+<circle class="star" cx="228" cy="252" r=".8" fill="#52c1e6" style="--d:3.5s;--dl:-2.5s"/>
+<circle class="star" cx="112" cy="278" r=".7" fill="#7dd5f0" style="--d:5.2s;--dl:-1.8s"/>
+<circle class="star" cx="28" cy="222" r=".9" fill="#52c1e6" style="--d:4.7s;--dl:-4s"/>
+<circle class="star" cx="22" cy="88" r=".6" fill="#7dd5f0" style="--d:6.2s;--dl:-.9s"/>
+<circle class="star" cx="192" cy="22" r=".8" fill="#52c1e6" style="--d:3.8s;--dl:-2.1s"/>
+<circle class="star" cx="82" cy="18" r=".7" fill="#7dd5f0" style="--d:5.8s;--dl:-3.6s"/>
+<circle class="star" cx="268" cy="92" r=".9" fill="#52c1e6" style="--d:4.4s;--dl:-1.4s"/>
+<circle class="star" cx="262" cy="202" r=".6" fill="#7dd5f0" style="--d:7.1s;--dl:-4.3s"/>
+<circle class="star" cx="168" cy="282" r=".8" fill="#52c1e6" style="--d:3.3s;--dl:-.2s"/>
+<circle class="star" cx="52" cy="262" r=".7" fill="#7dd5f0" style="--d:5.6s;--dl:-2.8s"/>
+<circle class="star" cx="8" cy="162" r=".6" fill="#52c1e6" style="--d:4.9s;--dl:-3.9s"/>
+<circle class="star" cx="72" cy="38" r=".9" fill="#7dd5f0" style="--d:6.4s;--dl:-1.2s"/>
+<circle class="star" cx="215" cy="38" r=".7" fill="#52c1e6" style="--d:3.7s;--dl:-4.6s"/>
+<circle class="star" cx="285" cy="168" r=".5" fill="#7dd5f0" style="--d:5.3s;--dl:-.7s"/>
+<circle class="star" cx="142" cy="12" r=".8" fill="#52c1e6" style="--d:4.1s;--dl:-2.4s"/>
+<circle class="star" cx="32" cy="142" r=".7" fill="#7dd5f0" style="--d:6s;--dl:-3.2s"/>
+<circle class="star" cx="202" cy="272" r=".6" fill="#52c1e6" style="--d:5.7s;--dl:-1.6s"/>
+<!-- Extra corner stars -->
+<circle class="star" cx="4" cy="48" r=".5" fill="#52c1e6" style="--d:7.2s;--dl:-0.3s"/>
+<circle class="star" cx="296" cy="42" r=".6" fill="#7dd5f0" style="--d:5.9s;--dl:-4.1s"/>
+<circle class="star" cx="6" cy="252" r=".5" fill="#52c1e6" style="--d:6.6s;--dl:-1.7s"/>
+<circle class="star" cx="294" cy="258" r=".7" fill="#7dd5f0" style="--d:4.3s;--dl:-2.9s"/>
+<circle class="star" cx="48" cy="6" r=".6" fill="#7dd5f0" style="--d:5.7s;--dl:-3.4s"/>
+<circle class="star" cx="252" cy="4" r=".5" fill="#52c1e6" style="--d:6.1s;--dl:-0.8s"/>
+<circle class="star" cx="46" cy="294" r=".7" fill="#52c1e6" style="--d:4.6s;--dl:-2.6s"/>
+<circle class="star" cx="256" cy="296" r=".6" fill="#7dd5f0" style="--d:5.3s;--dl:-4.4s"/>
+
+<!-- ===== 15% MARGIN: scale core content to 70%, keep stars/bg at full size ===== -->
+<g transform="translate(45,45) scale(0.7)">
+
+<!-- ===== CLOUD LAYER 1 — Broad rotation (fills corners via larger rx/ry) ===== -->
+<g class="cla phcl" filter="url(#fCl)">
+  <ellipse cx="150" cy="150" rx="155" ry="120" fill="none" stroke="#52c1e6" stroke-width="32" stroke-opacity=".11"/>
+  <ellipse cx="150" cy="150" rx="145" ry="112" fill="none" stroke="#7dd5f0" stroke-width="16" stroke-opacity=".08"/>
+  <!-- Corner cloud puffs (pushed outward to fill corners) -->
+  <circle cx="150" cy="2" r="28" fill="#52c1e6" fill-opacity=".12"/>
+  <circle cx="298" cy="150" r="26" fill="#52c1e6" fill-opacity=".11"/>
+  <circle cx="150" cy="298" r="28" fill="#7dd5f0" fill-opacity=".10"/>
+  <circle cx="2" cy="150" r="26" fill="#52c1e6" fill-opacity=".12"/>
+  <!-- Diagonal puffs closer to actual corners -->
+  <circle cx="270" cy="30" r="22" fill="#7dd5f0" fill-opacity=".09"/>
+  <circle cx="270" cy="270" r="22" fill="#52c1e6" fill-opacity=".09"/>
+  <circle cx="30" cy="270" r="24" fill="#7dd5f0" fill-opacity=".10"/>
+  <circle cx="30" cy="30" r="22" fill="#52c1e6" fill-opacity=".09"/>
+</g>
+
+<!-- ===== CLOUD LAYER 2 — Counter-rotating wisps ===== -->
+<g class="clb phcl" filter="url(#fW)">
+  <path d="M150,14 Q196,24 226,62 Q246,86 242,112" fill="none" stroke="#7dd5f0" stroke-width="6" stroke-linecap="round" stroke-opacity=".28"/>
+  <path d="M284,190 Q276,224 250,248 Q228,268 198,278" fill="none" stroke="#7dd5f0" stroke-width="5" stroke-linecap="round" stroke-opacity=".25"/>
+  <path d="M102,284 Q74,276 52,254 Q30,234 22,198" fill="none" stroke="#52c1e6" stroke-width="5" stroke-linecap="round" stroke-opacity=".24"/>
+  <path d="M22,102 Q30,72 52,52 Q74,30 108,20" fill="none" stroke="#7dd5f0" stroke-width="4" stroke-linecap="round" stroke-opacity=".26"/>
+  <!-- Gold wisps -->
+  <path d="M206,280 Q228,260 244,234" fill="none" stroke="#c8a84b" stroke-width="3" stroke-linecap="round" stroke-opacity=".15"/>
+  <path d="M58,46 Q42,66 34,92" fill="none" stroke="#c8a84b" stroke-width="2.5" stroke-linecap="round" stroke-opacity=".12"/>
+  <ellipse cx="244" cy="62" rx="28" ry="16" fill="#52c1e6" fill-opacity=".06" transform="rotate(40,244,62)"/>
+  <ellipse cx="58" cy="244" rx="24" ry="14" fill="#7dd5f0" fill-opacity=".07" transform="rotate(-30,58,244)"/>
+</g>
+
+<!-- ===== CLOUD LAYER 3 — Fast thin wisps ===== -->
+<g class="clc phcl" filter="url(#fTw)">
+  <path d="M150,6 Q168,18 178,40 Q184,58 174,76" fill="none" stroke="#7dd5f0" stroke-width="2.5" stroke-linecap="round" stroke-opacity=".35"/>
+  <path d="M280,112 Q286,132 284,150 Q282,170 272,186" fill="none" stroke="#52c1e6" stroke-width="2" stroke-linecap="round" stroke-opacity=".32"/>
+  <path d="M268,56 Q232,82 208,112 Q190,132 178,150" fill="none" stroke="#52c1e6" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".22"/>
+  <path d="M32,250 Q66,224 94,196 Q116,172 130,150" fill="none" stroke="#7dd5f0" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".20"/>
+</g>
+
+<!-- Tunnel depth -->
+<circle cx="150" cy="150" r="148" fill="url(#tunnel)"/>
+
+<!-- Drifting wisps -->
+<g class="wia" filter="url(#fW)"><path d="M150,42 Q174,54 186,76 Q194,96 186,116" fill="none" stroke="#7dd5f0" stroke-width="4" stroke-linecap="round"/><path d="M94,34 Q74,52 64,78" fill="none" stroke="#52c1e6" stroke-width="3" stroke-linecap="round"/></g>
+<g class="wib" filter="url(#fW)"><path d="M234,190 Q254,174 260,150 Q264,132 256,112" fill="none" stroke="#52c1e6" stroke-width="4" stroke-linecap="round"/></g>
+
+<!-- Cloud particles -->
+<circle class="cp1" cx="224" cy="56" r="1.5" fill="#7dd5f0" opacity=".4"/>
+<circle class="cp2" cx="48" cy="206" r="1" fill="#52c1e6" opacity=".35"/>
+
+<!-- ===== ACCRETION DISK (+10% scale: rx/ry increased) ===== -->
+<g class="phd">
+  <!-- Track lines -->
+  <ellipse cx="150" cy="150" rx="105" ry="28" fill="none" stroke="#52c1e6" stroke-width=".6" opacity=".18" transform="rotate(-20,150,150)"/>
+  <ellipse cx="150" cy="150" rx="86" ry="22" fill="none" stroke="#52c1e6" stroke-width=".5" opacity=".16" transform="rotate(-20,150,150)"/>
+  <ellipse cx="150" cy="150" rx="68" ry="17" fill="none" stroke="#52c1e6" stroke-width=".5" opacity=".14" transform="rotate(-20,150,150)"/>
+  <!-- Traveling particles -->
+  <ellipse cx="150" cy="150" rx="105" ry="28" fill="none" stroke="#52c1e6" stroke-width="5" stroke-dasharray="8 577" opacity=".85" transform="rotate(-20,150,150)" filter="url(#fDk)" class="dpo"/>
+  <ellipse cx="150" cy="150" rx="105" ry="28" fill="none" stroke="#7dd5f0" stroke-width="3.5" stroke-dasharray="5 580" stroke-dashoffset="-220" opacity=".65" transform="rotate(-20,150,150)" filter="url(#fDk)" class="dpo" style="animation-delay:-7s"/>
+  <ellipse cx="150" cy="150" rx="86" ry="22" fill="none" stroke="#52c1e6" stroke-width="4.5" stroke-dasharray="7 464" opacity=".82" transform="rotate(-20,150,150)" filter="url(#fDk)" class="dpm"/>
+  <ellipse cx="150" cy="150" rx="86" ry="22" fill="none" stroke="#7dd5f0" stroke-width="3" stroke-dasharray="4 467" stroke-dashoffset="-155" opacity=".60" transform="rotate(-20,150,150)" filter="url(#fDk)" class="dpm" style="animation-delay:-4s"/>
+  <ellipse cx="150" cy="150" rx="68" ry="17" fill="none" stroke="#52c1e6" stroke-width="4" stroke-dasharray="6 366" opacity=".80" transform="rotate(-20,150,150)" filter="url(#fDk)" class="dpi"/>
+</g>
+
+<!-- ===== BRAIN-NEBULA CORE (+10% size, seamless neural loops) ===== -->
+<g class="phb" filter="url(#fBr)">
+  <!-- Halo -->
+  <circle cx="150" cy="150" r="46" fill="url(#halo)" class="cbr" style="transform-origin:150px 150px;animation-delay:-.4s"/>
+  <!-- Core glow -->
+  <circle cx="150" cy="150" r="35" fill="url(#coreG)" filter="url(#fCo)" class="cbr" style="transform-origin:150px 150px"/>
+
+  <!-- Brain lobes (no outline, +10% size) -->
+  <path d="M150,125 C137,120 123,125 120,136 C117,147 119,160 126,166 C133,172 143,172 150,170" fill="url(#brainG)" fill-opacity=".6" stroke="none"/>
+  <path d="M150,125 C163,120 177,125 180,136 C183,147 181,160 174,166 C167,172 157,172 150,170" fill="url(#brainG)" fill-opacity=".6" stroke="none"/>
+  <!-- Center fissure -->
+  <line x1="150" y1="126" x2="150" y2="169" stroke="#52c1e6" stroke-width=".5" opacity=".3"/>
+  <!-- Bottom fold -->
+  <path d="M132,166 C136,174 164,174 168,166" fill="none" stroke="#52c1e6" stroke-width=".6" opacity=".35"/>
+  <!-- Sulci -->
+  <path d="M131,136 C128,142 128,150 130,157" fill="none" stroke="#7dd5f0" stroke-width=".7" opacity=".45"/>
+  <path d="M136,148 C134,153 134,159 136,162" fill="none" stroke="#7dd5f0" stroke-width=".6" opacity=".4"/>
+  <path d="M169,136 C172,142 172,150 170,157" fill="none" stroke="#7dd5f0" stroke-width=".7" opacity=".45"/>
+  <path d="M164,148 C166,153 166,159 164,162" fill="none" stroke="#7dd5f0" stroke-width=".6" opacity=".4"/>
+
+  <!-- Neural pulses (FIXED: dasharray=12 48, dashoffset=-60 = seamless tiling) -->
+  <path d="M150,126 C139,127 127,136 124,147 C121,156 122,164 128,170 C134,174 143,172 150,170"
+    fill="none" stroke="#7dd5f0" stroke-width="2" stroke-opacity=".8" stroke-dasharray="12 48" class="np1" filter="url(#fNd)" stroke-linecap="round"/>
+  <path d="M150,126 C161,127 173,136 176,147 C179,156 178,164 172,170 C166,174 157,172 150,170"
+    fill="none" stroke="#7dd5f0" stroke-width="2" stroke-opacity=".8" stroke-dasharray="12 48" class="np2" filter="url(#fNd)" stroke-linecap="round"/>
+  <path d="M131,136 C128,142 128,150 130,157"
+    fill="none" stroke="#e8ebed" stroke-width="1.5" stroke-opacity=".7" stroke-dasharray="6 24" class="np3" filter="url(#fNd)" stroke-linecap="round"/>
+  <path d="M169,136 C172,142 172,150 170,157"
+    fill="none" stroke="#e8ebed" stroke-width="1.5" stroke-opacity=".7" stroke-dasharray="6 24" class="np4" filter="url(#fNd)" stroke-linecap="round"/>
+  <path d="M133,145 C140,143 148,143 150,144 C152,145 160,146 167,144"
+    fill="none" stroke="#7dd5f0" stroke-width="1.2" stroke-opacity=".6" stroke-dasharray="8 32" class="np5" filter="url(#fNd)" stroke-linecap="round"/>
+  <path d="M130,161 C137,168 146,172 150,172 C154,172 163,168 170,161"
+    fill="none" stroke="#7dd5f0" stroke-width="1.2" stroke-opacity=".6" stroke-dasharray="10 40" class="np6" filter="url(#fNd)" stroke-linecap="round"/>
+
+  <!-- Soft center (no hard white dot) -->
+  <circle cx="150" cy="150" r="3.5" fill="#a0dcf0" opacity=".6"/>
+</g>
+
+<!-- ===== SCC TEXT (+10% font size) ===== -->
+<text x="150" y="155" font-family="Orbitron,sans-serif" font-weight="700" font-size="37"
+  fill="#7dd5f0" text-anchor="middle" dominant-baseline="middle"
+  filter="url(#fTx)" class="pht">SCC</text>
+
+</g><!-- end 15% margin scale group -->
+</svg>

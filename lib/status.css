@@ -1,0 +1,146 @@
+/* ============================================================
+   SCC Design System — Status Indicators & Badges
+   Reusable status dots, labels, and badge/tag components.
+   ============================================================ */
+
+/* --- Status Indicator ------------------------------------- */
+
+.scc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary, #9fb3c8);
+}
+
+.scc-status::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%; /* exception: status dots are circular */
+  flex-shrink: 0;
+  background: var(--text-secondary, #9fb3c8);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scc-status--ready { color: var(--text-primary, #e8ebed); }
+.scc-status--ready::before {
+  background: var(--status-success, #5fd698);
+  box-shadow: 0 0 6px var(--status-success-glow, rgba(95, 214, 152, 0.4));
+}
+
+.scc-status--loading { color: var(--text-primary, #e8ebed); }
+.scc-status--loading::before {
+  background: var(--accent-primary, #52c1e6);
+  box-shadow: 0 0 6px rgba(82, 193, 230, 0.4);
+  animation: scc-status-pulse 1.5s ease-in-out infinite;
+}
+
+.scc-status--warning { color: var(--text-primary, #e8ebed); }
+.scc-status--warning::before {
+  background: var(--accent-warning, #f0c27b);
+  box-shadow: 0 0 6px rgba(240, 194, 123, 0.4);
+}
+
+.scc-status--error { color: var(--text-primary, #e8ebed); }
+.scc-status--error::before {
+  background: var(--accent-danger, #c0392b);
+  box-shadow: 0 0 6px rgba(192, 57, 43, 0.4);
+}
+
+.scc-status--idle::before {
+  background: var(--text-secondary, #9fb3c8);
+  opacity: 0.5;
+}
+
+@keyframes scc-status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* --- Badge / Tag ------------------------------------------ */
+
+.scc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  color: var(--text-primary, #e8ebed);
+  background: rgba(82, 193, 230, 0.12);
+  border: 1px solid rgba(82, 193, 230, 0.25);
+  border-radius: var(--radius-sm, 2px);
+}
+
+/* --- Semantic badge variants --- */
+
+/* Warning — needs attention, not critical */
+.scc-badge--warning {
+  background: rgba(240, 194, 123, 0.12);
+  border-color: rgba(240, 194, 123, 0.25);
+  color: var(--accent-warning, #f0c27b);
+}
+
+/* Error — failure, critical issue */
+.scc-badge--error {
+  background: rgba(192, 57, 43, 0.12);
+  border-color: rgba(192, 57, 43, 0.25);
+  color: var(--accent-danger, #c0392b);
+}
+
+/* --- Content origin badges --- */
+
+/* Official — from CIG/RSI directly */
+.scc-badge--official {
+  background: rgba(82, 193, 230, 0.12);
+  border-color: rgba(82, 193, 230, 0.25);
+  color: var(--accent-primary, #52c1e6);
+}
+
+/* Community — player-created content (orgs, fan tools, events) */
+.scc-badge--community {
+  background: rgba(179, 147, 230, 0.12);
+  border-color: rgba(179, 147, 230, 0.25);
+  color: #b393e6;
+}
+
+/* --- Context modifier: badge on image backgrounds --------- */
+
+/* Use on any badge placed over a thumbnail or image background.
+   Dark opaque background + blur ensures readability regardless of
+   the underlying image brightness. Combine with a semantic variant
+   (--official, --warning, etc.) for the text/border color. */
+.scc-badge--on-image {
+  background: rgba(6, 14, 22, 0.65);
+  backdrop-filter: blur(4px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Notification Dot ------------------------------------- */
+
+.scc-notification-dot {
+  position: relative;
+}
+
+.scc-notification-dot::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-danger, #c0392b);
+  border-radius: 50%;
+  border: 1px solid var(--surface-canvas, #0d2635);
+  animation: scc-status-pulse 2s ease-in-out infinite;
+}

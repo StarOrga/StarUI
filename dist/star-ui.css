@@ -1,0 +1,3114 @@
+/* @starorga/star-ui — generated bundle. Do not edit; edit lib/*.css. */
+
+/* ===== design-tokens.css ===== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=Share+Tech+Mono&display=swap");
+
+:root {
+  /* Surface */
+  --surface-canvas: #0d2635;
+  --surface-canvas-alt: #103246;
+  --surface-panel: #123246;
+  --surface-panel-strong: #164664;
+  --surface-overlay: rgba(8, 20, 28, 0.95);
+  --surface-glass: rgba(12, 32, 48, 0.65);
+  --surface-input: rgba(12, 28, 40, 0.8);
+
+  /* Text */
+  --text-primary: #e8ebed;
+  --text-secondary: #9fb3c8;
+  --text-tertiary: #5a7a94;
+  --text-inverse: #0d2635;
+  --text-accent: #cfefff;
+
+  /* Accent */
+  --accent-primary: #52c1e6;
+  --accent-strong: #7dd5f0;
+  --accent-gold: #c8a84b;
+  --accent-gold-strong: #e8c96b;
+  --accent-gold-light: #f3d7a2;
+  --accent-warning: #f0c27b;
+  --accent-danger: #c0392b;
+  --accent-danger-light: #ff8282;
+
+  /* Border */
+  --border-subtle: rgba(82, 193, 230, 0.18);
+  --border-default: rgba(82, 193, 230, 0.3);
+  --border-strong: rgba(82, 193, 230, 0.45);
+
+  /* Radius — RSI uses sharp edges (0–4px max) */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+
+  /* Shadow — border glows only, no positive-Y drop shadows */
+  --shadow-soft: 0 0 0 1px rgba(82, 193, 230, 0.2);
+  --shadow-elevated: 0 0 0 1px rgba(82, 193, 230, 0.3), 0 0 12px rgba(82, 193, 230, 0.12);
+  --shadow-glow: 0 0 16px rgba(82, 193, 230, 0.25);
+
+  /* Scatter tile — image treatment (desat+dim with hover restore) */
+  --scatter-tile-img-filter: saturate(0.45) brightness(0.75);
+  --scatter-tile-img-filter-hover: saturate(0.7) brightness(0.85);
+  --scatter-tile-overlay-gradient: linear-gradient(to bottom, transparent 25%, rgba(4, 12, 22, 0.92) 100%);
+
+  /* Spacing — base values (fixed px); desktop-theme.css overrides with clamp() */
+  --space-xs: 8px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 18px;
+
+  /* Font */
+  --font-body-text: "Inter", sans-serif;
+  --font-heading-category: "Orbitron", sans-serif;
+  --font-handwritten-accent: "Caveat", cursive;
+  --font-monospace: "Share Tech Mono", monospace;
+
+  /* Category colors — Settings (Cloud Compass) + Setup Wizard */
+  /* RULE: Must not overlap with status or theme base colors    */
+  --cat-game: #c07888;
+  --cat-game-rgb: 192, 120, 136;
+  --cat-ai: #9b8cc8;
+  --cat-ai-rgb: 155, 140, 200;
+  --cat-app: #4a9e96;
+  --cat-app-rgb: 74, 158, 150;
+  --cat-overlay: #c4856c;
+  --cat-overlay-rgb: 196, 133, 108;
+
+  /* Status */
+  --status-success: #5fd698;
+  --status-success-glow: rgba(95, 214, 152, 0.4);
+
+  /* Oval window — reference values (hardcoded in gradients because
+     CSS var() inside radial-gradient shape syntax is unsupported).
+     Vignette: ellipse 68% 56% at 50% 46%, transparent 50%, canvas 100%
+     Stage mask: ellipse 92% 82% at 50% 46%, black 78%, transparent 100% */
+
+  /* Blur scale */
+  --blur-sm: 6px;
+  --blur-md: 12px;
+  --blur-lg: 20px;
+
+  /* Backward-compatible color aliases */
+  --bg: var(--surface-canvas);
+  --bg-alt: var(--surface-canvas-alt);
+  --surface: var(--surface-panel);
+  --surface-strong: var(--surface-panel-strong);
+  --text: var(--text-primary);
+  --muted: var(--text-secondary);
+  --accent: var(--accent-primary);
+  --danger: var(--accent-danger);
+  --official: var(--accent-strong);
+  --community: var(--accent-warning);
+  --stroke: var(--border-subtle);
+  --mono: var(--font-monospace);
+  --cyan: var(--accent-primary);
+  --canvas: var(--surface-canvas);
+}
+
+body,
+.typography-body-text {
+  font-family: var(--font-body-text);
+}
+
+:where(h1, h2, h3, h4, h5, h6),
+.typography-heading-category {
+  font-family: var(--font-heading-category);
+}
+
+.typography-handwritten-accent {
+  font-family: var(--font-handwritten-accent);
+}
+
+/* Global text selection — muted teal instead of OS default blue */
+::selection {
+  background: rgba(159, 179, 200, 0.35);
+  color: var(--text-primary, #e8ebed);
+}
+
+
+/* ===== cursor-tokens.css ===== */
+/* SCC Cursor Tokens — Generated from cursor-exploration.html */
+/* Sentinel shape cursors for Star Citizen Companion */
+/*
+ * Color palette:
+ *   Dark RSI:  #1e6a82  rgb(30, 106, 130)
+ *   Bright:    #52c1e6  rgb(82, 193, 230)
+ *   CIG Gold:  #b8952e  rgb(184, 149, 46)
+ *   Gold Hot:  #f0d060  rgb(240, 208, 96)
+ *   Red:       #c0392b  rgb(192, 57, 43)
+ *   Hull bg:   #0d2635
+ *
+ * Usage:
+ *   element { cursor: var(--scc-cursor-default); }
+ *   .clickable:hover { cursor: var(--scc-cursor-pointer); }
+ *
+ * Animated cursors (click gold dot, wait ring) require cursor-animator.service.ts.
+ * The hover cursor (--scc-cursor-pointer) works via CSS alone.
+ * The click cursor (--scc-cursor-active, gold dot at tip) requires the element
+ * to be registered in cursor-animator.service.ts as interactive.
+ *
+ * For Design System components: add data-scc-action attribute to the element
+ * in the HTML template. This is registered once in INTERACTIVE_SELECTOR and
+ * covers all DS interactive elements without per-class updates.
+ *
+ *   <div class="scc-finetune-sep" data-scc-action ...>
+ *
+ * Semantic HTML (button, a, select, label) is always covered automatically.
+ */
+
+:root {
+  /* Sentinel arrow in dark RSI blue — resting state */
+  --scc-cursor-default: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e6a82'/%3E%3Cstop offset='100%25' stop-color='%231e6a82'/%3E%3Cstop offset='100%25' stop-color='%231e6a82'/%3E%3Cstop offset='100%25' stop-color='%23123f4e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Sentinel arrow in bright cyan — hover/pointer state */
+  --scc-cursor-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2331738a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Cyan sentinel arrow + gold glow dot at tip — click/active state */
+  /* Arrow stays cyan, only the tip gets a gold glow dot */
+  --scc-cursor-active: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%2352c1e6'/%3E%3Cstop offset='100%25' stop-color='%2331738a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='4.5' cy='3' r='4.5' fill='%23f0d060' opacity='.12'/%3E%3Ccircle cx='4.5' cy='3' r='3.3' fill='%23f0d060' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3Ccircle cx='4.5' cy='3' r='2.2' fill='%23f0d060' opacity='.5'/%3E%3Ccircle cx='4.5' cy='3' r='1.32' fill='%23f0d060' opacity='.7'/%3E%3Ccircle cx='4.5' cy='3' r='0.55' fill='%23fff888' opacity='.9'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Full gold sentinel arrow — drag/held state (entire arrow turns gold) */
+  --scc-cursor-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.15' y1='0' x2='.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f0d060'/%3E%3Cstop offset='100%25' stop-color='%236e591b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='4.5' cy='3' r='4.5' fill='%23f0d060' opacity='.12'/%3E%3Ccircle cx='4.5' cy='3' r='3.3' fill='%23f0d060' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='url(%23g)'/%3E%3Ccircle cx='4.5' cy='3' r='2.2' fill='%23f0d060' opacity='.5'/%3E%3Ccircle cx='4.5' cy='3' r='1.32' fill='%23f0d060' opacity='.7'/%3E%3Ccircle cx='4.5' cy='3' r='0.55' fill='%23fff888' opacity='.9'/%3E%3C/svg%3E") 4 2, default;
+
+  /* Slim vertical I-beam — text input (muted to match selection color) */
+  --scc-cursor-text: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='11' y='3' width='2' height='18' rx='1' fill='%239fb3c8'/%3E%3C/svg%3E") 12 12, text;
+
+  /* Horizontal I-beam — vertical text selection */
+  --scc-cursor-vertical-text: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M5 12 L5 20 L7 20 L7 17.5 L25 17.5 L25 20 L27 20 L27 12 L25 12 L25 14.5 L7 14.5 L7 12 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='2' opacity='.2'/%3E%3Cpath d='M5 12 L5 20 L7 20 L7 17.5 L25 17.5 L25 20 L27 20 L27 12 L25 12 L25 14.5 L7 14.5 L7 12 Z' fill='%231e6a82'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6' opacity='.7'/%3E%3C/svg%3E") 16 16, vertical-text;
+
+  /* Quantum ring frame 0 — full blocking (animated via JS) */
+  --scc-cursor-wait: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='23.0' cy='8.8' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='25.2' cy='12.1' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='26.0' cy='16.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='26.0' cy='16.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='8.0' cy='16.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+
+  /* Sentinel arrow + loading ring badge — background task */
+  --scc-cursor-progress: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Cpath d='M25 20 A5 5 0 0 1 30 25' fill='none' stroke='%2352c1e6' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M25 30 A5 5 0 0 1 20 25' fill='none' stroke='%2352c1e6' stroke-width='1.2' stroke-linecap='round' opacity='.4'/%3E%3C/svg%3E") 4 2, progress;
+
+  /* Red prohibition circle — action blocked */
+  --scc-cursor-not-allowed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23c0392b' opacity='.1'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%23180808' stroke='%23c0392b' stroke-width='1.5'/%3E%3Cline x1='10' y1='10' x2='22' y2='22' stroke='%23c0392b' stroke-width='1.5'/%3E%3C/svg%3E") 16 16, not-allowed;
+
+  /* Sentinel arrow + red prohibition badge — drop rejected */
+  --scc-cursor-no-drop: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='6' fill='%23c0392b' opacity='.1'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%23180808'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%23c0392b' stroke-width='.8'/%3E%3Cline x1='22' y1='22' x2='28' y2='28' stroke='%23c0392b' stroke-width='1'/%3E%3C/svg%3E") 4 2, no-drop;
+
+  /* Open docking clamp — draggable element */
+  --scc-cursor-grab: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M9 9 L9 5 L11 5 L11 9 M13 8 L13 4 L15 4 L15 8 M17 8 L17 4 L19 4 L19 8 M21 9 L21 6 L23 6 L23 9' fill='none' stroke='%231e6a82' stroke-width='.8'/%3E%3Cpath d='M7 13 L7 10 Q7 9 9 9 L23 9 Q25 9 25 11 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='2' opacity='.15'/%3E%3Cpath d='M7 13 L7 10 Q7 9 9 9 L23 9 Q25 9 25 11 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.6'/%3E%3C/svg%3E") 16 14, grab;
+
+  /* Closed docking clamp in gold — actively dragging */
+  --scc-cursor-grabbing: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M7 12 L7 10 Q7 8 10 8 L22 8 Q25 8 25 10 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%23b8952e' stroke-width='2' opacity='.15'/%3E%3Cpath d='M7 12 L7 10 Q7 8 10 8 L22 8 Q25 8 25 10 L25 20 Q25 24 21 24 L11 24 Q7 24 7 20 Z' fill='%230d2635' stroke='%23b8952e' stroke-width='.6'/%3E%3Cpath d='M10 8 Q10.5 10 12 10 Q13.5 10 14 8 M15 8 Q15.5 10 17 10 Q18.5 10 19 8' fill='none' stroke='%23b8952e' stroke-width='.4'/%3E%3C/svg%3E") 16 12, grabbing;
+
+  /* Sentinel arrow + cyan plus badge — copy drag */
+  --scc-cursor-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%2352c1e6' stroke-width='.5'/%3E%3Cline x1='25' y1='21.5' x2='25' y2='28.5' stroke='%2352c1e6' stroke-width='1.2'/%3E%3Cline x1='21.5' y1='25' x2='28.5' y2='25' stroke='%2352c1e6' stroke-width='1.2'/%3E%3C/svg%3E") 4 2, copy;
+
+  /* Sentinel arrow + shortcut badge — alias/link drag */
+  --scc-cursor-alias: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Cpath d='M23 22 L27 22 L27 28 L23 28 Z' fill='none' stroke='%2352c1e6' stroke-width='.5'/%3E%3Cpath d='M22 27 L25 24' stroke='%2352c1e6' stroke-width='.8'/%3E%3Cpath d='M24 24 L25 24 L25 25' fill='none' stroke='%2352c1e6' stroke-width='.6'/%3E%3C/svg%3E") 4 2, alias;
+
+  /* Four-direction arrows — element repositioning */
+  --scc-cursor-move: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 L20 9 L17.5 9 L17.5 14 L22 14 L22 12 L27 16 L22 20 L22 18 L17.5 18 L17.5 23 L20 23 L16 28 L12 23 L14.5 23 L14.5 18 L10 18 L10 20 L5 16 L10 12 L10 14 L14.5 14 L14.5 9 L12 9 Z' fill='%231e6a82'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, move;
+
+  /* Four-direction arrows — scroll in any direction */
+  --scc-cursor-all-scroll: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 L20 9 L17.5 9 L17.5 14 L22 14 L22 12 L27 16 L22 20 L22 18 L17.5 18 L17.5 23 L20 23 L16 28 L12 23 L14.5 23 L14.5 18 L10 18 L10 20 L5 16 L10 12 L10 14 L14.5 14 L14.5 9 L12 9 Z' fill='%231e6a82'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, all-scroll;
+
+  /* Horizontal double-arrow with divider — column resize */
+  --scc-cursor-col-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='14.5' y='4' width='3' height='24' rx='.5' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M13 16 L7 12 L7 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M19 16 L25 12 L25 20 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Ccircle cx='16' cy='16' r='.6' fill='%2352c1e6' opacity='.5'/%3E%3C/svg%3E") 16 16, col-resize;
+
+  /* Vertical double-arrow with divider — row resize */
+  --scc-cursor-row-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='4' y='14.5' width='24' height='3' rx='.5' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M16 13 L12 7 L20 7 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Cpath d='M16 19 L12 25 L20 25 Z' fill='%230d2635' stroke='%231e6a82' stroke-width='.5'/%3E%3Ccircle cx='16' cy='16' r='.6' fill='%2352c1e6' opacity='.5'/%3E%3C/svg%3E") 16 16, row-resize;
+
+  /* Vertical double-arrow — north/south resize */
+  --scc-cursor-ns-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 L20 9 L17 9 L17 23 L20 23 L16 28 L12 23 L15 23 L15 9 L12 9 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='2' opacity='.15'/%3E%3Cpath d='M16 4 L20 9 L17 9 L17 23 L20 23 L16 28 L12 23 L15 23 L15 9 L12 9 Z' fill='%231e6a82'/%3E%3C/svg%3E") 16 16, ns-resize;
+
+  /* Horizontal double-arrow — east/west resize */
+  --scc-cursor-ew-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 16 L9 12 L9 15 L23 15 L23 12 L28 16 L23 20 L23 17 L9 17 L9 20 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='2' opacity='.15'/%3E%3Cpath d='M4 16 L9 12 L9 15 L23 15 L23 12 L28 16 L23 20 L23 17 L9 17 L9 20 Z' fill='%231e6a82'/%3E%3C/svg%3E") 16 16, ew-resize;
+
+  /* Diagonal double-arrow NE/SW — corner resize */
+  --scc-cursor-nesw-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='6' y1='26' x2='26' y2='6' stroke='%231e6a82' stroke-width='2'/%3E%3Cpath d='M22 4 L28 4 L28 10' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 28 L4 28 L4 22' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, nesw-resize;
+
+  /* Diagonal double-arrow NW/SE — corner resize */
+  --scc-cursor-nwse-resize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='6' y1='6' x2='26' y2='26' stroke='%231e6a82' stroke-width='2'/%3E%3Cpath d='M4 10 L4 4 L10 4' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M28 22 L28 28 L22 28' fill='none' stroke='%231e6a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6' opacity='.6'/%3E%3C/svg%3E") 16 16, nwse-resize;
+
+  /* Precision crosshair with center dot — exact selection */
+  --scc-cursor-crosshair: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='16' y1='2' x2='16' y2='30' stroke='%231e6a82' stroke-width='2.5' opacity='.15'/%3E%3Cline x1='2' y1='16' x2='30' y2='16' stroke='%231e6a82' stroke-width='2.5' opacity='.15'/%3E%3Cline x1='16' y1='2' x2='16' y2='30' stroke='%231e6a82' stroke-width='1'/%3E%3Cline x1='2' y1='16' x2='30' y2='16' stroke='%231e6a82' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='5' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='.8' fill='%2352c1e6'/%3E%3C/svg%3E") 16 16, crosshair;
+
+  /* Scanner ring with + — zoom in (Star Map) */
+  --scc-cursor-zoom-in: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='10' fill='%231e6a82' opacity='.1'/%3E%3Ccircle cx='14' cy='14' r='9' fill='%230d2635' stroke='%231e6a82' stroke-width='.7'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='%231e6a82' stroke-width='.3' opacity='.25'/%3E%3Cline x1='14' y1='10' x2='14' y2='18' stroke='%2352c1e6' stroke-width='1'/%3E%3Cline x1='10' y1='14' x2='18' y2='14' stroke='%2352c1e6' stroke-width='1'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%230d2635' stroke-width='3'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%231e6a82' stroke-width='1.2'/%3E%3C/svg%3E") 14 14, zoom-in;
+
+  /* Scanner ring with minus — zoom out */
+  --scc-cursor-zoom-out: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='10' fill='%231e6a82' opacity='.1'/%3E%3Ccircle cx='14' cy='14' r='9' fill='%230d2635' stroke='%231e6a82' stroke-width='.7'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='%231e6a82' stroke-width='.3' opacity='.25'/%3E%3Cline x1='10' y1='14' x2='18' y2='14' stroke='%2352c1e6' stroke-width='1'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%230d2635' stroke-width='3'/%3E%3Cline x1='21' y1='21' x2='28' y2='28' stroke='%231e6a82' stroke-width='1.2'/%3E%3C/svg%3E") 14 14, zoom-out;
+
+  /* Sentinel arrow + gold ? badge — companion info mode */
+  --scc-cursor-help: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='3' opacity='.15'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82' stroke='%231e6a82' stroke-width='1.5' opacity='.25'/%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Ccircle cx='25' cy='25' r='5' fill='%230d2635'/%3E%3Ccircle cx='25' cy='25' r='5' fill='none' stroke='%23b8952e' stroke-width='.5'/%3E%3Ctext x='25' y='28.5' text-anchor='middle' font-family='Orbitron,sans-serif' font-size='9' font-weight='700' fill='%23b8952e'%3E%3F%3C/text%3E%3C/svg%3E") 4 2, help;
+
+  /* Sentinel arrow + hamburger menu — right-click context */
+  --scc-cursor-context-menu: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 26 L10 20 L15 28 L19 26 L14 18 L22 18 Z' fill='%231e6a82'/%3E%3Crect x='19' y='18' width='11' height='12' rx='1.5' fill='%230d2635' stroke='%2352c1e6' stroke-width='.6'/%3E%3Cline x1='21.5' y1='21.5' x2='27.5' y2='21.5' stroke='%2352c1e6' stroke-width='.8' stroke-linecap='round'/%3E%3Cline x1='21.5' y1='24' x2='27.5' y2='24' stroke='%2352c1e6' stroke-width='.8' stroke-linecap='round'/%3E%3Cline x1='21.5' y1='26.5' x2='27.5' y2='26.5' stroke='%2352c1e6' stroke-width='.8' stroke-linecap='round'/%3E%3C/svg%3E") 4 2, context-menu;
+
+  /* Wait animation frames (0-7) — cycled at 120ms by cursor-animator.js */
+  --scc-cursor-wait-frame-0: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='23.0' cy='8.8' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='25.2' cy='12.1' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='26.0' cy='16.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='26.0' cy='16.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='8.0' cy='16.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='26.0' cy='15.9' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='25.3' cy='19.8' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='23.1' cy='23.1' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='23.1' cy='23.1' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='10.3' cy='10.3' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='23.2' cy='23.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='19.9' cy='25.2' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='16.0' cy='26.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='16.0' cy='26.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='16.0' cy='8.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-3: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='16.1' cy='26.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='12.2' cy='25.3' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='8.9' cy='23.1' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='8.9' cy='23.1' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='21.7' cy='10.3' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='9.0' cy='23.2' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='6.8' cy='19.9' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='6.0' cy='16.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='6.0' cy='16.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='24.0' cy='16.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-5: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='6.0' cy='16.1' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='6.7' cy='12.2' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='8.9' cy='8.9' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='8.9' cy='8.9' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='21.7' cy='21.7' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-6: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='8.8' cy='9.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='12.1' cy='6.8' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='16.0' cy='6.0' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='16.0' cy='6.0' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='16.0' cy='24.0' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+  --scc-cursor-wait-frame-7: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%230d2635'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231e6a82' stroke-width='.6' opacity='.4'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%231e6a82' stroke-width='.5' opacity='.3'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231e6a82' stroke-width='.4' opacity='.2'/%3E%3Ccircle cx='15.9' cy='6.0' r='.8' fill='%2352c1e6' opacity='.2'/%3E%3Ccircle cx='19.8' cy='6.7' r='1.2' fill='%2352c1e6' opacity='.4'/%3E%3Ccircle cx='23.1' cy='8.9' r='2.2' fill='%2352c1e6'/%3E%3Ccircle cx='23.1' cy='8.9' r='1' fill='%23a0ecff'/%3E%3Ccircle cx='10.3' cy='21.7' r='1.2' fill='%231e6a82' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%231e6a82' opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2352c1e6' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='.5' fill='%23a0ecff'/%3E%3C/svg%3E") 16 16, wait;
+
+  /* Short aliases used throughout the codebase */
+  --cursor-default: var(--scc-cursor-default);
+  --cursor-pointer: var(--scc-cursor-pointer);
+  --cursor-active: var(--scc-cursor-active);
+  --cursor-gold: var(--scc-cursor-gold);
+  --cursor-text: var(--scc-cursor-text);
+  --cursor-wait: var(--scc-cursor-wait);
+  --cursor-progress: var(--scc-cursor-progress);
+  --cursor-not-allowed: var(--scc-cursor-not-allowed);
+  --cursor-no-drop: var(--scc-cursor-no-drop);
+  --cursor-grab: var(--scc-cursor-grab);
+  --cursor-grabbing: var(--scc-cursor-grabbing);
+  --cursor-copy: var(--scc-cursor-copy);
+  --cursor-alias: var(--scc-cursor-alias);
+  --cursor-move: var(--scc-cursor-move);
+  --cursor-all-scroll: var(--scc-cursor-all-scroll);
+  --cursor-col-resize: var(--scc-cursor-col-resize);
+  --cursor-row-resize: var(--scc-cursor-row-resize);
+  --cursor-ns-resize: var(--scc-cursor-ns-resize);
+  --cursor-ew-resize: var(--scc-cursor-ew-resize);
+  --cursor-nesw-resize: var(--scc-cursor-nesw-resize);
+  --cursor-nwse-resize: var(--scc-cursor-nwse-resize);
+  --cursor-crosshair: var(--scc-cursor-crosshair);
+  --cursor-zoom-in: var(--scc-cursor-zoom-in);
+  --cursor-zoom-out: var(--scc-cursor-zoom-out);
+  --cursor-help: var(--scc-cursor-help);
+  --cursor-context-menu: var(--scc-cursor-context-menu);
+  --cursor-vertical-text: var(--scc-cursor-vertical-text);
+}
+
+
+/* ===== control-states.css ===== */
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+) {
+  appearance: none;
+  outline: none;
+  cursor: var(--cursor-pointer, pointer);
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):is(:disabled, [aria-disabled="true"]) {
+  opacity: 0.65;
+  color: var(--ctrl-disabled-text, rgba(174, 197, 210, 0.88));
+  border-color: var(--ctrl-disabled-border, rgba(82, 193, 230, 0.2));
+  box-shadow: none;
+  cursor: var(--cursor-default, default);
+  pointer-events: none;
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):not(:disabled, [aria-disabled="true"]):hover {
+  color: var(--ctrl-hover-text, var(--text, #eaf6ff));
+  background: var(--ctrl-hover-bg, transparent);
+  border-color: var(--ctrl-hover-border, rgba(125, 213, 240, 0.6));
+  box-shadow: var(--ctrl-hover-shadow, 0 0 10px rgba(125, 213, 240, 0.28));
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):not(:disabled, [aria-disabled="true"]):active {
+  transform: translateY(1px);
+  box-shadow: var(--ctrl-active-shadow, inset 0 0 0 1px rgba(125, 213, 240, 0.25));
+  cursor: var(--cursor-active, var(--scc-cursor-active));
+}
+
+:where(
+  .ui-control-primary,
+  .ui-control-secondary,
+  .ui-control-icon,
+  .ui-control-link,
+  .settings-select,
+  .space-select-button
+):focus-visible {
+  outline: 2px solid var(--ctrl-focus-ring, rgba(148, 234, 255, 0.95));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ctrl-focus-contrast, rgba(9, 25, 37, 0.92)),
+    var(--ctrl-focus-glow, 0 0 0 4px rgba(125, 213, 240, 0.35));
+}
+
+.ui-control-primary {
+  --ctrl-hover-shadow: 0 0 14px rgba(82, 193, 230, 0.36);
+}
+
+.ui-control-secondary {
+  --ctrl-hover-bg: rgba(18, 50, 70, 0.32);
+}
+
+.ui-control-icon {
+  --ctrl-hover-bg: rgba(18, 50, 70, 0.45);
+  --ctrl-hover-shadow: none;
+  --ctrl-active-shadow: none;
+}
+
+.ui-control-link {
+  --ctrl-hover-bg: none;
+  --ctrl-hover-border: transparent;
+  --ctrl-hover-shadow: none;
+  --ctrl-active-shadow: none;
+}
+
+.settings-select,
+.space-select-button {
+  --ctrl-hover-border: rgba(125, 213, 240, 0.75);
+  --ctrl-hover-shadow:
+    inset 0 0 0 1px rgba(125, 213, 240, 0.32),
+    inset 0 1px 0 rgba(125, 213, 240, 0.2),
+    0 0 20px rgba(82, 193, 230, 0.38);
+  --ctrl-active-shadow:
+    inset 0 0 0 1px rgba(125, 213, 240, 0.35),
+    inset 0 1px 0 rgba(125, 213, 240, 0.18),
+    0 0 14px rgba(82, 193, 230, 0.32);
+  --ctrl-focus-contrast: rgba(6, 20, 30, 0.96);
+  --ctrl-focus-glow:
+    inset 0 0 0 1px rgba(125, 213, 240, 0.42),
+    0 0 0 3px rgba(8, 24, 34, 0.95),
+    0 0 0 5px rgba(125, 213, 240, 0.38);
+}
+
+.space-select.is-disabled .space-select-button {
+  opacity: 0.55;
+  cursor: var(--cursor-default, default);
+  pointer-events: none;
+}
+
+.toggle input:not(:disabled) + .toggle-track {
+  cursor: var(--cursor-pointer, pointer);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.12s ease;
+}
+
+.toggle input:not(:disabled):hover + .toggle-track {
+  border-color: var(--ctrl-hover-border, rgba(125, 213, 240, 0.6));
+  box-shadow: var(--ctrl-hover-shadow, 0 0 10px rgba(125, 213, 240, 0.28));
+}
+
+.toggle input:not(:disabled):active + .toggle-track {
+  transform: translateY(1px);
+  box-shadow: var(--ctrl-active-shadow, inset 0 0 0 1px rgba(125, 213, 240, 0.25));
+}
+
+.toggle input:focus-visible + .toggle-track {
+  outline: 2px solid var(--ctrl-focus-ring, rgba(148, 234, 255, 0.95));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ctrl-focus-contrast, rgba(9, 25, 37, 0.92)),
+    var(--ctrl-focus-glow, 0 0 0 4px rgba(125, 213, 240, 0.35));
+}
+
+.toggle input:disabled + .toggle-track {
+  opacity: 0.65;
+  border-color: var(--ctrl-disabled-border, rgba(82, 193, 230, 0.2));
+  cursor: var(--cursor-default, default);
+}
+
+
+/* ===== forms.css ===== */
+/* ============================================================
+   SCC Design System — Form Element Base Styles
+   Source of truth for text inputs, selects, checkboxes, toggles.
+   Interaction states (hover, active, focus, disabled) are in
+   control-states.css — this file defines appearance only.
+   ============================================================ */
+
+/* --- Text Input ------------------------------------------- */
+
+.scc-input {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-xs, 8px) var(--space-sm, 10px);
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  color: var(--text-primary, #e8ebed);
+
+  background: var(--surface-panel, #123246);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  outline: none;
+  cursor: var(--cursor-text, text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scc-input::placeholder {
+  color: var(--text-secondary, #9fb3c8);
+  opacity: 0.7;
+}
+
+.scc-input:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+}
+
+.scc-input:focus:not(:disabled) {
+  border-color: var(--accent-primary, rgba(82, 193, 230, 0.7));
+  box-shadow: var(--shadow-glow, 0 0 16px rgba(82, 193, 230, 0.25));
+  outline: none;
+}
+
+/* Text selection — moved to design-tokens.css as global ::selection */
+
+.scc-input:disabled {
+  opacity: 0.65;
+  cursor: var(--cursor-default, default);
+}
+
+.scc-input--error {
+  border-color: var(--accent-danger, #c0392b);
+}
+
+.scc-input--error:focus {
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.25);
+}
+
+.scc-input--success {
+  border-color: var(--status-success, #5fd698);
+}
+
+/* --- Select / Dropdown ------------------------------------ */
+
+.scc-select {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs, 8px) var(--space-sm, 10px);
+  padding-right: 28px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-primary, #e8ebed);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  background: var(--surface-panel, #123246);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2352c1e6' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  outline: none;
+  cursor: var(--cursor-pointer, pointer);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scc-select:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  box-shadow: var(--shadow-elevated,
+    0 0 0 1px rgba(82, 193, 230, 0.15),
+    0 0 12px rgba(82, 193, 230, 0.12));
+}
+
+.scc-select:focus:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  box-shadow: var(--shadow-glow, 0 0 16px rgba(82, 193, 230, 0.25));
+}
+
+.scc-select:disabled {
+  opacity: 0.65;
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Checkbox --------------------------------------------- */
+
+.scc-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: var(--cursor-pointer, pointer);
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  color: var(--text-primary, #e8ebed);
+  user-select: none;
+}
+
+.scc-checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+
+  background: var(--surface-panel, #123246);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-sm, 2px);
+  cursor: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scc-checkbox input[type="checkbox"]:checked {
+  background: var(--accent-primary, #52c1e6);
+  border-color: var(--accent-primary, #52c1e6);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' fill='none' stroke='%230d2635' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.scc-checkbox input[type="checkbox"]:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.2);
+}
+
+.scc-checkbox input[type="checkbox"]:focus-visible {
+  outline: 2px solid rgba(148, 234, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.scc-checkbox:has(input[type="checkbox"]:disabled) {
+  cursor: var(--cursor-default, default);
+  opacity: 0.65;
+}
+
+.scc-checkbox input[type="checkbox"]:disabled {
+  opacity: 1; /* opacity handled by parent label */
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Toggle Switch ---------------------------------------- */
+
+.scc-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: var(--cursor-pointer, pointer);
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  color: var(--text-primary, #e8ebed);
+  user-select: none;
+}
+
+.scc-toggle input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+
+  background: var(--surface-panel-strong, #164664);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: 10px; /* exception: toggles use pill shape */
+  cursor: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.scc-toggle input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--text-secondary, #9fb3c8);
+  border-radius: 50%; /* exception: toggle thumb is circular */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.scc-toggle input[type="checkbox"]:checked {
+  background: rgba(82, 193, 230, 0.25);
+  border-color: var(--accent-primary, #52c1e6);
+}
+
+.scc-toggle input[type="checkbox"]:checked::after {
+  transform: translateX(16px);
+  background: var(--accent-primary, #52c1e6);
+}
+
+.scc-toggle input[type="checkbox"]:hover:not(:disabled) {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+}
+
+.scc-toggle input[type="checkbox"]:focus-visible {
+  outline: 2px solid rgba(148, 234, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.scc-toggle:has(input[type="checkbox"]:disabled) {
+  cursor: var(--cursor-default, default);
+  opacity: 0.65;
+}
+
+.scc-toggle input[type="checkbox"]:disabled {
+  opacity: 1; /* opacity handled by parent label */
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Toggle Slider (legacy span) --------------------------
+   Some templates include <span class="scc-toggle-slider">
+   next to the checkbox.  The visual thumb is rendered by the
+   input::after pseudo-element above; the span is redundant.
+   Hide it so it neither creates extra spacing in the flex
+   container nor overlaps the pseudo-element thumb.           */
+.scc-toggle-slider {
+  display: none;
+}
+
+/* --- Form Label ------------------------------------------- */
+
+.scc-label {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary, #9fb3c8);
+  text-transform: uppercase;
+}
+
+/* --- Form Group ------------------------------------------- */
+
+.scc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scc-form-group + .scc-form-group {
+  margin-top: var(--space-sm, 10px);
+}
+
+/* --- Hotkey Badge ----------------------------------------- */
+/* Inline keyboard/mouse key indicator. Uses symbols for
+   non-alphanumeric keys (Enter → ↵, Shift → ⇧, etc.)      */
+
+.scc-hotkey {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(82, 193, 230, 0.65);
+  white-space: nowrap;
+
+  background: linear-gradient(
+    180deg,
+    rgba(50, 100, 130, 0.5) 0%,
+    rgba(20, 50, 70, 0.65) 50%,
+    rgba(12, 35, 50, 0.75) 100%
+  );
+  border: none;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 0 0.5px rgba(82, 193, 230, 0.2),
+    inset 0 1px 0 rgba(140, 220, 250, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.scc-hotkey--sm {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 9px;
+}
+
+.scc-hotkey--symbol {
+  font-size: 13px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.scc-hotkey--sm.scc-hotkey--symbol {
+  font-size: 11px;
+}
+
+/* Separator between combined keys (e.g. Ctrl + S) */
+.scc-hotkey-combo {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.scc-hotkey-combo .scc-hotkey-sep {
+  font-size: 9px;
+  color: rgba(200, 220, 235, 0.3);
+}
+
+/* Mouse buttons */
+.scc-hotkey--mouse {
+  font-size: 11px;
+  padding: 0 5px;
+}
+
+/* --- Input Submit Hint ------------------------------------ */
+/* Shows a hotkey badge inside a text input on focus.
+   Wrap the <input> in .scc-input-wrapper, add a
+   .scc-input-hint element after it.                         */
+
+.scc-input-wrapper {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+.scc-input-wrapper > .scc-input {
+  padding-right: 32px;
+}
+
+.scc-input-hint {
+  position: absolute;
+  right: 7px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 18px;
+  pointer-events: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  padding: 0 4px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(82, 193, 230, 0.5);
+
+  background: linear-gradient(
+    180deg,
+    rgba(50, 100, 130, 0.5) 0%,
+    rgba(20, 50, 70, 0.65) 50%,
+    rgba(12, 35, 50, 0.75) 100%
+  );
+  border: none;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 0 0.5px rgba(82, 193, 230, 0.2),
+    inset 0 1px 0 rgba(140, 220, 250, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+  opacity: 0;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Show hint only when the sibling input is focused */
+.scc-input-wrapper > .scc-input:focus ~ .scc-input-hint {
+  opacity: 1;
+}
+
+/* Subtle accent on hover over the hint area (while input focused) */
+.scc-input-wrapper > .scc-input:focus ~ .scc-input-hint:hover {
+  color: rgba(200, 220, 235, 0.5);
+  border-color: rgba(82, 193, 230, 0.2);
+}
+
+/* --- Input Action (interactive icon button inside input) --- */
+/* For clickable icons (e.g. folder browse) placed inside an
+   input field. Unlike scc-input-hint this is always visible
+   and receives pointer events.
+   Usage:
+     <div class="scc-input-wrapper">
+       <input class="scc-input" ... />
+       <button class="scc-input-action" ...>
+         <!-- icon svg -->
+       </button>
+     </div>
+   The input text truncates automatically before the button.  */
+
+.scc-input-wrapper > .scc-input-action {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 0 calc(var(--radius-md, 4px) - 1px) calc(var(--radius-md, 4px) - 1px) 0;
+  padding: 0;
+  color: rgba(82, 193, 230, 0.4);
+  cursor: var(--cursor-pointer, pointer);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.scc-input-wrapper > .scc-input-action:hover {
+  color: rgba(82, 193, 230, 0.85);
+}
+
+.scc-input-wrapper > .scc-input-action svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* --- Custom Dropdown (JS-driven) -------------------------
+   Usage: .scc-dropdown > .scc-dropdown-trigger + .scc-dropdown-menu
+   Toggle .is-open on .scc-dropdown to show/hide the menu.
+   --------------------------------------------------------- */
+
+.scc-dropdown {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.scc-dropdown-trigger {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: var(--text-primary, #e8ebed);
+  text-align: left;
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 1.4;
+  cursor: var(--cursor-pointer, pointer);
+  background: linear-gradient(145deg, rgba(15, 36, 52, 0.96), rgba(8, 19, 30, 0.98));
+  border: 1px solid rgba(82, 193, 230, 0.32);
+  border-radius: var(--radius-md, 4px);
+  box-shadow:
+    inset 0 1px 0 rgba(178, 232, 255, 0.08),
+    0 0 14px rgba(82, 193, 230, 0.06);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.scc-dropdown-trigger:hover:not(:disabled):not(.is-static) {
+  border-color: rgba(82, 193, 230, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(178, 232, 255, 0.1),
+    0 0 20px rgba(82, 193, 230, 0.12);
+}
+
+.scc-dropdown.is-open .scc-dropdown-trigger {
+  border-color: rgba(125, 213, 240, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(190, 236, 255, 0.12),
+    0 0 0 1px rgba(125, 213, 240, 0.1),
+    0 0 24px rgba(82, 193, 230, 0.18);
+}
+
+.scc-dropdown-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scc-dropdown-hint {
+  color: var(--text-secondary, #9fb3c8);
+  opacity: 0.65;
+  font-style: italic;
+}
+
+.scc-dropdown-meta {
+  color: var(--text-secondary, #9fb3c8);
+  opacity: 0.7;
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+.scc-dropdown-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 13px;
+  color: rgba(125, 213, 240, 0.85);
+}
+
+/* Inline SCC-style SVG icons — line-art, inherits accent color via currentColor. */
+.scc-dropdown-icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgba(82, 193, 230, 0.35));
+}
+
+.scc-dropdown-item:hover .scc-dropdown-icon,
+.scc-dropdown-item.is-selected .scc-dropdown-icon,
+.scc-dropdown-item.is-focused .scc-dropdown-icon {
+  color: rgba(178, 232, 255, 0.98);
+}
+
+.scc-dropdown-caret {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.scc-dropdown-caret::after {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid rgba(125, 213, 240, 0.8);
+  border-bottom: 1.5px solid rgba(125, 213, 240, 0.8);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.scc-dropdown.is-open .scc-dropdown-caret::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+/* --- Dropdown Menu --- */
+
+.scc-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: min(280px, 45vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px;
+  border-radius: var(--radius-md, 4px);
+  border: 1px solid rgba(82, 193, 230, 0.28);
+  background: linear-gradient(150deg, rgba(10, 24, 36, 0.99), rgba(14, 34, 48, 0.97));
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(82, 193, 230, 0.08),
+    inset 0 1px 0 rgba(185, 231, 255, 0.06);
+  z-index: 50;
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 193, 230, 0.15) transparent;
+}
+
+.scc-dropdown.is-open .scc-dropdown-menu {
+  display: block;
+  animation: scc-dropdown-reveal 0.15s ease-out;
+}
+
+@keyframes scc-dropdown-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Dropdown Items --- */
+
+.scc-dropdown-item {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-primary, #e8ebed);
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: left;
+  cursor: var(--cursor-pointer, pointer);
+  transition: background 0.12s ease, color 0.12s ease;
+  position: relative;
+}
+
+/* Text label inside items — truncates when icon + text exceed item width */
+.scc-dropdown-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scc-dropdown-item + .scc-dropdown-item {
+  margin-top: 2px;
+}
+
+.scc-dropdown-item:hover,
+.scc-dropdown-item:focus-visible {
+  background: rgba(82, 193, 230, 0.12);
+  color: rgba(227, 246, 255, 0.98);
+  outline: none;
+}
+
+.scc-dropdown-item.is-selected {
+  font-weight: 600;
+  color: var(--accent-strong, #7dd5f0);
+  background: rgba(82, 193, 230, 0.08);
+}
+
+.scc-dropdown-item.is-selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--accent-primary, #52c1e6);
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.4);
+}
+
+.scc-dropdown-item .scc-dropdown-meta {
+  font-weight: 400;
+}
+
+.scc-dropdown-item .scc-dropdown-icon {
+  font-size: 14px;
+}
+
+.scc-dropdown-item .scc-dropdown-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* --- Single-entry (non-interactive) --- */
+
+.scc-dropdown.is-single .scc-dropdown-trigger,
+.scc-dropdown-trigger.is-static {
+  cursor: var(--cursor-default, default);
+  border-style: solid;
+  border-color: rgba(82, 193, 230, 0.18);
+  background: linear-gradient(145deg, rgba(13, 29, 42, 0.92), rgba(8, 19, 30, 0.96));
+  box-shadow: inset 0 1px 0 rgba(178, 232, 255, 0.05);
+}
+
+.scc-dropdown.is-single .scc-dropdown-trigger:hover,
+.scc-dropdown-trigger.is-static:hover {
+  border-color: rgba(82, 193, 230, 0.18);
+  box-shadow: inset 0 1px 0 rgba(178, 232, 255, 0.05);
+}
+
+/* --- Disabled --- */
+
+.scc-dropdown.is-disabled .scc-dropdown-trigger {
+  opacity: 0.5;
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Placeholder (nothing selected) --- */
+
+.scc-dropdown.is-placeholder .scc-dropdown-trigger {
+  border-style: dashed;
+}
+
+/* --- Range Slider ----------------------------------------- */
+/* RSI-style track + thumb. Cyan accent, sharp edges.
+   Wrap in .scc-slider-wrap (from settings-block.css) for
+   layout with a value readout.                              */
+
+.scc-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(82, 193, 230, 0.15);
+  border-radius: 0;
+  outline: none;
+  cursor: var(--cursor-pointer, pointer);
+  transition: background 0.2s ease;
+}
+
+.scc-slider:hover {
+  background: rgba(82, 193, 230, 0.25);
+}
+
+/* Track — WebKit */
+.scc-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgba(82, 193, 230, 0.15);
+  border-radius: 0;
+}
+
+.scc-slider:hover::-webkit-slider-runnable-track {
+  background: rgba(82, 193, 230, 0.25);
+}
+
+/* Thumb — WebKit */
+.scc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  background: var(--accent-primary, #52c1e6);
+  border: 2px solid rgba(125, 213, 240, 0.6);
+  border-radius: var(--radius-sm, 2px);
+  cursor: var(--cursor-pointer, pointer);
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.3);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.scc-slider:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 12px rgba(82, 193, 230, 0.5);
+  border-color: rgba(125, 213, 240, 0.8);
+}
+
+.scc-slider:active::-webkit-slider-thumb {
+  background: var(--accent-strong, #7dd5f0);
+  box-shadow: 0 0 16px rgba(82, 193, 230, 0.6);
+}
+
+/* Track — Firefox */
+.scc-slider::-moz-range-track {
+  height: 4px;
+  background: rgba(82, 193, 230, 0.15);
+  border: none;
+  border-radius: 0;
+}
+
+.scc-slider:hover::-moz-range-track {
+  background: rgba(82, 193, 230, 0.25);
+}
+
+/* Thumb — Firefox */
+.scc-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--accent-primary, #52c1e6);
+  border: 2px solid rgba(125, 213, 240, 0.6);
+  border-radius: var(--radius-sm, 2px);
+  cursor: var(--cursor-pointer, pointer);
+  box-shadow: 0 0 8px rgba(82, 193, 230, 0.3);
+}
+
+.scc-slider:hover::-moz-range-thumb {
+  box-shadow: 0 0 12px rgba(82, 193, 230, 0.5);
+  border-color: rgba(125, 213, 240, 0.8);
+}
+
+.scc-slider:active::-moz-range-thumb {
+  background: var(--accent-strong, #7dd5f0);
+  box-shadow: 0 0 16px rgba(82, 193, 230, 0.6);
+}
+
+.scc-slider:disabled {
+  opacity: 0.4;
+  cursor: var(--cursor-default, default);
+}
+
+/* --- Number Input ----------------------------------------- */
+/* Hide native spinners; use .scc-input on number inputs.    */
+
+.scc-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.scc-input[type="number"]::-webkit-inner-spin-button,
+.scc-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* --- Glass Popup (Borderless) ----------------------------------
+   Frosted-glass popup panel with no visible border.
+   Uses backdrop-filter for translucency and a gradient highlight
+   line at the top edge for subtle definition.
+   Apply .scc-glass-popup to the popup container, toggle .is-open.
+   Nested menus: use .scc-glass-menu for sub-dropdowns.
+   ---------------------------------------------------------------- */
+
+.scc-glass-popup {
+  border: none;
+  border-radius: var(--radius-lg, 4px);
+  background: rgba(8, 18, 28, 0.88);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(82, 193, 230, 0.1);
+  overflow: hidden;
+  display: none;
+}
+
+.scc-glass-popup.is-open {
+  display: block;
+  animation: scc-glass-popup-reveal 0.25s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.scc-glass-popup__highlight {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(82, 193, 230, 0.25), transparent);
+}
+
+@keyframes scc-glass-popup-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.scc-glass-menu {
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  background: rgba(8, 18, 28, 0.92);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(82, 193, 230, 0.08);
+}
+
+.scc-glass-menu.is-open {
+  animation: scc-glass-menu-reveal 0.15s ease-out;
+}
+
+.scc-glass-menu__highlight {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(82, 193, 230, 0.2), transparent);
+}
+
+@keyframes scc-glass-menu-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================================
+   SCC Design System — Button Component
+   Base class: .scc-btn
+   Variants:   .scc-btn--primary  (filled accent)
+               .scc-btn--secondary (outlined)
+               .scc-btn--ghost    (text-only, no border)
+               .scc-btn--danger   (destructive action)
+   Sizes:      .scc-btn--sm  .scc-btn--lg
+   ============================================================= */
+
+.scc-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-decoration: none;
+
+  background: transparent;
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  color: var(--text-primary, #e8ebed);
+  cursor: var(--cursor-pointer, pointer);
+  outline: none;
+  user-select: none;
+
+  transition: color 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+/* ── Primary ─────────────────────────────────────────────── */
+.scc-btn--primary {
+  background: rgba(82, 193, 230, 0.18);
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  color: var(--accent-strong, #7dd5f0);
+  box-shadow: var(--shadow-soft, 0 0 0 1px rgba(82, 193, 230, 0.2));
+}
+
+.scc-btn--primary:not(:disabled):hover {
+  background: rgba(82, 193, 230, 0.28);
+  border-color: var(--accent-primary, #52c1e6);
+  box-shadow: var(--shadow-glow, 0 0 16px rgba(82, 193, 230, 0.25));
+}
+
+/* ── Secondary ───────────────────────────────────────────── */
+.scc-btn--secondary {
+  border-color: var(--border-default, rgba(82, 193, 230, 0.3));
+  color: var(--text-secondary, #9fb3c8);
+}
+
+.scc-btn--secondary:not(:disabled):hover {
+  border-color: var(--border-strong, rgba(82, 193, 230, 0.45));
+  color: var(--text-primary, #e8ebed);
+  background: rgba(18, 50, 70, 0.32);
+}
+
+/* ── Ghost ───────────────────────────────────────────────── */
+.scc-btn--ghost {
+  border-color: transparent;
+  color: var(--text-secondary, #9fb3c8);
+}
+
+.scc-btn--ghost:not(:disabled):hover {
+  color: var(--accent-primary, #52c1e6);
+  background: rgba(82, 193, 230, 0.08);
+  border-color: transparent;
+}
+
+/* ── Danger ──────────────────────────────────────────────── */
+.scc-btn--danger {
+  border-color: rgba(192, 57, 43, 0.4);
+  color: var(--accent-danger-light, #ff8282);
+}
+
+.scc-btn--danger:not(:disabled):hover {
+  background: rgba(192, 57, 43, 0.12);
+  border-color: var(--accent-danger, #c0392b);
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.25);
+}
+
+/* ── Shared hover/active/focus/disabled states ───────────── */
+.scc-btn:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.scc-btn:focus-visible {
+  outline: 2px solid rgba(148, 234, 255, 0.95);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(9, 25, 37, 0.92),
+    0 0 0 4px rgba(125, 213, 240, 0.35);
+}
+
+.scc-btn:disabled {
+  opacity: 0.5;
+  cursor: var(--cursor-default, default);
+  pointer-events: none;
+}
+
+/* ── Size variants ───────────────────────────────────────── */
+.scc-btn--sm {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+.scc-btn--lg {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+
+/* ===== settings-block.css ===== */
+/* ============================================================
+   SCC Design System — Settings Block
+   Source of truth for settings layout: inline blocks, boxed
+   containers, finetune sections, grid alignment, descriptions.
+   Form element appearance is in forms.css.
+   Interaction states are in control-states.css.
+
+   VARIANTS:
+     .scc-settings-inline   — No container, no title, parent-width
+     .scc-settings-box      — Glass container with glow title
+       + .outlined           — Transparent bg, no border/glow (use
+                               inside a parent that is already a glass
+                               container, e.g. compass-panel)
+       + .has-category       — Adds left gradient accent bar
+       + .cat-app / .cat-game / .cat-ai / .cat-overlay
+
+   BOX STYLES (all share glass bg + category-tinted glow):
+     Default (no .cat-*)    — Cyan accent glow on box + title
+     .cat-app               — App-category tinted glow + title
+     .cat-game              — Game-category tinted glow + title
+     .cat-ai                — AI-category tinted glow + title
+     .cat-overlay           — Overlay-category tinted glow + title
+       + .has-category      — Adds left vertical gradient accent bar
+     .outlined              — Transparent bg, no border/glow, minimal
+                               padding. Use inside glass parent.
+
+   GRID RATIO (default 60:40, override via CSS vars):
+     --col-label:   3fr   (label column)
+     --col-control: 2fr   (control column)
+     --ctrl-width:  100%  (uniform control width within column)
+
+   FINETUNE:
+     .scc-finetune-sep     — Clickable separator line
+     .scc-ft-content       — Collapsible content (grid-rows animation)
+
+   DESCRIPTION:
+     .scc-setting-desc     — Inline truncated text after label
+       > .scc-tip           — Tooltip with full text on hover
+
+   USAGE EXAMPLES:
+
+   Without category (default glow box):
+     <div class="scc-settings-box">
+       <div class="scc-box-title">Audio</div>
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Input Device</span>
+         <div class="scc-setting-control">
+           <select class="scc-select">...</select>
+         </div>
+       </div>
+     </div>
+
+   With category accent:
+     <div class="scc-settings-box has-category cat-game">
+       <div class="scc-box-title">Game Version</div>
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Channel</span>
+         <div class="scc-setting-control">
+           <select class="scc-select">
+             <option>LIVE</option>
+             <option>PTU</option>
+           </select>
+         </div>
+       </div>
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Auto-detect</span>
+         <div class="scc-setting-control">
+           <label class="scc-toggle">
+             <input type="checkbox" checked />
+             <span class="scc-toggle-slider"></span>
+           </label>
+         </div>
+       </div>
+     </div>
+
+   Outlined (inside a glass parent):
+     <div class="scc-settings-box outlined">
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Language</span>
+         <div class="scc-setting-control">
+           <select class="scc-select">...</select>
+         </div>
+       </div>
+     </div>
+   ============================================================ */
+
+
+/* === Setting Row — CSS Grid, 2 columns ===================== */
+
+.scc-setting-row {
+  display: grid;
+  grid-template-columns: var(--col-label, 3fr) var(--col-control, 2fr);
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  position: relative;
+}
+
+.scc-setting-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary, #e8ebed);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+
+.scc-setting-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* Uniform control widths — selects, inputs, sliders stretch
+   to fill the control column. Toggles and hotkeys stay intrinsic. */
+.scc-setting-control .scc-select,
+.scc-setting-control .scc-input {
+  width: var(--ctrl-width, 100%);
+  min-width: 0;
+  max-width: 200px;
+}
+
+.scc-setting-control .scc-slider-wrap {
+  width: var(--ctrl-width, 100%);
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scc-setting-control .scc-slider-wrap .scc-slider {
+  flex: 1;
+  min-width: 0;
+}
+
+.scc-setting-control .scc-slider-wrap .scc-slider-value {
+  font-family: var(--font-monospace, "Share Tech Mono", monospace);
+  font-size: 11px;
+  color: var(--text-secondary, #9fb3c8);
+  min-width: 30px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+
+/* === Description — inline after label, truncated =========== */
+
+.scc-setting-desc {
+  font-size: 11px;
+  color: var(--text-tertiary, #5a7a94);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+  opacity: 0;
+  display: inline;
+  margin-left: 0;
+  transition:
+    max-width 0.35s ease,
+    opacity 0.3s ease,
+    margin-left 0.3s ease;
+  position: relative;
+  cursor: var(--scc-cursor-help, help);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Show on row hover or when any control inside has focus */
+.scc-setting-row:hover .scc-setting-desc,
+.scc-setting-row:focus-within .scc-setting-desc {
+  max-width: 100%;
+  opacity: 1;
+  margin-left: 8px;
+}
+
+/* Full-text tooltip on description hover */
+.scc-setting-desc .scc-tip {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  background: var(--surface-panel-strong, #164664);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary, #9fb3c8);
+  white-space: normal;
+  width: 260px;
+  line-height: 1.4;
+  z-index: 20;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.scc-setting-desc .scc-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 5px solid transparent;
+  border-top-color: var(--border-default, rgba(82, 193, 230, 0.3));
+}
+
+.scc-setting-desc:hover .scc-tip {
+  display: block;
+}
+
+
+/* === Inline — no container ================================= */
+
+.scc-settings-inline {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* === Box — glass container with ambient glow =============== */
+
+.scc-settings-box {
+  background: rgba(12, 32, 48, 0.35);
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  padding: 14px 16px;
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 2px 16px color-mix(in srgb, var(--_cat-color, var(--accent-primary, #52c1e6)) 12%, transparent);
+}
+
+/* Box title — glow header */
+.scc-settings-box .scc-box-title {
+  font-family: var(--font-heading-category, "Orbitron", sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--_cat-color, var(--accent-strong, #7dd5f0));
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px color-mix(in srgb, var(--_cat-color, var(--accent-primary, #52c1e6)) 40%, transparent);
+}
+
+/* Category variants — set accent color + left gradient bar.
+   The glow (box-shadow, text-shadow) uses --_cat-color so it
+   tints automatically. Without a category class the default
+   cyan accent applies. */
+.scc-settings-box.cat-app     { --_cat-color: var(--cat-app); }
+.scc-settings-box.cat-game    { --_cat-color: var(--cat-game); }
+.scc-settings-box.cat-ai      { --_cat-color: var(--cat-ai); }
+.scc-settings-box.cat-overlay { --_cat-color: var(--cat-overlay); }
+
+/* Category accent bar — left gradient */
+.scc-settings-box.has-category::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--_cat-color, var(--accent-primary, #52c1e6)) 0%,
+    transparent 100%
+  );
+  border-radius: var(--radius-md, 4px) 0 0 var(--radius-md, 4px);
+}
+
+
+/* === Finetune — separator + collapsible content ============ */
+
+.scc-finetune-sep {
+  display: flex;
+  align-items: center;
+  margin: 8px 0 4px;
+  cursor: var(--scc-cursor-pointer, pointer);
+  user-select: none;
+}
+
+.scc-finetune-sep::before,
+.scc-finetune-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(82, 193, 230, 0.1);
+}
+
+.scc-finetune-sep .scc-ft-inner {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+}
+
+/* Thick triangle chevrons */
+.scc-finetune-sep .scc-ft-tri {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
+  opacity: 0.25;
+}
+
+.scc-finetune-sep .scc-ft-tri.left {
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent var(--accent-primary, #52c1e6);
+}
+
+.scc-finetune-sep .scc-ft-tri.right {
+  border-width: 4px 6px 4px 0;
+  border-color: transparent var(--accent-primary, #52c1e6) transparent transparent;
+}
+
+.scc-finetune-sep .scc-ft-text {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(82, 193, 230, 0.25);
+  transition: color 0.2s ease;
+}
+
+.scc-finetune-sep:hover .scc-ft-tri  { opacity: 0.55; }
+.scc-finetune-sep:hover .scc-ft-text { color: rgba(82, 193, 230, 0.55); }
+
+.scc-finetune-sep.open .scc-ft-tri.left  { transform: rotate(90deg); }
+.scc-finetune-sep.open .scc-ft-tri.right { transform: rotate(-90deg); }
+
+/* Collapsible content — symmetric ease via grid-template-rows */
+.scc-ft-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scc-ft-content.open {
+  grid-template-rows: 1fr;
+}
+
+.scc-ft-content > .scc-ft-inner-wrap {
+  overflow: hidden;
+}
+
+.scc-ft-content .scc-setting-row:first-child {
+  padding-top: 8px;
+}
+
+
+/* Outlined variant — transparent bg, no border, no glow.
+   Use inside a parent that already provides the glass container (e.g. compass-panel).
+   The accent bar from .has-category still works if needed. */
+.scc-settings-box.outlined {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 2px 0;
+}
+
+
+/* === Disabled state — dependency group ===================== */
+
+.scc-settings-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.scc-settings-disabled.enabled {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* ===== window-surface.css ===== */
+:root {
+  --window-radius: 4px;
+  --window-border: 1px solid rgba(82, 193, 230, 0.25);
+  --window-bg: var(--surface-canvas);
+}
+
+.window-surface {
+  background: var(--window-bg);
+  border: var(--window-border);
+  border-radius: var(--window-radius);
+}
+
+
+/* ===== status.css ===== */
+/* ============================================================
+   SCC Design System — Status Indicators & Badges
+   Reusable status dots, labels, and badge/tag components.
+   ============================================================ */
+
+/* --- Status Indicator ------------------------------------- */
+
+.scc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary, #9fb3c8);
+}
+
+.scc-status::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%; /* exception: status dots are circular */
+  flex-shrink: 0;
+  background: var(--text-secondary, #9fb3c8);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scc-status--ready { color: var(--text-primary, #e8ebed); }
+.scc-status--ready::before {
+  background: var(--status-success, #5fd698);
+  box-shadow: 0 0 6px var(--status-success-glow, rgba(95, 214, 152, 0.4));
+}
+
+.scc-status--loading { color: var(--text-primary, #e8ebed); }
+.scc-status--loading::before {
+  background: var(--accent-primary, #52c1e6);
+  box-shadow: 0 0 6px rgba(82, 193, 230, 0.4);
+  animation: scc-status-pulse 1.5s ease-in-out infinite;
+}
+
+.scc-status--warning { color: var(--text-primary, #e8ebed); }
+.scc-status--warning::before {
+  background: var(--accent-warning, #f0c27b);
+  box-shadow: 0 0 6px rgba(240, 194, 123, 0.4);
+}
+
+.scc-status--error { color: var(--text-primary, #e8ebed); }
+.scc-status--error::before {
+  background: var(--accent-danger, #c0392b);
+  box-shadow: 0 0 6px rgba(192, 57, 43, 0.4);
+}
+
+.scc-status--idle::before {
+  background: var(--text-secondary, #9fb3c8);
+  opacity: 0.5;
+}
+
+@keyframes scc-status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* --- Badge / Tag ------------------------------------------ */
+
+.scc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  color: var(--text-primary, #e8ebed);
+  background: rgba(82, 193, 230, 0.12);
+  border: 1px solid rgba(82, 193, 230, 0.25);
+  border-radius: var(--radius-sm, 2px);
+}
+
+/* --- Semantic badge variants --- */
+
+/* Warning — needs attention, not critical */
+.scc-badge--warning {
+  background: rgba(240, 194, 123, 0.12);
+  border-color: rgba(240, 194, 123, 0.25);
+  color: var(--accent-warning, #f0c27b);
+}
+
+/* Error — failure, critical issue */
+.scc-badge--error {
+  background: rgba(192, 57, 43, 0.12);
+  border-color: rgba(192, 57, 43, 0.25);
+  color: var(--accent-danger, #c0392b);
+}
+
+/* --- Content origin badges --- */
+
+/* Official — from CIG/RSI directly */
+.scc-badge--official {
+  background: rgba(82, 193, 230, 0.12);
+  border-color: rgba(82, 193, 230, 0.25);
+  color: var(--accent-primary, #52c1e6);
+}
+
+/* Community — player-created content (orgs, fan tools, events) */
+.scc-badge--community {
+  background: rgba(179, 147, 230, 0.12);
+  border-color: rgba(179, 147, 230, 0.25);
+  color: #b393e6;
+}
+
+/* --- Context modifier: badge on image backgrounds --------- */
+
+/* Use on any badge placed over a thumbnail or image background.
+   Dark opaque background + blur ensures readability regardless of
+   the underlying image brightness. Combine with a semantic variant
+   (--official, --warning, etc.) for the text/border color. */
+.scc-badge--on-image {
+  background: rgba(6, 14, 22, 0.65);
+  backdrop-filter: blur(4px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Notification Dot ------------------------------------- */
+
+.scc-notification-dot {
+  position: relative;
+}
+
+.scc-notification-dot::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-danger, #c0392b);
+  border-radius: 50%;
+  border: 1px solid var(--surface-canvas, #0d2635);
+  animation: scc-status-pulse 2s ease-in-out infinite;
+}
+
+
+/* ===== tooltips.css ===== */
+/* ============================================================
+   SCC Design System — Tooltip Component
+   Source of truth for tooltip appearance across all surfaces.
+   The TooltipDirective (tooltip.directive.ts) applies these
+   classes programmatically; consuming code only needs the
+   trigger attribute ([data-tooltip], [appTooltip], .has-tooltip).
+   ============================================================ */
+
+.scc-tooltip {
+  position: fixed;
+  z-index: 10000;
+  max-width: 280px;
+  padding: 6px 10px;
+
+  font-family: var(--font-body-text, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--text-primary, #e8ebed);
+  white-space: normal;
+  word-wrap: break-word;
+
+  background: var(--surface-overlay, rgba(8, 20, 28, 0.95));
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  box-shadow: var(--shadow-elevated,
+    0 0 0 1px rgba(82, 193, 230, 0.15),
+    0 0 12px rgba(82, 193, 230, 0.12));
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.scc-tooltip.is-visible {
+  opacity: 1;
+}
+
+/* Gold variant — for companion / AI features */
+.scc-tooltip--gold {
+  border-color: rgba(200, 168, 75, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(200, 168, 75, 0.15),
+    0 0 12px rgba(200, 168, 75, 0.12);
+}
+
+
+/* ===== app-scrollbars.css ===== */
+:root {
+  --app-scrollbar-size: 10px;
+  --app-scrollbar-gap: 4px;
+  --app-scrollbar-radius: 2px;
+  --app-scrollbar-thumb-min-size: 36px;
+  --app-scrollbar-track: rgba(6, 18, 28, 0.08);
+  --app-scrollbar-track-visible: rgba(6, 18, 28, 0.2);
+  --app-scrollbar-thumb-idle: rgba(164, 223, 242, 0.34);
+  --app-scrollbar-thumb-hover: rgba(164, 223, 242, 0.52);
+  --app-scrollbar-thumb-active: rgba(164, 223, 242, 0.72);
+  --app-scrollbar-shadow: inset 0 0 0 1px rgba(193, 240, 252, 0.1);
+}
+
+.app-custom-scroll-host {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none;
+}
+
+.app-custom-scroll-host::-webkit-scrollbar,
+.app-custom-scroll-host::-webkit-scrollbar-thumb,
+.app-custom-scroll-host::-webkit-scrollbar-track,
+.app-custom-scroll-host::-webkit-scrollbar-button,
+.app-custom-scroll-host::-webkit-scrollbar-corner {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  opacity: 0 !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.app-custom-scrollbar {
+  position: absolute;
+  z-index: 8;
+  opacity: 0;
+  transition: opacity 0.18s ease, background-color 0.18s ease;
+  pointer-events: none;
+  cursor: var(--cursor-default, default) !important;
+  user-select: none;
+}
+
+.app-custom-scroll-host:hover > .app-custom-scrollbar,
+.app-custom-scroll-host.app-custom-scroll-host--visible > .app-custom-scrollbar,
+.app-custom-scroll-host.app-custom-scroll-host--dragging > .app-custom-scrollbar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app-custom-scroll-host--active-x > .app-custom-scrollbar--y {
+  bottom: calc(var(--app-scrollbar-size) + (var(--app-scrollbar-gap) * 2));
+}
+
+.app-custom-scroll-host--active-y > .app-custom-scrollbar--x {
+  right: calc(var(--app-scrollbar-size) + (var(--app-scrollbar-gap) * 2));
+}
+
+.app-custom-scrollbar--y {
+  top: var(--app-scrollbar-gap);
+  right: var(--app-scrollbar-gap);
+  bottom: var(--app-scrollbar-gap);
+  width: var(--app-scrollbar-size);
+}
+
+.app-custom-scrollbar--x {
+  left: var(--app-scrollbar-gap);
+  right: var(--app-scrollbar-gap);
+  bottom: var(--app-scrollbar-gap);
+  height: var(--app-scrollbar-size);
+}
+
+.app-custom-scrollbar__track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--app-scrollbar-radius);
+  background: var(--app-scrollbar-track);
+  cursor: var(--cursor-default, default) !important;
+}
+
+.app-custom-scroll-host:hover > .app-custom-scrollbar > .app-custom-scrollbar__track,
+.app-custom-scroll-host.app-custom-scroll-host--visible > .app-custom-scrollbar > .app-custom-scrollbar__track,
+.app-custom-scroll-host.app-custom-scroll-host--dragging > .app-custom-scrollbar > .app-custom-scrollbar__track {
+  background: var(--app-scrollbar-track-visible);
+}
+
+.app-custom-scrollbar__thumb {
+  position: absolute;
+  border-radius: var(--app-scrollbar-radius);
+  background: var(--app-scrollbar-thumb-idle);
+  box-shadow: var(--app-scrollbar-shadow);
+  cursor: var(--cursor-default, default) !important;
+  touch-action: none;
+}
+
+.app-custom-scrollbar--y .app-custom-scrollbar__thumb {
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: var(--app-scrollbar-thumb-min-size);
+}
+
+.app-custom-scrollbar--x .app-custom-scrollbar__thumb {
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-width: var(--app-scrollbar-thumb-min-size);
+}
+
+.app-custom-scrollbar__thumb:hover {
+  background: var(--app-scrollbar-thumb-hover);
+}
+
+.app-custom-scroll-host.app-custom-scroll-host--dragging .app-custom-scrollbar__thumb,
+.app-custom-scrollbar__thumb.is-dragging,
+.app-custom-scrollbar__thumb:active {
+  background: var(--app-scrollbar-thumb-active);
+}
+
+.ornamental-scroll-surface {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ornamental-scroll-surface::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+
+/* ===== logo-animations.css ===== */
+/**
+ * SCC Logo — Quantum Core Animation System
+ *
+ * All animations are GPU-accelerated via transform/opacity/filter only.
+ * No layout-triggering properties (width, height, top, left, margin, padding)
+ * are ever animated. Every class uses will-change for compositor hints.
+ *
+ * Design tokens referenced here intentionally duplicate the palette so this
+ * file can be embedded in standalone contexts (tray, loading screen) without
+ * importing design-tokens.css.
+ *
+ * Color palette:
+ *   --logo-cyan:    #52c1e6   (primary accent)
+ *   --logo-bright:  #7dd5f0   (bright accent)
+ *   --logo-dark:    #0d2635   (surface dark)
+ *   --logo-gold:    #c8a84b   (notification / gold state)
+ *   --logo-danger:  #c0392b   (error state)
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TIMING CUSTOM PROPERTIES
+   Adjust these to globally speed up / slow down categories of animation.
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Speed multiplier — lower = faster; multiply all durations by this value  */
+  --logo-speed:             1;
+
+  /* Per-category base durations (seconds)                                     */
+  --logo-t-breathe:         4s;
+  --logo-t-heartbeat:       1.6s;
+  --logo-t-awareness:       8s;
+  --logo-t-orbit-slow:      20s;
+  --logo-t-orbit-medium:    12s;
+  --logo-t-orbit-fast:      8s;
+  --logo-t-orbit-drift:     30s;
+  --logo-t-glow-pulse:      3s;
+  --logo-t-glow-surge:      0.8s;
+  --logo-t-glow-warm:       2.4s;
+  --logo-t-glow-fade:       3s;
+  --logo-t-particle-float:  12s;
+  --logo-t-particle-twink:  3s;
+  --logo-t-data-stream:     2s;
+  --logo-t-tray-spin:       1.2s;
+  --logo-t-tray-pulse:      2.6s;
+  --logo-t-tray-alert:      1.4s;
+  --logo-t-tray-error:      0.6s;
+
+  /* Ring breathe + SCC reveal — these MUST share the same duration value.
+   * Changing --logo-t-ring-breathe automatically keeps scc-reveal in lock-step
+   * because both classes reference this single variable.                        */
+  --logo-t-ring-breathe:    3s;
+  --logo-t-node-pulse:      2s;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 1  LIVING / BREATHING EFFECTS
+   These simulate organic biological rhythm. Avoid perfectly even in/out timing.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .life-breathe
+ * A slow scale + opacity swell that feels like a chest rising and falling.
+ * Inhale is slightly faster than exhale — mimics real breathing physiology.
+ */
+.life-breathe {
+  will-change: transform, opacity;
+  animation: kf-life-breathe var(--logo-t-breathe) cubic-bezier(0.45, 0.05, 0.55, 0.95)
+    infinite;
+}
+
+@keyframes kf-life-breathe {
+  0%   { transform: scale(1.000); opacity: 0.82; }
+  35%  { transform: scale(1.048); opacity: 1.00; }   /* peak — inhale faster  */
+  60%  { transform: scale(1.032); opacity: 0.95; }   /* slight hold at top    */
+  100% { transform: scale(1.000); opacity: 0.82; }   /* exhale slower         */
+}
+
+/**
+ * .life-heartbeat
+ * Two-beat cardiac rhythm: quick double-thump then a rest.
+ * The second beat is softer than the first — as in a real heartbeat (S1/S2).
+ */
+.life-heartbeat {
+  will-change: transform;
+  animation: kf-life-heartbeat var(--logo-t-heartbeat) ease-out infinite;
+}
+
+@keyframes kf-life-heartbeat {
+  0%   { transform: scale(1.00); }
+  10%  { transform: scale(1.10); }   /* S1 — first beat (larger)   */
+  20%  { transform: scale(0.96); }   /* recoil                      */
+  30%  { transform: scale(1.05); }   /* S2 — second beat (softer)   */
+  45%  { transform: scale(1.00); }   /* settle                      */
+  100% { transform: scale(1.00); }   /* rest until next cycle       */
+}
+
+/**
+ * .life-awareness
+ * Subtle positional drift that avoids mechanical feel by using many uneven
+ * keyframe steps. Suggests an entity that is aware of its environment.
+ */
+.life-awareness {
+  will-change: transform;
+  animation: kf-life-awareness var(--logo-t-awareness) linear infinite;
+}
+
+@keyframes kf-life-awareness {
+  0%   { transform: translate(0px,    0px)   rotate(0.0deg); }
+  8%   { transform: translate(0.8px, -1.2px) rotate(0.3deg); }
+  17%  { transform: translate(-0.5px,-0.4px) rotate(-0.2deg); }
+  27%  { transform: translate(1.2px,  0.7px) rotate(0.5deg); }
+  38%  { transform: translate(-0.3px, 1.4px) rotate(-0.3deg); }
+  49%  { transform: translate(0.9px, -0.8px) rotate(0.1deg); }
+  61%  { transform: translate(-1.1px, 0.3px) rotate(-0.4deg); }
+  72%  { transform: translate(0.4px,  1.1px) rotate(0.2deg); }
+  83%  { transform: translate(-0.7px,-0.9px) rotate(-0.1deg); }
+  92%  { transform: translate(0.3px,  0.5px) rotate(0.3deg); }
+  100% { transform: translate(0px,    0px)   rotate(0.0deg); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 2  ORBITAL ANIMATIONS
+   Irregularities are introduced via easing and multi-step keyframes so orbits
+   feel gravitationally influenced rather than motor-driven.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .orbit-slow
+ * Outer ring — 20 s, subtle wobble in scale to break the perfect-circle feel.
+ */
+.orbit-slow {
+  will-change: transform;
+  animation: kf-orbit-slow var(--logo-t-orbit-slow) linear infinite;
+}
+
+@keyframes kf-orbit-slow {
+  0%   { transform: rotate(0deg)   scaleX(1.000) scaleY(1.000); }
+  22%  { transform: rotate(79deg)  scaleX(1.012) scaleY(0.991); }
+  47%  { transform: rotate(168deg) scaleX(0.994) scaleY(1.008); }
+  73%  { transform: rotate(263deg) scaleX(1.007) scaleY(0.997); }
+  100% { transform: rotate(360deg) scaleX(1.000) scaleY(1.000); }
+}
+
+/**
+ * .orbit-medium
+ * Middle ring — 12 s, counter-clockwise, offset wobble phase.
+ */
+.orbit-medium {
+  will-change: transform;
+  animation: kf-orbit-medium var(--logo-t-orbit-medium) linear infinite;
+}
+
+@keyframes kf-orbit-medium {
+  0%   { transform: rotate(0deg)    scaleX(1.000) scaleY(1.000); }
+  18%  { transform: rotate(-64deg)  scaleX(0.988) scaleY(1.015); }
+  44%  { transform: rotate(-158deg) scaleX(1.010) scaleY(0.993); }
+  68%  { transform: rotate(-244deg) scaleX(0.995) scaleY(1.006); }
+  100% { transform: rotate(-360deg) scaleX(1.000) scaleY(1.000); }
+}
+
+/**
+ * .orbit-fast
+ * Inner ring — 8 s, clockwise, tighter wobble.
+ */
+.orbit-fast {
+  will-change: transform;
+  animation: kf-orbit-fast var(--logo-t-orbit-fast) cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+@keyframes kf-orbit-fast {
+  0%   { transform: rotate(0deg)   scale(1.000); }
+  25%  { transform: rotate(92deg)  scale(1.018); }
+  50%  { transform: rotate(182deg) scale(0.985); }
+  75%  { transform: rotate(272deg) scale(1.010); }
+  100% { transform: rotate(360deg) scale(1.000); }
+}
+
+/**
+ * .orbit-drift
+ * Particle macro-drift — extremely slow rotation combined with subtle scale
+ * changes, making particle fields feel like they are breathing independently.
+ */
+.orbit-drift {
+  will-change: transform, opacity;
+  animation:
+    kf-orbit-drift      var(--logo-t-orbit-drift) linear         infinite,
+    kf-orbit-drift-fade var(--logo-t-orbit-drift) ease-in-out    infinite;
+}
+
+@keyframes kf-orbit-drift {
+  0%   { transform: rotate(0deg)   scale(0.96); }
+  33%  { transform: rotate(118deg) scale(1.04); }
+  67%  { transform: rotate(241deg) scale(0.98); }
+  100% { transform: rotate(360deg) scale(0.96); }
+}
+
+@keyframes kf-orbit-drift-fade {
+  0%,100% { opacity: 0.55; }
+  50%     { opacity: 0.80; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 3  GLOW / ENERGY EFFECTS
+   All glow is achieved via filter: drop-shadow so it GPU-composites without
+   triggering layout. Fallback for no-filter environments: opacity only.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .glow-pulse
+ * Steady rhythmic core glow — the "heartbeat of light" behind breathing.
+ */
+.glow-pulse {
+  will-change: filter, opacity;
+  animation: kf-glow-pulse var(--logo-t-glow-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-glow-pulse {
+  0%, 100% {
+    filter:  drop-shadow(0 0  6px rgba(82, 193, 230, 0.50))
+             drop-shadow(0 0 18px rgba(82, 193, 230, 0.20));
+    opacity: 0.88;
+  }
+  50% {
+    filter:  drop-shadow(0 0 12px rgba(82, 193, 230, 0.90))
+             drop-shadow(0 0 32px rgba(82, 193, 230, 0.45))
+             drop-shadow(0 0 64px rgba(82, 193, 230, 0.18));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .glow-surge
+ * Instant bright flash (notification / quantum-jump event), then slow decay.
+ * Intended for one-shot use — add class programmatically, remove after 1 cycle.
+ */
+.glow-surge {
+  will-change: filter, opacity;
+  animation: kf-glow-surge var(--logo-t-glow-surge) cubic-bezier(0.2, 0, 0.8, 1) 1 forwards;
+}
+
+@keyframes kf-glow-surge {
+  0%  {
+    filter:  drop-shadow(0 0  4px rgba(125, 213, 240, 0.60));
+    opacity: 0.9;
+  }
+  8%  {
+    filter:  drop-shadow(0 0 24px rgba(125, 213, 240, 1.00))
+             drop-shadow(0 0 64px rgba(125, 213, 240, 0.70))
+             drop-shadow(0 0 96px rgba(125, 213, 240, 0.40));
+    opacity: 1.0;
+  }
+  100% {
+    filter:  drop-shadow(0 0  8px rgba(82, 193, 230, 0.40))
+             drop-shadow(0 0 20px rgba(82, 193, 230, 0.18));
+    opacity: 0.9;
+  }
+}
+
+/**
+ * .glow-warm
+ * Boot / connection warm-up: dim blue to full brightness over ~2.4 s.
+ * Use at startup; transition naturally into .glow-pulse afterwards.
+ */
+.glow-warm {
+  will-change: filter, opacity;
+  animation: kf-glow-warm var(--logo-t-glow-warm) cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    1 forwards;
+}
+
+@keyframes kf-glow-warm {
+  0% {
+    filter:  drop-shadow(0 0  2px rgba(82, 193, 230, 0.10));
+    opacity: 0.20;
+  }
+  40% {
+    filter:  drop-shadow(0 0  5px rgba(82, 193, 230, 0.35));
+    opacity: 0.55;
+  }
+  75% {
+    filter:  drop-shadow(0 0 10px rgba(82, 193, 230, 0.70))
+             drop-shadow(0 0 28px rgba(82, 193, 230, 0.30));
+    opacity: 0.92;
+  }
+  100% {
+    filter:  drop-shadow(0 0 12px rgba(82, 193, 230, 0.85))
+             drop-shadow(0 0 32px rgba(82, 193, 230, 0.40));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .glow-fade
+ * Idle / sleep dim-down. The core retreats inward and dims to a maintenance glow.
+ */
+.glow-fade {
+  will-change: filter, opacity;
+  animation: kf-glow-fade var(--logo-t-glow-fade) cubic-bezier(0.55, 0, 1, 0.45)
+    1 forwards;
+}
+
+@keyframes kf-glow-fade {
+  0% {
+    filter:  drop-shadow(0 0 12px rgba(82, 193, 230, 0.85))
+             drop-shadow(0 0 32px rgba(82, 193, 230, 0.40));
+    opacity: 1.00;
+  }
+  60% {
+    filter:  drop-shadow(0 0  5px rgba(82, 193, 230, 0.30));
+    opacity: 0.50;
+  }
+  100% {
+    filter:  drop-shadow(0 0  3px rgba(82, 193, 230, 0.15));
+    opacity: 0.28;
+  }
+}
+
+/**
+ * .glow-gold
+ * Notification state — same rhythm as .glow-pulse but in gold.
+ */
+.glow-gold {
+  will-change: filter, opacity;
+  animation: kf-glow-gold var(--logo-t-glow-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-glow-gold {
+  0%, 100% {
+    filter:  drop-shadow(0 0  6px rgba(200, 168, 75, 0.55))
+             drop-shadow(0 0 16px rgba(200, 168, 75, 0.22));
+    opacity: 0.88;
+  }
+  50% {
+    filter:  drop-shadow(0 0 14px rgba(232, 201, 107, 0.95))
+             drop-shadow(0 0 36px rgba(200, 168, 75, 0.50))
+             drop-shadow(0 0 60px rgba(200, 168, 75, 0.20));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .glow-danger
+ * Error state — red pulse, faster cadence to convey urgency.
+ */
+.glow-danger {
+  will-change: filter, opacity;
+  animation: kf-glow-danger calc(var(--logo-t-glow-pulse) * 0.7) ease-in-out infinite;
+}
+
+@keyframes kf-glow-danger {
+  0%, 100% {
+    filter:  drop-shadow(0 0  5px rgba(192, 57, 43, 0.55))
+             drop-shadow(0 0 14px rgba(192, 57, 43, 0.20));
+    opacity: 0.85;
+  }
+  50% {
+    filter:  drop-shadow(0 0 12px rgba(192, 57, 43, 0.95))
+             drop-shadow(0 0 30px rgba(192, 57, 43, 0.50))
+             drop-shadow(0 0 56px rgba(192, 57, 43, 0.22));
+    opacity: 1.00;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 4  STATE TRANSITIONS
+   These are one-shot animations (fill: forwards) combined with class toggling.
+   The caller should add/remove the class programmatically.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .state-wake
+ * Boot to active: scale + opacity come up together with glow intensifying.
+ * Duration: 1.4 s
+ */
+.state-wake {
+  will-change: transform, opacity, filter;
+  animation: kf-state-wake 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1 forwards;
+}
+
+@keyframes kf-state-wake {
+  0% {
+    transform: scale(0.80);
+    opacity:   0.15;
+    filter:    drop-shadow(0 0  2px rgba(82, 193, 230, 0.10));
+  }
+  55% {
+    transform: scale(1.06);
+    opacity:   0.90;
+    filter:    drop-shadow(0 0 18px rgba(82, 193, 230, 0.80))
+               drop-shadow(0 0 40px rgba(82, 193, 230, 0.35));
+  }
+  80% {
+    transform: scale(0.97);
+    opacity:   0.96;
+  }
+  100% {
+    transform: scale(1.00);
+    opacity:   1.00;
+    filter:    drop-shadow(0 0 12px rgba(82, 193, 230, 0.70))
+               drop-shadow(0 0 28px rgba(82, 193, 230, 0.30));
+  }
+}
+
+/**
+ * .state-sleep
+ * Active to idle: everything decelerates and dims; orbits slow implied via
+ * the overall element fading — pair orbit elements with animation-play-state.
+ * Duration: 2.0 s
+ */
+.state-sleep {
+  will-change: transform, opacity, filter;
+  animation: kf-state-sleep 2.0s cubic-bezier(0.55, 0.055, 0.675, 0.19) 1 forwards;
+}
+
+@keyframes kf-state-sleep {
+  0% {
+    transform: scale(1.00);
+    opacity:   1.00;
+    filter:    drop-shadow(0 0 12px rgba(82, 193, 230, 0.70));
+  }
+  35% {
+    transform: scale(0.98);
+    opacity:   0.70;
+    filter:    drop-shadow(0 0  6px rgba(82, 193, 230, 0.35));
+  }
+  100% {
+    transform: scale(0.94);
+    opacity:   0.28;
+    filter:    drop-shadow(0 0  3px rgba(82, 193, 230, 0.15));
+  }
+}
+
+/**
+ * .state-alert
+ * Snap-attention then settle: quick scale punch, then dampened oscillation.
+ * Duration: 1.0 s
+ */
+.state-alert {
+  will-change: transform, filter;
+  animation: kf-state-alert 1.0s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1 forwards;
+}
+
+@keyframes kf-state-alert {
+  0%   { transform: scale(1.00); filter: drop-shadow(0 0 10px rgba(82, 193, 230, 0.60)); }
+  12%  { transform: scale(1.18); filter: drop-shadow(0 0 24px rgba(125, 213, 240, 1.00))
+                                         drop-shadow(0 0 48px rgba(125, 213, 240, 0.50)); }
+  26%  { transform: scale(0.92); }
+  42%  { transform: scale(1.08); }
+  58%  { transform: scale(0.97); }
+  72%  { transform: scale(1.03); }
+  86%  { transform: scale(0.99); }
+  100% { transform: scale(1.00); filter: drop-shadow(0 0 12px rgba(82, 193, 230, 0.70)); }
+}
+
+/**
+ * .state-error
+ * Shifts color context to danger red, dims orbits (brightness drop).
+ * Does not animate position — just recolors and dims.
+ * Duration: 0.6 s
+ */
+.state-error {
+  will-change: filter, opacity;
+  animation: kf-state-error 0.6s ease-out 1 forwards;
+}
+
+@keyframes kf-state-error {
+  0% {
+    filter:  drop-shadow(0 0 12px rgba(82,  193, 230, 0.70))
+             brightness(1.0)
+             saturate(1.0);
+    opacity: 1.0;
+  }
+  40% {
+    filter:  drop-shadow(0 0 18px rgba(192, 57,  43,  1.00))
+             drop-shadow(0 0 36px rgba(192, 57,  43,  0.50))
+             brightness(0.8)
+             saturate(0.4)
+             hue-rotate(180deg);
+    opacity: 0.90;
+  }
+  100% {
+    filter:  drop-shadow(0 0 10px rgba(192, 57,  43,  0.80))
+             drop-shadow(0 0 24px rgba(192, 57,  43,  0.35))
+             brightness(0.75)
+             saturate(0.35)
+             hue-rotate(180deg);
+    opacity: 0.85;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5  PARTICLE / DETAIL EFFECTS
+   Applied to individual dot, spark, or path elements within the SVG logo.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .particle-float
+ * Slow, looping vertical drift with slight horizontal sway — buoyancy effect.
+ */
+.particle-float {
+  will-change: transform;
+  animation: kf-particle-float var(--logo-t-particle-float) ease-in-out infinite;
+}
+
+@keyframes kf-particle-float {
+  0%   { transform: translate( 0.0px,  0.0px); }
+  14%  { transform: translate( 0.8px, -2.4px); }
+  28%  { transform: translate(-0.4px, -4.2px); }
+  42%  { transform: translate( 1.0px, -5.8px); }
+  50%  { transform: translate( 0.2px, -6.5px); }  /* apex               */
+  64%  { transform: translate(-0.9px, -4.6px); }
+  78%  { transform: translate( 0.5px, -2.1px); }
+  90%  { transform: translate(-0.3px, -0.5px); }
+  100% { transform: translate( 0.0px,  0.0px); }
+}
+
+/* .particle-twinkle is defined in § 5d below with the full 10-step pattern.
+ * The keyframe alias here keeps the legacy name resolvable if referenced
+ * externally (e.g. from a template that sets animation-name directly).     */
+@keyframes kf-particle-twinkle {
+  0%   { opacity: 0.85; }
+  11%  { opacity: 0.40; }
+  19%  { opacity: 0.90; }
+  33%  { opacity: 0.60; }
+  47%  { opacity: 1.00; }
+  58%  { opacity: 0.30; }
+  70%  { opacity: 0.75; }
+  81%  { opacity: 0.55; }
+  91%  { opacity: 0.95; }
+  100% { opacity: 0.85; }
+}
+
+/**
+ * .data-stream
+ * Flowing stroke-dashoffset animation for SVG path elements that represent
+ * data lines. Apply to a <path> with stroke-dasharray set to path length.
+ *
+ * Usage in SVG:
+ *   <path class="data-stream" style="--stream-len: 240"
+ *         stroke-dasharray="var(--stream-len, 200)"
+ *         stroke-dashoffset="var(--stream-len, 200)" />
+ */
+.data-stream {
+  will-change: stroke-dashoffset, opacity;
+  animation:
+    kf-data-stream-flow    var(--logo-t-data-stream) linear      infinite,
+    kf-data-stream-opacity var(--logo-t-data-stream) ease-in-out infinite;
+}
+
+@keyframes kf-data-stream-flow {
+  0%   { stroke-dashoffset: var(--stream-len, 200); }
+  100% { stroke-dashoffset: calc(var(--stream-len, 200) * -1); }
+}
+
+@keyframes kf-data-stream-opacity {
+  0%, 100% { opacity: 0.0; }
+  15%       { opacity: 0.9; }
+  85%       { opacity: 0.9; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5b  RING BREATHE + SCC REVEAL  (synchronized pair)
+   --logo-t-ring-breathe is the single source of truth for both classes.
+   The keyframe percentages that trigger the SCC reveal are chosen so that the
+   text becomes visible only during the ~30 % window around the ring's maximum
+   scale (roughly 35 %–65 % of the cycle), then dissolves as the ring contracts.
+
+   Synchronization map (3 s cycle):
+     0 %   ring @ 0.97 ─── scc opacity 0    (hidden at rest)
+     20 %  ring rising ─── scc opacity 0    (still invisible on ascent)
+     35 %  ring @ 1.00 ─── scc opacity 0→1  (text begins to materialise)
+     50 %  ring @ 1.03 ─── scc opacity 1.0  (peak: ring largest, text fully in)
+     65 %  ring descend── scc opacity 0.8→0 (ring shrinking, text dissolves)
+     80 %  ring @ 1.00 ─── scc opacity 0    (text gone before ring is back at min)
+    100 %  ring @ 0.97 ─── scc opacity 0    (resting state, ready for next breath)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .ring-breathe
+ * Applied to the outer circle frame element.
+ * The cubic-bezier (0.42, 0, 0.58, 1) gives an ease-in-out that feels
+ * lung-like: acceleration at the start of expansion, deceleration toward peak,
+ * then the reverse on the exhale — organic, not mechanical.
+ */
+.ring-breathe {
+  will-change: transform;
+  transform-origin: center;
+  animation: kf-ring-breathe var(--logo-t-ring-breathe)
+             cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+@keyframes kf-ring-breathe {
+  0%   { transform: scale(0.97); }   /* rest — slightly contracted             */
+  20%  { transform: scale(0.99); }   /* beginning to expand                    */
+  50%  { transform: scale(1.03); }   /* PEAK — ring at maximum; SCC visible    */
+  80%  { transform: scale(1.00); }   /* contracting back through baseline      */
+  100% { transform: scale(0.97); }   /* back to resting state                  */
+}
+
+/**
+ * .scc-reveal
+ * Applied to the SCC text element.  Must share --logo-t-ring-breathe duration.
+ *
+ * The opacity curve is deliberately asymmetric:
+ *   - fast fade-in  (20 %→50 %) — text appears quickly as ring expands
+ *   - brief hold    (50 %→65 %) — visible at ring peak with slight hold
+ *   - faster fade-out (65 %→80 %) — dissolves decisively as ring contracts
+ * This makes the reveal feel "delivered" rather than symmetrically pulsed.
+ *
+ * The paired scale effect (0.95 → 1.00 → 0.97) amplifies the materialisation:
+ * text seems to grow out of the ring's expansion and recede with it.
+ */
+.scc-reveal {
+  will-change: opacity, transform;
+  transform-origin: center;
+  /* Duration MUST equal --logo-t-ring-breathe — change both together          */
+  animation: kf-scc-reveal var(--logo-t-ring-breathe)
+             cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+@keyframes kf-scc-reveal {
+  /*  0–20 %: ring is below baseline — text fully hidden                       */
+  0%   { opacity: 0;    transform: scale(0.95); }
+  20%  { opacity: 0;    transform: scale(0.95); }
+
+  /*  20–50 %: ring expands toward peak — text materialises and grows          */
+  50%  { opacity: 1.0;  transform: scale(1.00); }
+
+  /*  50–65 %: brief hold at peak visibility                                   */
+  65%  { opacity: 0.8;  transform: scale(1.00); }
+
+  /*  65–80 %: ring contracting — text dissolves and shrinks back              */
+  80%  { opacity: 0;    transform: scale(0.97); }
+
+  /* 80–100 %: ring returns to rest — text stays hidden                        */
+  100% { opacity: 0;    transform: scale(0.95); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5c  NEURAL NETWORK DATA STREAM LINES
+   Applied to SVG <line> or <path> elements that represent broadcast data lines.
+   Set stroke-dasharray inline on the SVG element to control dash pattern,
+   e.g. stroke-dasharray="2 6" gives short dashes with larger gaps.
+   The dashoffset flows from 0 to -40 so dashes appear to travel outward
+   from the centre of the logo (increasing negative offset = outward motion).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .data-stream  (extended variant — replaces the §5 stub)
+ * stroke-dasharray should be set inline on the SVG element, e.g.:
+ *   <line class="data-stream" stroke-dasharray="2 6" ... />
+ *
+ * The dashoffset travels 0 → -40 so the pattern moves outward continuously.
+ * Duration: 2 s linear — matches --logo-t-data-stream.
+ *
+ * NOTE: The §5 version uses path-length-based --stream-len for arced paths.
+ * This version is the simpler broadcast-line variant for straight radial lines.
+ * Both classes share the same name; place this block after §5 so it wins when
+ * applied to straight-line elements that do not set --stream-len.
+ */
+.data-stream {
+  will-change: stroke-dashoffset;
+  animation: kf-data-stream-broadcast var(--logo-t-data-stream) linear infinite;
+}
+
+@keyframes kf-data-stream-broadcast {
+  0%   { stroke-dashoffset: 0;   }   /* dashes start at origin                */
+  100% { stroke-dashoffset: -40; }   /* dashes march outward by 40 px / cycle */
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 5d  NEURAL NETWORK NODE EFFECTS
+   Applied to individual dot / circle elements that represent neural nodes.
+   Use animation-delay (set via inline style) to stagger siblings so nodes
+   never all flash in unison — the field should feel alive, not synchronised.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .particle-twinkle  (extended — 10-step irregular pattern, 4 s cycle)
+ * Opacity range: 0.3 – 1.0.  The step sizes are deliberately uneven so the
+ * pattern does not resolve to a perceived sinusoid.  Set animation-delay per
+ * node in the SVG template, e.g. style="animation-delay: 1.3s".
+ */
+.particle-twinkle {
+  will-change: opacity;
+  animation: kf-particle-twinkle-nodes 4s ease-in-out infinite;
+}
+
+@keyframes kf-particle-twinkle-nodes {
+  0%   { opacity: 0.65; }
+  9%   { opacity: 0.30; }   /* sudden dip                                      */
+  18%  { opacity: 0.85; }   /* quick recovery                                  */
+  27%  { opacity: 0.50; }   /* mid-low                                         */
+  38%  { opacity: 1.00; }   /* spike to full brightness                        */
+  48%  { opacity: 0.40; }   /* sharp drop                                      */
+  57%  { opacity: 0.75; }   /* partial recovery                                */
+  67%  { opacity: 0.30; }   /* second deep dip                                 */
+  78%  { opacity: 0.90; }   /* near-peak                                       */
+  89%  { opacity: 0.55; }   /* settling                                        */
+  100% { opacity: 0.65; }   /* back to base, loops smoothly                    */
+}
+
+/**
+ * .node-pulse
+ * Subtle scale pop for neural nodes, layered on top of .particle-twinkle.
+ * Scale 1.0 → 1.3 → 1.0 over 2 s.  Stagger via animation-delay on each node
+ * (same delay as .particle-twinkle on that node keeps the scale spike aligned
+ * with the brightness spike for a satisfying "spark" feel).
+ */
+.node-pulse {
+  will-change: transform;
+  transform-origin: center;
+  animation: kf-node-pulse var(--logo-t-node-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-node-pulse {
+  0%,100% { transform: scale(1.0); }
+  40%     { transform: scale(1.3); }   /* quick scale-up at pulse peak          */
+  60%     { transform: scale(1.1); }   /* slight overshoot hold before settling */
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 6  HOVER INTERACTIONS
+   --animation-speed-multiplier lets JS or parent CSS override the speed.
+   Using calc() on animation-duration is not yet broadly supported, so we
+   use animation-play-state + filter boost as the primary mechanism.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .hover-excite
+ * Apply to the logo root container. On hover, child animations that declare
+ * --logo-hover-boost will transition to that intensity.
+ *
+ * Child elements should also apply the .hover-boost-target class to
+ * participate in the glow intensification.
+ */
+.hover-excite {
+  --animation-speed-multiplier: 1;
+  transition: filter 0.25s ease-out;
+}
+
+.hover-excite:hover {
+  --animation-speed-multiplier: 0.6;   /* documentary value for JS consumers  */
+  filter: brightness(1.15) saturate(1.20)
+          drop-shadow(0 0 16px rgba(82, 193, 230, 0.55))
+          drop-shadow(0 0 40px rgba(82, 193, 230, 0.25));
+}
+
+/**
+ * .hover-boost-target
+ * Place on elements that should individually glow more on parent hover.
+ */
+.hover-excite:hover .hover-boost-target {
+  transition: filter 0.25s ease-out;
+  filter: brightness(1.25) drop-shadow(0 0 8px rgba(125, 213, 240, 0.70));
+}
+
+/**
+ * .hover-orbit-speed
+ * Place on orbit ring elements. On parent hover the animation-duration is
+ * overridden to run at 65 % of base speed (requires the element to reference
+ * the custom property in its own animation-duration via CSS variables).
+ *
+ * Each orbit class is re-declared here with a boosted duration variable.
+ */
+.hover-excite:hover .orbit-slow   { animation-duration: calc(var(--logo-t-orbit-slow)   * 0.60); }
+.hover-excite:hover .orbit-medium { animation-duration: calc(var(--logo-t-orbit-medium) * 0.60); }
+.hover-excite:hover .orbit-fast   { animation-duration: calc(var(--logo-t-orbit-fast)   * 0.60); }
+
+/**
+ * Hover speed-ups for the new animation classes.
+ *
+ * ring-breathe + scc-reveal: both must be overridden to the SAME value (2 s)
+ * to keep the ring-peak ↔ text-reveal synchronisation intact.
+ *
+ * data-stream: speeds up from 2 s → 1.2 s (broadcast urgency on hover).
+ *
+ * particle-twinkle (node variant): speeds up from 4 s → 2.5 s.
+ * node-pulse: speeds up proportionally from 2 s → 1.25 s.
+ *
+ * Glow intensification: drop-shadow radius and opacity approximately doubled
+ * via an additive filter on the specific child elements.
+ */
+.hover-excite:hover .ring-breathe {
+  animation-duration: 2s;
+  filter: drop-shadow(0 0 14px rgba(82, 193, 230, 0.80))
+          drop-shadow(0 0 36px rgba(82, 193, 230, 0.40));
+}
+
+/* scc-reveal must match ring-breathe exactly — both set to 2 s             */
+.hover-excite:hover .scc-reveal {
+  animation-duration: 2s;
+  filter: drop-shadow(0 0 8px rgba(125, 213, 240, 0.75));
+}
+
+.hover-excite:hover .data-stream {
+  animation-duration: 1.2s;
+}
+
+.hover-excite:hover .particle-twinkle {
+  animation-duration: 2.5s;
+}
+
+.hover-excite:hover .node-pulse {
+  animation-duration: 1.25s;
+  filter: drop-shadow(0 0 6px rgba(82, 193, 230, 0.80));
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   § 7  TRAY-SPECIFIC ANIMATIONS  (16 px context, minimal footprint)
+   Keep these lightweight — the tray renders at tiny sizes and must remain
+   legible and non-distracting on the system taskbar.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/**
+ * .tray-spin
+ * Steady rotation for "processing" / "thinking" state.
+ */
+.tray-spin {
+  will-change: transform;
+  animation: kf-tray-spin var(--logo-t-tray-spin) linear infinite;
+}
+
+@keyframes kf-tray-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/**
+ * .tray-pulse
+ * Gentle scale breath for idle / connected state.
+ */
+.tray-pulse {
+  will-change: transform, opacity;
+  animation: kf-tray-pulse var(--logo-t-tray-pulse) ease-in-out infinite;
+}
+
+@keyframes kf-tray-pulse {
+  0%, 100% { transform: scale(1.00); opacity: 0.80; }
+  50%       { transform: scale(1.12); opacity: 1.00; }
+}
+
+/**
+ * .tray-alert-pulse
+ * Gold flash cycling for pending notification — draws attention without
+ * the aggression of the error flash.
+ */
+.tray-alert-pulse {
+  will-change: filter, opacity;
+  animation: kf-tray-alert-pulse var(--logo-t-tray-alert) ease-in-out infinite;
+}
+
+@keyframes kf-tray-alert-pulse {
+  0%, 100% {
+    filter:  drop-shadow(0 0 2px rgba(200, 168, 75, 0.50));
+    opacity: 0.75;
+  }
+  50% {
+    filter:  drop-shadow(0 0 6px rgba(232, 201, 107, 1.00))
+             drop-shadow(0 0 14px rgba(200, 168, 75, 0.60));
+    opacity: 1.00;
+  }
+}
+
+/**
+ * .tray-error-flash
+ * Hard red blink — urgent error requiring user action.
+ * Uses step timing so the flash is abrupt and unmissable.
+ */
+.tray-error-flash {
+  will-change: filter, opacity;
+  animation: kf-tray-error-flash var(--logo-t-tray-error) steps(1, end) infinite;
+}
+
+@keyframes kf-tray-error-flash {
+  0%  {
+    filter:  drop-shadow(0 0 6px rgba(192, 57, 43, 1.00))
+             drop-shadow(0 0 16px rgba(192, 57, 43, 0.70));
+    opacity: 1.00;
+  }
+  50% {
+    filter:  none;
+    opacity: 0.40;
+  }
+  100% {
+    filter:  drop-shadow(0 0 6px rgba(192, 57, 43, 1.00))
+             drop-shadow(0 0 16px rgba(192, 57, 43, 0.70));
+    opacity: 1.00;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY — PAUSE / REDUCE-MOTION OVERRIDES
+   Respects the OS "reduce motion" accessibility preference.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .life-breathe,
+  .life-heartbeat,
+  .life-awareness,
+  .orbit-slow,
+  .orbit-medium,
+  .orbit-fast,
+  .orbit-drift,
+  .glow-pulse,
+  .glow-surge,
+  .glow-warm,
+  .glow-fade,
+  .glow-gold,
+  .glow-danger,
+  .state-wake,
+  .state-sleep,
+  .state-alert,
+  .state-error,
+  .particle-float,
+  .particle-twinkle,
+  .data-stream,
+  .ring-breathe,
+  .scc-reveal,
+  .node-pulse,
+  .tray-spin,
+  .tray-pulse,
+  .tray-alert-pulse,
+  .tray-error-flash {
+    animation: none;
+    transition: none;
+  }
+
+  /* Keep SCC text visible at rest when animations are disabled               */
+  .scc-reveal { opacity: 1; }
+}
+
+/**
+ * .logo-animations-paused
+ * Add to the root logo container to pause all child animations (e.g. when
+ * the window is hidden or the app is backgrounded).
+ */
+.logo-animations-paused *,
+.logo-animations-paused {
+  animation-play-state: paused !important;
+}
+

@@ -1,0 +1,3475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCC Design System</title>
+
+  <!-- Fonts (same as production app) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared design tokens (THE source of truth) -->
+  <link rel="stylesheet" href="../../../shared/design-system/lib/design-tokens.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/cursor-tokens.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/control-states.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/app-scrollbars.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/window-surface.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/tooltips.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/forms.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/settings-block.css">
+  <link rel="stylesheet" href="../../../shared/design-system/lib/status.css">
+
+  <style>
+    /* =====================================================
+       Design System Preview — Layout & Page Chrome
+       These styles are for the preview page itself,
+       NOT part of the design system.
+       ===================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(82,193,230,0.15) transparent;
+    }
+
+    /* Minimal scrollbar — no arrows, just a subtle bar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(82,193,230,0.15);
+      border-radius: 3px;
+      cursor: var(--scc-cursor-default, default);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(82,193,230,0.3);
+      cursor: var(--scc-cursor-pointer, pointer);
+    }
+    ::-webkit-scrollbar-button { display: none; /* no arrows */ }
+
+    body {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: #e8ebed;
+      background: #0a1e2c;
+      line-height: 1.6;
+      cursor: var(--scc-cursor-default, default);
+    }
+
+    a { color: #52c1e6; text-decoration: none; }
+    a:hover { color: #7dd5f0; }
+
+    /* --- Sidebar ----------------------------------------- */
+
+    .ds-sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #0d2635;
+      border-right: 1px solid rgba(82,193,230,0.18);
+      overflow-y: auto;
+      z-index: 100;
+      padding: 20px 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(82,193,230,0.2) transparent;
+    }
+
+    .ds-sidebar-logo {
+      padding: 0 16px 16px;
+      border-bottom: 1px solid rgba(82,193,230,0.12);
+      margin-bottom: 12px;
+    }
+
+    .ds-sidebar-logo h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #52c1e6;
+      margin: 0;
+    }
+
+    .ds-sidebar-logo p {
+      font-size: 10px;
+      color: #9fb3c8;
+      margin-top: 4px;
+    }
+
+    .ds-nav a {
+      display: block;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #9fb3c8;
+      transition: color 0.15s, background 0.15s;
+      cursor: var(--scc-cursor-pointer, pointer);
+    }
+
+    .ds-nav a:hover {
+      color: #e8ebed;
+      background: rgba(82,193,230,0.06);
+    }
+
+    .ds-nav a.is-active {
+      color: #52c1e6;
+      background: rgba(82,193,230,0.1);
+      border-left: 2px solid #52c1e6;
+    }
+
+    .ds-nav-group {
+      font-family: "Orbitron", sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(82,193,230,0.5);
+      padding: 14px 16px 4px;
+    }
+
+    /* --- Main Content ------------------------------------ */
+
+    .ds-main {
+      margin-left: 220px;
+      padding: 32px 40px 80px;
+      max-width: 1600px;
+    }
+
+    .ds-section {
+      margin-bottom: 56px;
+      scroll-margin-top: 24px;
+    }
+
+    .ds-section-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #52c1e6;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(82,193,230,0.18);
+    }
+
+    .ds-section-desc {
+      font-size: 12px;
+      color: #9fb3c8;
+      margin-bottom: 24px;
+    }
+
+    .ds-subsection {
+      margin-bottom: 32px;
+    }
+
+    .ds-subsection-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7dd5f0;
+      margin-bottom: 12px;
+    }
+
+    /* --- Swatch Grid ------------------------------------- */
+
+    .ds-swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .ds-swatch {
+      border: 1px solid rgba(82,193,230,0.18);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .ds-swatch-color {
+      height: 48px;
+      border-bottom: 1px solid rgba(82,193,230,0.12);
+    }
+
+    .ds-swatch-info {
+      padding: 8px 10px;
+      background: #0d2635;
+    }
+
+    .ds-swatch-name {
+      font-size: 10px;
+      font-weight: 600;
+      color: #e8ebed;
+      font-family: "Inter", monospace;
+    }
+
+    .ds-swatch-value {
+      font-size: 10px;
+      color: #9fb3c8;
+      margin-top: 2px;
+      font-family: monospace;
+      cursor: var(--scc-cursor-pointer, pointer);
+    }
+
+    .ds-swatch-value:hover { color: #52c1e6; }
+
+    /* --- Component Demo ---------------------------------- */
+
+    .ds-demo {
+      background: #0d2635;
+      border: 1px solid rgba(82,193,230,0.18);
+      border-radius: 4px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .ds-demo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .ds-demo-row + .ds-demo-row {
+      margin-top: 16px;
+    }
+
+    .ds-demo-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: #9fb3c8;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      min-width: 80px;
+      flex-shrink: 0;
+    }
+
+    .ds-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    /* --- Token Table ------------------------------------- */
+
+    .ds-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .ds-table th {
+      text-align: left;
+      font-family: "Orbitron", sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(82,193,230,0.6);
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(82,193,230,0.18);
+    }
+
+    .ds-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(82,193,230,0.08);
+      vertical-align: middle;
+    }
+
+    .ds-table tr:hover td {
+      background: rgba(82,193,230,0.04);
+    }
+
+    .ds-table code {
+      font-family: "Cascadia Code", "Fira Code", monospace;
+      font-size: 11px;
+      color: #7dd5f0;
+      background: rgba(82,193,230,0.08);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    /* --- Type Samples ------------------------------------ */
+
+    .ds-type-sample {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(82,193,230,0.08);
+    }
+
+    .ds-type-meta {
+      font-size: 10px;
+      color: #9fb3c8;
+      margin-top: 4px;
+      font-family: monospace;
+    }
+
+    /* --- Cursor Demo ------------------------------------- */
+
+    .ds-cursor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+
+    .ds-cursor-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 56px;
+      background: #123246;
+      border: 1px solid rgba(82,193,230,0.15);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #9fb3c8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .ds-cursor-cell:hover {
+      border-color: rgba(82,193,230,0.35);
+      box-shadow: 0 0 8px rgba(82,193,230,0.12);
+      color: #e8ebed;
+    }
+
+    /* --- Spacing Demo ------------------------------------ */
+
+    .ds-spacing-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .ds-spacing-visual {
+      height: 24px;
+      background: rgba(82,193,230,0.2);
+      border: 1px solid rgba(82,193,230,0.3);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .ds-spacing-visual:hover {
+      background: rgba(82,193,230,0.35);
+    }
+
+    .ds-spacing-label {
+      font-size: 11px;
+      color: #9fb3c8;
+      font-family: monospace;
+      min-width: 200px;
+    }
+
+    /* --- Shadow Demo ------------------------------------- */
+
+    .ds-shadow-demo {
+      width: 120px;
+      height: 80px;
+      background: #123246;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #9fb3c8;
+      text-align: center;
+    }
+
+    /* --- Animation Demo ---------------------------------- */
+
+    .ds-anim-box {
+      width: 60px;
+      height: 60px;
+      background: rgba(82,193,230,0.15);
+      border: 1px solid rgba(82,193,230,0.3);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #9fb3c8;
+      text-align: center;
+    }
+
+    .ds-anim-box.is-playing {
+      border-color: #52c1e6;
+    }
+
+    /* --- Scrollbar Demo ---------------------------------- */
+
+    .ds-scroll-box {
+      height: 120px;
+      overflow-y: auto;
+      background: #0d2635;
+      border: 1px solid rgba(82,193,230,0.15);
+      border-radius: 4px;
+      padding: 12px;
+      font-size: 11px;
+      color: #9fb3c8;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(82,193,230,0.15) transparent;
+    }
+
+    /* --- Icon Grid ---------------------------------------- */
+
+    .ds-icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 12px;
+    }
+
+    .ds-icon-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 8px;
+      background: #0d2635;
+      border: 1px solid rgba(82,193,230,0.12);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .ds-icon-cell img {
+      max-width: 48px;
+      max-height: 48px;
+      image-rendering: auto;
+    }
+
+    .ds-icon-cell span {
+      font-size: 9px;
+      color: #9fb3c8;
+      word-break: break-all;
+    }
+
+    /* --- Demo Button base (sizing only, states from control-states.css) --- */
+    .ds-btn {
+      padding: 8px 20px;
+      background: transparent;
+      border: 1px solid var(--border-default, rgba(82,193,230,0.35));
+      color: var(--text-primary, #e8ebed);
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      border-radius: var(--radius-md, 4px);
+    }
+    .ds-btn-icon {
+      padding: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary, #9fb3c8);
+      font-size: 16px;
+      border-radius: var(--radius-md, 4px);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ds-btn-link {
+      padding: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      outline: none;
+      color: var(--accent-primary, #52c1e6);
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease, transform 0.1s ease;
+    }
+    .ds-btn-link:hover {
+      color: var(--accent-strong, #7dd5f0);
+      text-shadow: 0 0 6px rgba(82,193,230,0.5), 0 0 14px rgba(82,193,230,0.2);
+      background: none;
+      box-shadow: none;
+    }
+    .ds-btn-link:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+    .ds-btn-danger {
+      border-color: rgba(192,57,43,0.4);
+      --ctrl-hover-shadow: 0 0 14px rgba(192,57,43,0.36);
+    }
+
+    /* --- Copied Toast ------------------------------------ */
+
+    .ds-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #123246;
+      border: 1px solid rgba(82,193,230,0.3);
+      color: #52c1e6;
+      padding: 8px 16px;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    .ds-toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Custom SCC Dropdown -------------------------------- */
+
+    .scc-dropdown {
+      position: relative;
+      width: 100%;
+    }
+
+    .scc-dropdown-trigger {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      color: var(--text-primary, #e8ebed);
+      text-align: left;
+      font-family: var(--font-body-text, "Inter", sans-serif);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.015em;
+      line-height: 1.4;
+      cursor: var(--scc-cursor-pointer, pointer);
+      background: linear-gradient(145deg, rgba(15, 36, 52, 0.96), rgba(8, 19, 30, 0.98));
+      border: 1px solid rgba(82, 193, 230, 0.32);
+      border-radius: 4px;
+      box-shadow:
+        inset 0 1px 0 rgba(178, 232, 255, 0.08),
+        0 0 14px rgba(82, 193, 230, 0.06);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .scc-dropdown-trigger:hover:not(:disabled):not(.is-static) {
+      border-color: rgba(82, 193, 230, 0.55);
+      box-shadow:
+        inset 0 1px 0 rgba(178, 232, 255, 0.1),
+        0 0 20px rgba(82, 193, 230, 0.12);
+    }
+
+    .scc-dropdown.is-open .scc-dropdown-trigger {
+      border-color: rgba(125, 213, 240, 0.72);
+      box-shadow:
+        inset 0 1px 0 rgba(190, 236, 255, 0.12),
+        0 0 0 1px rgba(125, 213, 240, 0.1),
+        0 0 24px rgba(82, 193, 230, 0.18);
+    }
+
+    .scc-dropdown-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .scc-dropdown-hint {
+      color: var(--text-secondary, #9fb3c8);
+      opacity: 0.65;
+      font-style: italic;
+    }
+
+    .scc-dropdown-meta {
+      color: var(--text-secondary, #9fb3c8);
+      opacity: 0.7;
+      font-size: 11px;
+      margin-left: 2px;
+    }
+
+    .scc-dropdown-icon {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      font-size: 13px;
+      color: rgba(125, 213, 240, 0.85);
+    }
+
+    .scc-dropdown-caret {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .scc-dropdown-caret::after {
+      content: "";
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-right: 1.5px solid rgba(125, 213, 240, 0.8);
+      border-bottom: 1.5px solid rgba(125, 213, 240, 0.8);
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform 0.2s ease;
+    }
+
+    .scc-dropdown.is-open .scc-dropdown-caret::after {
+      transform: rotate(-135deg) translateY(-2px);
+    }
+
+    /* --- Menu (open state) --- */
+
+    .scc-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: min(280px, 45vh);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(82, 193, 230, 0.28);
+      background: linear-gradient(150deg, rgba(10, 24, 36, 0.99), rgba(14, 34, 48, 0.97));
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(82, 193, 230, 0.08),
+        inset 0 1px 0 rgba(185, 231, 255, 0.06);
+      z-index: 50;
+      display: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(82,193,230,0.15) transparent;
+    }
+
+    .scc-dropdown.is-open .scc-dropdown-menu {
+      display: block;
+      animation: scc-dropdown-reveal 0.15s ease-out;
+    }
+
+    @keyframes scc-dropdown-reveal {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Menu Items --- */
+
+    .scc-dropdown-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border: none;
+      border-radius: 3px;
+      background: transparent;
+      color: var(--text-primary, #e8ebed);
+      font-family: var(--font-body-text, "Inter", sans-serif);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      text-align: left;
+      cursor: var(--scc-cursor-pointer, pointer);
+      transition: background 0.12s ease, color 0.12s ease;
+      position: relative;
+    }
+
+    .scc-dropdown-item + .scc-dropdown-item {
+      margin-top: 2px;
+    }
+
+    .scc-dropdown-item:hover,
+    .scc-dropdown-item:focus-visible {
+      background: rgba(82, 193, 230, 0.12);
+      color: rgba(227, 246, 255, 0.98);
+      outline: none;
+    }
+
+    .scc-dropdown-item.is-selected {
+      font-weight: 600;
+      color: var(--accent-strong, #7dd5f0);
+      background: rgba(82, 193, 230, 0.08);
+    }
+
+    .scc-dropdown-item.is-selected::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      border-radius: 1px;
+      background: var(--accent-primary, #52c1e6);
+      box-shadow: 0 0 8px rgba(82, 193, 230, 0.4);
+    }
+
+    .scc-dropdown-item .scc-dropdown-meta {
+      font-weight: 400;
+    }
+
+    .scc-dropdown-item .scc-dropdown-icon {
+      font-size: 14px;
+    }
+
+    /* --- Single-entry (non-interactive) --- */
+
+    .scc-dropdown.is-single .scc-dropdown-trigger,
+    .scc-dropdown-trigger.is-static {
+      cursor: var(--scc-cursor-default, default);
+      border-style: solid;
+      border-color: rgba(82, 193, 230, 0.18);
+      background: linear-gradient(145deg, rgba(13, 29, 42, 0.92), rgba(8, 19, 30, 0.96));
+      box-shadow: inset 0 1px 0 rgba(178, 232, 255, 0.05);
+    }
+
+    .scc-dropdown.is-single .scc-dropdown-trigger:hover,
+    .scc-dropdown-trigger.is-static:hover {
+      border-color: rgba(82, 193, 230, 0.18);
+      box-shadow: inset 0 1px 0 rgba(178, 232, 255, 0.05);
+    }
+
+    /* --- Disabled --- */
+
+    .scc-dropdown.is-disabled .scc-dropdown-trigger {
+      opacity: 0.5;
+      cursor: var(--scc-cursor-default, default);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Sidebar Navigation ===== -->
+  <nav class="ds-sidebar">
+    <div class="ds-sidebar-logo">
+      <h1>SCC</h1>
+      <p>Design System</p>
+    </div>
+
+    <div class="ds-nav-group">Foundations</div>
+    <div class="ds-nav">
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#borders">Borders & Radius</a>
+      <a href="#shadows">Shadows & Elevation</a>
+      <a href="#cursors">Cursors</a>
+    </div>
+
+    <div class="ds-nav-group">Components</div>
+    <div class="ds-nav">
+      <a href="#buttons">Buttons</a>
+      <a href="#forms">Form Controls</a>
+      <a href="#hotkeys">Hotkeys</a>
+      <a href="#cards">Cards & Panels</a>
+      <a href="#tooltips">Tooltips</a>
+      <a href="#status">Status Indicators</a>
+      <a href="#badges">Badges & Tags</a>
+      <a href="#scrollbars">Scrollbars</a>
+    </div>
+
+    <div class="ds-nav-group">Layout</div>
+    <div class="ds-nav">
+      <a href="#settings-block">Settings Block</a>
+    </div>
+
+    <div class="ds-nav-group">Patterns</div>
+    <div class="ds-nav">
+      <a href="#progress">Progress & Loading</a>
+      <a href="#backgrounds">Backgrounds & FX</a>
+      <a href="#animations">Animations</a>
+      <a href="#icons">Icons & Brand</a>
+    </div>
+  </nav>
+
+  <!-- ===== Main Content ===== -->
+  <main class="ds-main">
+
+    <!-- ==================== COLORS ==================== -->
+    <section id="colors" class="ds-section">
+      <h2 class="ds-section-title">Color System</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/design-tokens.css</code></p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Surfaces</h3>
+        <div class="ds-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0d2635"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--surface-canvas</div>
+              <div class="ds-swatch-value" onclick="copyText('#0d2635')">#0d2635</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#103246"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--surface-canvas-alt</div>
+              <div class="ds-swatch-value" onclick="copyText('#103246')">#103246</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#123246"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--surface-panel</div>
+              <div class="ds-swatch-value" onclick="copyText('#123246')">#123246</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#164664"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--surface-panel-strong</div>
+              <div class="ds-swatch-value" onclick="copyText('#164664')">#164664</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:rgba(8,20,28,0.95)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--surface-overlay</div>
+              <div class="ds-swatch-value" onclick="copyText('rgba(8,20,28,0.95)')">rgba(8,20,28,0.95)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Text</h3>
+        <div class="ds-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#e8ebed"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--text-primary</div>
+              <div class="ds-swatch-value" onclick="copyText('#e8ebed')">#e8ebed</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#9fb3c8"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--text-secondary</div>
+              <div class="ds-swatch-value" onclick="copyText('#9fb3c8')">#9fb3c8</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0d2635; border: 1px solid rgba(82,193,230,0.3)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--text-inverse</div>
+              <div class="ds-swatch-value" onclick="copyText('#0d2635')">#0d2635</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Accents</h3>
+        <div class="ds-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#52c1e6"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-primary</div>
+              <div class="ds-swatch-value" onclick="copyText('#52c1e6')">#52c1e6 · Cyan</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#7dd5f0"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-strong</div>
+              <div class="ds-swatch-value" onclick="copyText('#7dd5f0')">#7dd5f0 · Bright Cyan</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#c8a84b"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-gold</div>
+              <div class="ds-swatch-value" onclick="copyText('#c8a84b')">#c8a84b · Gold</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#e8c96b"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-gold-strong</div>
+              <div class="ds-swatch-value" onclick="copyText('#e8c96b')">#e8c96b · Bright Gold</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#5fd698"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-success</div>
+              <div class="ds-swatch-value" onclick="copyText('#5fd698')">#5fd698 · Success</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#f0c27b"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-warning</div>
+              <div class="ds-swatch-value" onclick="copyText('#f0c27b')">#f0c27b · Warning</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#c0392b"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--accent-danger</div>
+              <div class="ds-swatch-value" onclick="copyText('#c0392b')">#c0392b · Danger</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Category Colors</h3>
+        <p style="font-size:12px; color:#9fb3c8; margin-bottom:12px">Used in Settings (Cloud Compass) + Setup Wizard. Must not overlap with status or theme base colors.</p>
+        <div class="ds-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#c07888; box-shadow: 0 0 12px rgba(192,120,136,0.3)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--cat-game</div>
+              <div class="ds-swatch-value" onclick="copyText('#c07888')">#c07888 · Dusty Rose</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#9b8cc8; box-shadow: 0 0 12px rgba(155,140,200,0.3)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--cat-ai</div>
+              <div class="ds-swatch-value" onclick="copyText('#9b8cc8')">#9b8cc8 · Lavender</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#4a9e96; box-shadow: 0 0 12px rgba(74,158,150,0.3)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--cat-app</div>
+              <div class="ds-swatch-value" onclick="copyText('#4a9e96')">#4a9e96 · Deep Teal</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#c4856c; box-shadow: 0 0 12px rgba(196,133,108,0.3)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--cat-overlay</div>
+              <div class="ds-swatch-value" onclick="copyText('#c4856c')">#c4856c · Copper</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Borders</h3>
+        <div class="ds-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0d2635; border-bottom: 3px solid rgba(82,193,230,0.18)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--border-subtle</div>
+              <div class="ds-swatch-value" onclick="copyText('rgba(82,193,230,0.18)')">rgba(82,193,230,0.18)</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0d2635; border-bottom: 3px solid rgba(82,193,230,0.3)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--border-default</div>
+              <div class="ds-swatch-value" onclick="copyText('rgba(82,193,230,0.3)')">rgba(82,193,230,0.3)</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0d2635; border-bottom: 3px solid rgba(82,193,230,0.45)"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">--border-strong</div>
+              <div class="ds-swatch-value" onclick="copyText('rgba(82,193,230,0.45)')">rgba(82,193,230,0.45)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TYPOGRAPHY ==================== -->
+    <section id="typography" class="ds-section">
+      <h2 class="ds-section-title">Typography</h2>
+      <p class="ds-section-desc">3-family system: Inter (60%), Orbitron (30%), Caveat (10%)</p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Inter — Body & Labels</h3>
+        <div class="ds-demo">
+          <div class="ds-type-sample">
+            <div style="font-family:Inter; font-size:16px; font-weight:400">Body text at 16px — The quick brown fox jumps over the lazy dog</div>
+            <div class="ds-type-meta">Inter 400 · 16px · 0.015em</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Inter; font-size:13px; font-weight:400">Standard body text at 13px — Primary UI text size for descriptions and content</div>
+            <div class="ds-type-meta">Inter 400 · 13px · 0.015em</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Inter; font-size:12px; font-weight:500">Form label at 12px medium weight</div>
+            <div class="ds-type-meta">Inter 500 · 12px · 0.02em</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Inter; font-size:11px; font-weight:400; color:#9fb3c8">Caption / muted text at 11px</div>
+            <div class="ds-type-meta">Inter 400 · 11px · 0.02em · --text-secondary</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Inter; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#9fb3c8">UPPERCASE LABEL</div>
+            <div class="ds-type-meta">Inter 600 · 10px · 0.1em · uppercase</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Orbitron — Headings & Navigation</h3>
+        <div class="ds-demo">
+          <div class="ds-type-sample">
+            <div style="font-family:Orbitron; font-size:20px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#52c1e6">PAGE TITLE</div>
+            <div class="ds-type-meta">Orbitron 600 · 20px · 0.08em · uppercase · --accent-primary</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Orbitron; font-size:14px; font-weight:500; letter-spacing:0.12em">Titlebar Text</div>
+            <div class="ds-type-meta">Orbitron 500 · 14px · 0.12em</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Orbitron; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7dd5f0">SECTION HEADING</div>
+            <div class="ds-type-meta">Orbitron 500 · 11px · 0.1em · uppercase · --accent-strong</div>
+          </div>
+          <div class="ds-type-sample">
+            <div style="font-family:Orbitron; font-size:8px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#9fb3c8">NAV ZONE LABEL</div>
+            <div class="ds-type-meta">Orbitron 600 · 8px · 0.14em · uppercase · --text-secondary</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Caveat — Attribution Only</h3>
+        <div class="ds-demo">
+          <div class="ds-type-sample">
+            <div style="font-family:Caveat; font-size:14px; font-weight:400; color:#f0c27b">Community Made By Jerry0022</div>
+            <div class="ds-type-meta">Caveat 400 · 14px · --accent-warning · Attribution text ONLY</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SPACING ==================== -->
+    <section id="spacing" class="ds-section">
+      <h2 class="ds-section-title">Spacing</h2>
+      <p class="ds-section-desc">Responsive clamp-based scale. Source: <code>modules/desktop/shared/styles/desktop-theme.css</code></p>
+
+      <div class="ds-demo">
+        <div class="ds-spacing-bar">
+          <div class="ds-spacing-visual" style="width:8px"></div>
+          <div class="ds-spacing-label"><code>--space-xs</code> · clamp(8px, 0.55vw, 10px)</div>
+        </div>
+        <div class="ds-spacing-bar">
+          <div class="ds-spacing-visual" style="width:10px"></div>
+          <div class="ds-spacing-label"><code>--space-sm</code> · clamp(10px, 0.75vw, 14px)</div>
+        </div>
+        <div class="ds-spacing-bar">
+          <div class="ds-spacing-visual" style="width:14px"></div>
+          <div class="ds-spacing-label"><code>--space-md</code> · clamp(14px, 1vw, 18px)</div>
+        </div>
+        <div class="ds-spacing-bar">
+          <div class="ds-spacing-visual" style="width:18px"></div>
+          <div class="ds-spacing-label"><code>--space-lg</code> · clamp(18px, 1.4vw, 24px)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BORDERS & RADIUS ==================== -->
+    <section id="borders" class="ds-section">
+      <h2 class="ds-section-title">Borders & Radius</h2>
+      <p class="ds-section-desc">RSI principle: sharp edges only. Maximum radius is 4px.</p>
+
+      <div class="ds-demo">
+        <div class="ds-demo-row">
+          <div class="ds-demo-label">2px</div>
+          <div style="width:80px; height:48px; background:#123246; border:1px solid rgba(82,193,230,0.3); border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9fb3c8">--radius-sm</div>
+          <div class="ds-demo-label">4px (max)</div>
+          <div style="width:80px; height:48px; background:#123246; border:1px solid rgba(82,193,230,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9fb3c8">--radius-md</div>
+          <div class="ds-demo-label" style="color:#c0392b">BANNED</div>
+          <div style="width:80px; height:48px; background:#123246; border:1px dashed rgba(192,57,43,0.5); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#c0392b; opacity:0.5">16px</div>
+          <div style="width:48px; height:48px; background:#123246; border:1px dashed rgba(192,57,43,0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; color:#c0392b; opacity:0.5">pill</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SHADOWS ==================== -->
+    <section id="shadows" class="ds-section">
+      <h2 class="ds-section-title">Shadows & Elevation</h2>
+      <p class="ds-section-desc">Elevation via border glows only. No traditional drop shadows.</p>
+
+      <div class="ds-demo">
+        <div class="ds-demo-row">
+          <div class="ds-shadow-demo" style="box-shadow: 0 0 0 1px rgba(82,193,230,0.2)">
+            --shadow-soft<br><span style="font-size:8px; opacity:0.6">Resting</span>
+          </div>
+          <div class="ds-shadow-demo" style="box-shadow: 0 0 0 1px rgba(82,193,230,0.15), 0 0 12px rgba(82,193,230,0.12)">
+            --shadow-elevated<br><span style="font-size:8px; opacity:0.6">Hover</span>
+          </div>
+          <div class="ds-shadow-demo" style="box-shadow: 0 0 16px rgba(82,193,230,0.25)">
+            --shadow-glow<br><span style="font-size:8px; opacity:0.6">Focus</span>
+          </div>
+          <div class="ds-shadow-demo" style="box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px dashed rgba(192,57,43,0.5); opacity:0.4">
+            BANNED<br><span style="font-size:8px">drop shadow</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CURSORS ==================== -->
+    <section id="cursors" class="ds-section">
+      <h2 class="ds-section-title">Cursors</h2>
+      <p class="ds-section-desc">Custom Sentinel Arrow system. Hover each cell to see the cursor. Source: <code>modules/shared/design-system/lib/cursor-tokens.css</code></p>
+
+      <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">Default = dark RSI-blue (resting). Pointer = bright cyan (hover). Active = cyan + gold dot at tip (click). Gold = full gold arrow (drag). Text = cyan I-beam.</p>
+      <div class="ds-cursor-grid">
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-default)">Default</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-pointer)">Pointer</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-active)">Active (click)</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-gold)">Gold (drag)</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-text)">Text</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-wait)">Wait</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-progress)">Progress</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-not-allowed)">Not Allowed</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-no-drop)">No Drop</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-grab)">Grab</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-grabbing)">Grabbing</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-copy)">Copy</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-alias)">Alias</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-move)">Move</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-all-scroll)">All Scroll</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-col-resize)">Col Resize</div>
+        <div class="ds-cursor-cell" style="cursor: var(--scc-cursor-row-resize)">Row Resize</div>
+      </div>
+    </section>
+
+    <!-- ==================== BUTTONS ==================== -->
+    <section id="buttons" class="ds-section">
+      <h2 class="ds-section-title">Buttons</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/control-states.css</code></p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Variants (interactive — hover, click, tab to test states)</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Primary</div>
+            <button class="ui-control-primary ds-btn">Primary Action</button>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Secondary</div>
+            <button class="ui-control-secondary ds-btn">Secondary</button>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Icon</div>
+            <button class="ui-control-icon ds-btn-icon">&times;</button>
+            <button class="ui-control-icon ds-btn-icon">&#9881;</button>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Link</div>
+            <button class="ui-control-link ds-btn-link">Link Action</button>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Danger</div>
+            <button class="ui-control-primary ds-btn ds-btn-danger">Delete</button>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Disabled</div>
+            <button class="ui-control-primary ds-btn" disabled>Disabled</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FORM CONTROLS ==================== -->
+    <section id="forms" class="ds-section">
+      <h2 class="ds-section-title">Form Controls</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/forms.css</code> + <code>control-states.css</code></p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Text Input</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Default</label>
+              <input class="scc-input" type="text" placeholder="Enter text...">
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">With Value</label>
+              <input class="scc-input" type="text" value="Star Citizen Companion">
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Error</label>
+              <input class="scc-input scc-input--error" type="text" value="Invalid path">
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Disabled</label>
+              <input class="scc-input" type="text" value="Locked" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Input with Submit Hint</h3>
+        <p class="ds-section-desc">Wrap <code>&lt;input&gt;</code> in <code>.scc-input-wrapper</code>, add <code>.scc-input-hint</code> after it. Hint appears on focus only.</p>
+        <div class="ds-demo">
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Default (Enter)</label>
+              <div class="scc-input-wrapper">
+                <input class="scc-input" type="text" placeholder="Click to see hint...">
+                <span class="scc-input-hint" aria-hidden="true">↵</span>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Custom Hotkey (Esc)</label>
+              <div class="scc-input-wrapper">
+                <input class="scc-input" type="text" placeholder="Focus me...">
+                <span class="scc-input-hint" aria-hidden="true">⎋</span>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">With Value</label>
+              <div class="scc-input-wrapper">
+                <input class="scc-input" type="text" value="Admiral Stanton">
+                <span class="scc-input-hint" aria-hidden="true">↵</span>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Error State</label>
+              <div class="scc-input-wrapper">
+                <input class="scc-input scc-input--error" type="text" value="Invalid">
+                <span class="scc-input-hint" aria-hidden="true">↵</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Select / Dropdown</h3>
+        <p style="font-size:11px;color:var(--text-secondary);margin-bottom:16px;">Custom space-themed dropdowns. Click to open. Selected item shown in bold inside the menu.</p>
+
+        <!-- Standard multi-option dropdown -->
+        <div class="ds-demo">
+          <div class="ds-demo-label" style="margin-bottom:10px;">Standard (multi-option)</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Language</label>
+              <div class="scc-dropdown" data-value="en">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-value">English</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item is-selected" data-val="en" type="button">English</button>
+                  <button class="scc-dropdown-item" data-val="de" type="button">Deutsch</button>
+                  <button class="scc-dropdown-item" data-val="fr" type="button">Fran&ccedil;ais</button>
+                </div>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">AI Provider</label>
+              <div class="scc-dropdown" data-value="claude">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-value">Anthropic (Claude)</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="none" type="button">None</button>
+                  <button class="scc-dropdown-item is-selected" data-val="claude" type="button">Anthropic (Claude)</button>
+                  <button class="scc-dropdown-item" data-val="openai" type="button">OpenAI</button>
+                  <button class="scc-dropdown-item" data-val="google" type="button">Google</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Placeholder / hint text (nothing selected) -->
+        <div class="ds-demo" style="margin-top:16px;">
+          <div class="ds-demo-label" style="margin-bottom:10px;">Placeholder (nothing selected)</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Game Version</label>
+              <div class="scc-dropdown is-placeholder" data-value="">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-value scc-dropdown-hint">Select version&hellip;</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="live" type="button">LIVE 4.0.2</button>
+                  <button class="scc-dropdown-item" data-val="ptu" type="button">PTU 4.1.0</button>
+                  <button class="scc-dropdown-item" data-val="eptu" type="button">EPTU 4.1.1</button>
+                </div>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Audio Output</label>
+              <div class="scc-dropdown is-placeholder" data-value="">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-value scc-dropdown-hint">Choose device&hellip;</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="speakers" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/></svg></span> System Speakers</button>
+                  <button class="scc-dropdown-item" data-val="headset" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M21 19a3 3 0 0 1-3 3h-4"/></svg></span> Gaming Headset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single-entry (display only, no expand) -->
+        <div class="ds-demo" style="margin-top:16px;">
+          <div class="ds-demo-label" style="margin-bottom:10px;">Single Entry (display only &mdash; not expandable)</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Active Profile</label>
+              <div class="scc-dropdown is-single">
+                <div class="scc-dropdown-trigger is-static">
+                  <span class="scc-dropdown-value">Default</span>
+                </div>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Detected Game</label>
+              <div class="scc-dropdown is-single">
+                <div class="scc-dropdown-trigger is-static">
+                  <span class="scc-dropdown-icon" style="font-size:14px;">&#127918;</span>
+                  <span class="scc-dropdown-value">Star Citizen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- With additional info in parentheses -->
+        <div class="ds-demo" style="margin-top:16px;">
+          <div class="ds-demo-label" style="margin-bottom:10px;">With Additional Info</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Voice Model</label>
+              <div class="scc-dropdown" data-value="whisper-large">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-value">Whisper Large <span class="scc-dropdown-meta">(1.5 GB, best quality)</span></span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="whisper-tiny" type="button">Whisper Tiny <span class="scc-dropdown-meta">(75 MB, fastest)</span></button>
+                  <button class="scc-dropdown-item" data-val="whisper-base" type="button">Whisper Base <span class="scc-dropdown-meta">(140 MB, balanced)</span></button>
+                  <button class="scc-dropdown-item is-selected" data-val="whisper-large" type="button">Whisper Large <span class="scc-dropdown-meta">(1.5 GB, best quality)</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Resolution</label>
+              <div class="scc-dropdown" data-value="1440p">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-value">2560 &times; 1440 <span class="scc-dropdown-meta">(recommended)</span></span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="1080p" type="button">1920 &times; 1080 <span class="scc-dropdown-meta">(Full HD)</span></button>
+                  <button class="scc-dropdown-item is-selected" data-val="1440p" type="button">2560 &times; 1440 <span class="scc-dropdown-meta">(recommended)</span></button>
+                  <button class="scc-dropdown-item" data-val="4k" type="button">3840 &times; 2160 <span class="scc-dropdown-meta">(4K UHD)</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- With leading icons per entry — SCC-style inline SVG -->
+        <div class="ds-demo" style="margin-top:16px;">
+          <div class="ds-demo-label" style="margin-bottom:10px;">With Icons &mdash; SCC-style SVG (audio capture &amp; playback)</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Audio Output (Playback)</label>
+              <div class="scc-dropdown" data-value="headset">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M21 19a3 3 0 0 1-3 3h-4"/></svg></span>
+                  <span class="scc-dropdown-value">HyperX Cloud II</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="default" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 14.5,9 21,9.5 16,13.5 17.5,20 12,16.5 6.5,20 8,13.5 3,9.5 9.5,9" fill="currentColor" fill-opacity="0.25"/></svg></span> System Default</button>
+                  <button class="scc-dropdown-item" data-val="speakers" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/></svg></span> Realtek Speakers</button>
+                  <button class="scc-dropdown-item is-selected" data-val="headset" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M21 19a3 3 0 0 1-3 3h-4"/></svg></span> HyperX Cloud II</button>
+                  <button class="scc-dropdown-item" data-val="monitor" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg></span> ASUS VG27AQ (HDMI)</button>
+                  <button class="scc-dropdown-item" data-val="digital" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M8.5 15.5a5 5 0 0 1 0-7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M6 18a9 9 0 0 1 0-12"/><path d="M18 6a9 9 0 0 1 0 12"/></svg></span> S/PDIF Digital Out</button>
+                  <button class="scc-dropdown-item" data-val="chat" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3H6a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3z"/><line x1="8" y1="12.5" x2="10" y2="12.5"/><line x1="9" y1="11.5" x2="9" y2="13.5"/><circle cx="14.5" cy="12" r="0.8" fill="currentColor" stroke="none"/><circle cx="16.5" cy="12" r="0.8" fill="currentColor" stroke="none"/></svg></span> Astro A50 Game/Chat</button>
+                </div>
+              </div>
+            </div>
+            <div class="scc-form-group">
+              <label class="scc-label">Audio Input (Capture)</label>
+              <div class="scc-dropdown" data-value="studio">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><line x1="12" y1="9" x2="12" y2="9.01" stroke-width="2"/><path d="M12 14v4"/><path d="M8 18h8"/><path d="M6 4l3 3M18 4l-3 3"/></svg></span>
+                  <span class="scc-dropdown-value">Shure MV7 (USB)</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="default" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 14.5,9 21,9.5 16,13.5 17.5,20 12,16.5 6.5,20 8,13.5 3,9.5 9.5,9" fill="currentColor" fill-opacity="0.25"/></svg></span> System Default</button>
+                  <button class="scc-dropdown-item" data-val="mic" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="9" y1="22" x2="15" y2="22"/></svg></span> Headset Microphone</button>
+                  <button class="scc-dropdown-item is-selected" data-val="studio" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><line x1="12" y1="9" x2="12" y2="9.01" stroke-width="2"/><path d="M12 14v4"/><path d="M8 18h8"/><path d="M6 4l3 3M18 4l-3 3"/></svg></span> Shure MV7 (USB)</button>
+                  <button class="scc-dropdown-item" data-val="line" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v7a2 2 0 0 0 4 0V3"/><rect x="9" y="10" width="6" height="4" rx="1"/><path d="M12 14v5"/><circle cx="12" cy="20" r="1.5"/></svg></span> Line-In (Rear)</button>
+                  <button class="scc-dropdown-item" data-val="mix" type="button"><span class="scc-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="4" x2="6" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="18" y1="4" x2="18" y2="20"/><rect x="4" y="8" width="4" height="3" rx="0.5" fill="currentColor" stroke="none"/><rect x="10" y="13" width="4" height="3" rx="0.5" fill="currentColor" stroke="none"/><rect x="16" y="6" width="4" height="3" rx="0.5" fill="currentColor" stroke="none"/></svg></span> Stereo Mix</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input-device icons (non-audio, game controllers) -->
+        <div class="ds-demo" style="margin-top:16px;">
+          <div class="ds-demo-label" style="margin-bottom:10px;">With Icons &mdash; Game Input Devices</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Input Device</label>
+              <div class="scc-dropdown" data-value="joystick">
+                <button class="scc-dropdown-trigger" type="button">
+                  <span class="scc-dropdown-icon">&#127918;</span>
+                  <span class="scc-dropdown-value">VKB Gladiator NXT</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+                <div class="scc-dropdown-menu">
+                  <button class="scc-dropdown-item" data-val="keyboard" type="button"><span class="scc-dropdown-icon">&#9000;</span> Keyboard &amp; Mouse</button>
+                  <button class="scc-dropdown-item is-selected" data-val="joystick" type="button"><span class="scc-dropdown-icon">&#127918;</span> VKB Gladiator NXT</button>
+                  <button class="scc-dropdown-item" data-val="hotas" type="button"><span class="scc-dropdown-icon">&#128377;</span> Thrustmaster HOTAS</button>
+                  <button class="scc-dropdown-item" data-val="gamepad" type="button"><span class="scc-dropdown-icon">&#127919;</span> Xbox Controller</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disabled state -->
+        <div class="ds-demo" style="margin-top:16px;">
+          <div class="ds-demo-label" style="margin-bottom:10px;">Disabled</div>
+          <div class="ds-demo-grid">
+            <div class="scc-form-group">
+              <label class="scc-label">Locked Setting</label>
+              <div class="scc-dropdown is-disabled">
+                <button class="scc-dropdown-trigger" type="button" disabled>
+                  <span class="scc-dropdown-value">Premium Only</span>
+                  <span class="scc-dropdown-caret"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Checkbox</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-row">
+            <label class="scc-checkbox"><input type="checkbox"> Unchecked option</label>
+            <label class="scc-checkbox"><input type="checkbox" checked> Checked option</label>
+            <label class="scc-checkbox"><input type="checkbox" disabled> Disabled</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Toggle Switch</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-row">
+            <label class="scc-toggle"><input type="checkbox"> AI Disabled</label>
+            <label class="scc-toggle"><input type="checkbox" checked> AI Enabled</label>
+            <label class="scc-toggle"><input type="checkbox" disabled> Locked</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- Slider / Range --- -->
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Slider / Range</h3>
+        <p class="ds-note">Custom range input. Use <code>.scc-slider</code> on <code>&lt;input type="range"&gt;</code>. Wrap with <code>.scc-slider-wrap</code> + <code>.scc-slider-value</code> for value readout.</p>
+        <div class="ds-demo">
+          <div style="display:flex;flex-direction:column;gap:16px;max-width:320px">
+            <div>
+              <span class="ds-label" style="margin-bottom:6px;display:block">Default</span>
+              <div class="scc-slider-wrap">
+                <input type="range" class="scc-slider" min="0" max="100" value="60">
+                <span class="scc-slider-value">60%</span>
+              </div>
+            </div>
+            <div>
+              <span class="ds-label" style="margin-bottom:6px;display:block">Min value</span>
+              <div class="scc-slider-wrap">
+                <input type="range" class="scc-slider" min="0" max="100" value="0">
+                <span class="scc-slider-value">0%</span>
+              </div>
+            </div>
+            <div>
+              <span class="ds-label" style="margin-bottom:6px;display:block">Max value</span>
+              <div class="scc-slider-wrap">
+                <input type="range" class="scc-slider" min="0" max="100" value="100">
+                <span class="scc-slider-value">100%</span>
+              </div>
+            </div>
+            <div>
+              <span class="ds-label" style="margin-bottom:6px;display:block">Disabled</span>
+              <div class="scc-slider-wrap">
+                <input type="range" class="scc-slider" min="0" max="100" value="45" disabled>
+                <span class="scc-slider-value">45%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HOTKEYS ==================== -->
+    <section id="hotkeys" class="ds-section">
+      <h2 class="ds-section-title">Hotkeys</h2>
+      <p class="ds-section-desc">Keyboard &amp; mouse key badges. Source: <code>modules/shared/design-system/lib/forms.css</code></p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Keyboard Keys</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-row" style="flex-wrap: wrap;">
+            <span class="scc-hotkey">A</span>
+            <span class="scc-hotkey">S</span>
+            <span class="scc-hotkey">D</span>
+            <span class="scc-hotkey">W</span>
+            <span class="scc-hotkey">F1</span>
+            <span class="scc-hotkey">F12</span>
+            <span class="scc-hotkey">Ctrl</span>
+            <span class="scc-hotkey">Alt</span>
+            <span class="scc-hotkey">Space</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Symbol Keys</h3>
+        <p class="ds-section-desc">Non-alphanumeric keys use symbols instead of text. Add <code>.scc-hotkey--symbol</code> for proper sizing.</p>
+        <div class="ds-demo">
+          <div class="ds-demo-row" style="flex-wrap: wrap; gap: 8px;">
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">↵</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Enter</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">⇧</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Shift</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">⌫</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Backspace</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">⌦</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Delete</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">⇥</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Tab</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">⎋</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Escape</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">␣</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Space</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">←</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Left</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">↑</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Up</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">→</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Right</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--symbol">↓</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Down</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Key Combinations</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-row" style="flex-wrap: wrap; gap: 16px;">
+            <span class="scc-hotkey-combo">
+              <span class="scc-hotkey">Alt</span>
+              <span class="scc-hotkey-sep">+</span>
+              <span class="scc-hotkey">O</span>
+            </span>
+            <span class="scc-hotkey-combo">
+              <span class="scc-hotkey">Alt</span>
+              <span class="scc-hotkey-sep">+</span>
+              <span class="scc-hotkey">S</span>
+            </span>
+            <span class="scc-hotkey-combo">
+              <span class="scc-hotkey">Ctrl</span>
+              <span class="scc-hotkey-sep">+</span>
+              <span class="scc-hotkey scc-hotkey--symbol">⇧</span>
+              <span class="scc-hotkey-sep">+</span>
+              <span class="scc-hotkey">P</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Mouse Buttons</h3>
+        <div class="ds-demo">
+          <div class="ds-demo-row" style="flex-wrap: wrap; gap: 8px;">
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--mouse">LMB</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Left Click</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--mouse">RMB</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Right Click</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--mouse">MMB</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Middle Click</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--mouse">MW↑</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Scroll Up</div>
+            </div>
+            <div style="text-align: center;">
+              <span class="scc-hotkey scc-hotkey--mouse">MW↓</span>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 4px;">Scroll Down</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Small Variant</h3>
+        <p class="ds-section-desc">Add <code>.scc-hotkey--sm</code> for inline use in labels or descriptions.</p>
+        <div class="ds-demo">
+          <div class="ds-demo-row">
+            <span style="font-size: 12px; color: var(--text-secondary);">
+              Press
+              <span class="scc-hotkey scc-hotkey--sm scc-hotkey--symbol">↵</span>
+              to confirm or
+              <span class="scc-hotkey scc-hotkey--sm scc-hotkey--symbol">⎋</span>
+              to cancel
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CARDS & PANELS ==================== -->
+    <section id="cards" class="ds-section">
+      <h2 class="ds-section-title">Cards & Panels</h2>
+      <p class="ds-section-desc">Panel hierarchy based on surface tokens.</p>
+
+      <div class="ds-demo">
+        <div class="ds-demo-grid">
+          <div style="padding:20px; background:#0d2635; border:1px solid rgba(82,193,230,0.18); border-radius:4px; box-shadow:0 0 0 1px rgba(82,193,230,0.2)">
+            <div style="font-family:Orbitron; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7dd5f0; margin-bottom:8px">Standard Panel</div>
+            <div style="font-size:12px; color:#9fb3c8">--surface-canvas + --border-subtle + --shadow-soft</div>
+          </div>
+          <div style="padding:20px; background:#123246; border:1px solid rgba(82,193,230,0.3); border-radius:4px; box-shadow:0 0 0 1px rgba(82,193,230,0.15), 0 0 12px rgba(82,193,230,0.12)">
+            <div style="font-family:Orbitron; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7dd5f0; margin-bottom:8px">Elevated Panel</div>
+            <div style="font-size:12px; color:#9fb3c8">--surface-panel + --border-default + --shadow-elevated</div>
+          </div>
+          <div style="padding:20px; background:#164664; border:1px solid rgba(82,193,230,0.45); border-radius:4px; box-shadow:0 0 16px rgba(82,193,230,0.25)">
+            <div style="font-family:Orbitron; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7dd5f0; margin-bottom:8px">Active Panel</div>
+            <div style="font-size:12px; color:#9fb3c8">--surface-panel-strong + --border-strong + --shadow-glow</div>
+          </div>
+          <div style="padding:20px; background:rgba(8,20,28,0.95); border:1px solid rgba(82,193,230,0.3); border-radius:4px; backdrop-filter:blur(8px)">
+            <div style="font-family:Orbitron; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7dd5f0; margin-bottom:8px">Overlay Panel</div>
+            <div style="font-size:12px; color:#9fb3c8">--surface-overlay + backdrop-filter: blur</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TOOLTIPS ==================== -->
+    <section id="tooltips" class="ds-section">
+      <h2 class="ds-section-title">Tooltips</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/tooltips.css</code>. Hover the elements below.</p>
+
+      <div class="ds-demo">
+        <div class="ds-demo-row">
+          <button class="ui-control-primary" data-tooltip="This is a standard tooltip with helpful information" style="padding:8px 20px; background:transparent; border:1px solid rgba(82,193,230,0.35); color:#e8ebed; font-family:Inter; font-size:12px; border-radius:4px">Hover Me (Standard)</button>
+          <button class="ui-control-primary" data-tooltip="Gold variant for companion features" data-tooltip-variant="gold" style="padding:8px 20px; background:transparent; border:1px solid rgba(200,168,75,0.35); color:#e8c96b; font-family:Inter; font-size:12px; border-radius:4px">Hover Me (Gold)</button>
+        </div>
+        <!-- Static tooltip preview -->
+        <div style="margin-top:20px; position:relative">
+          <div class="scc-tooltip is-visible" style="position:relative; display:inline-block">Standard tooltip appearance</div>
+          <div class="scc-tooltip scc-tooltip--gold is-visible" style="position:relative; display:inline-block; margin-left:16px">Gold variant tooltip</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATUS INDICATORS ==================== -->
+    <section id="status" class="ds-section">
+      <h2 class="ds-section-title">Status Indicators</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/status.css</code></p>
+
+      <div class="ds-demo">
+        <div class="ds-demo-row" style="flex-direction:column; align-items:flex-start; gap:12px">
+          <span class="scc-status scc-status--ready">Core Online</span>
+          <span class="scc-status scc-status--loading">Downloading Assets</span>
+          <span class="scc-status scc-status--warning">Needs Attention</span>
+          <span class="scc-status scc-status--error">Connection Failed</span>
+          <span class="scc-status scc-status--idle">Idle</span>
+          <span class="scc-status">Unknown</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BADGES ==================== -->
+    <section id="badges" class="ds-section">
+      <h2 class="ds-section-title">Badges & Tags</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/status.css</code></p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Status Badges</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">Normal state = no badge. These appear only when something needs attention.</p>
+        <div class="ds-demo">
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Normal</div>
+            <span style="font-size:11px; color:#9fb3c8; font-style:italic">no badge</span>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Warning</div>
+            <span class="scc-badge scc-badge--warning">Warning</span>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Error</div>
+            <span class="scc-badge scc-badge--error">Error</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Content Origin Badges</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">Distinguish CIG/RSI content from player-created content.</p>
+        <div class="ds-demo">
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Official</div>
+            <span class="scc-badge scc-badge--official">Official</span>
+            <span style="font-size:10px; color:#9fb3c8">CIG / RSI content</span>
+          </div>
+          <div class="ds-demo-row">
+            <div class="ds-demo-label">Community</div>
+            <span class="scc-badge scc-badge--community">Community</span>
+            <span style="font-size:10px; color:#9fb3c8">Player-created (orgs, fan tools, events)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SCROLLBARS ==================== -->
+    <section id="scrollbars" class="ds-section">
+      <h2 class="ds-section-title">Scrollbars</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/app-scrollbars.css</code></p>
+
+      <div class="ds-demo">
+        <div class="ds-scroll-box">
+          <p>Scroll this container to see the custom scrollbar styling.</p>
+          <p style="margin-top:8px">The scrollbar uses --border-default for the thumb and transparent for the track. Width is 6-8px with --radius-sm rounding.</p>
+          <p style="margin-top:8px">On hover, the thumb brightens to --border-strong.</p>
+          <p style="margin-top:8px">Placeholder content to enable scrolling...</p>
+          <p style="margin-top:8px">The quick brown fox jumps over the lazy dog.</p>
+          <p style="margin-top:8px">Citizens of the UEE, we stand united.</p>
+          <p style="margin-top:8px">Quantum drives spooling...</p>
+          <p style="margin-top:8px">Calibrating jump point coordinates...</p>
+          <p style="margin-top:8px">Establishing comms link with Stanton system...</p>
+          <p style="margin-top:8px">All systems nominal. Ready for departure.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SETTINGS BLOCK ==================== -->
+    <section id="settings-block" class="ds-section">
+      <h2 class="ds-section-title">Settings Block</h2>
+      <p class="ds-section-desc">Source: <code>modules/shared/design-system/lib/settings-block.css</code></p>
+
+      <!-- --- Variants overview --- -->
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Variants</h3>
+        <p class="ds-note">Three layout modes: <strong>Inline</strong> (no container), <strong>Boxed</strong> (glass container with category-tinted glow), and <strong>Outlined</strong> (transparent, for use inside a glass parent). Add <code>.cat-*</code> to tint the glow + title color. Add <code>.has-category</code> for the left accent bar.</p>
+
+        <!-- Row 1: Inline + Boxed default (no category) -->
+        <div class="ds-grid-2col" style="gap:24px;margin-top:16px">
+          <div>
+            <h4 class="ds-label" style="margin-bottom:8px">Inline — no container</h4>
+            <div class="scc-settings-inline">
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Voice Activation<span class="scc-setting-desc">— Enables in-game voice commands<span class="scc-tip">Enables in-game voice commands via your microphone. Can be toggled with push-to-talk hotkey.</span></span></span>
+                <div class="scc-setting-control">
+                  <label class="scc-toggle"><input type="checkbox" checked></label>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">AI Model</span>
+                <div class="scc-setting-control">
+                  <div class="scc-dropdown" data-value="sonnet"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Claude Sonnet</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Claude Sonnet</button><button class="scc-dropdown-item" type="button">Claude Haiku</button></div></div>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Push-to-Talk</span>
+                <div class="scc-setting-control">
+                  <div class="scc-hotkey">Ctrl + T</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="ds-label" style="margin-bottom:8px">Boxed — default (cyan glow, no category)</h4>
+            <div class="scc-settings-box">
+              <div class="scc-box-title">General</div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Auto-Start</span>
+                <div class="scc-setting-control">
+                  <label class="scc-toggle"><input type="checkbox" checked></label>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Language</span>
+                <div class="scc-setting-control">
+                  <div class="scc-dropdown" data-value="en"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">English</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">English</button><button class="scc-dropdown-item" type="button">Deutsch</button></div></div>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Theme</span>
+                <div class="scc-setting-control">
+                  <div class="scc-dropdown" data-value="deep-space"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Deep Space</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Deep Space</button><button class="scc-dropdown-item" type="button">Stanton Blue</button></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: 4 category variants with accent bar + real settings -->
+        <h4 class="ds-label" style="margin:24px 0 8px">Boxed — category variants (<code>.cat-*</code> + <code>.has-category</code>)</h4>
+        <p class="ds-note" style="margin-bottom:12px">Each <code>.cat-*</code> tints the box glow + title. <code>.has-category</code> adds the left accent bar. Both are independent — you can use <code>.cat-game</code> without <code>.has-category</code> for tinted glow only.</p>
+        <div class="ds-grid-2col" style="gap:16px">
+          <div class="scc-settings-box has-category cat-app">
+            <div class="scc-box-title">App (.cat-app)</div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Auto-Start</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox" checked></label></div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Start Minimized</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox"></label></div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Monitor</span>
+              <div class="scc-setting-control">
+                <div class="scc-dropdown" data-value="primary"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Primary</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Primary</button><button class="scc-dropdown-item" type="button">Secondary</button></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="scc-settings-box has-category cat-game">
+            <div class="scc-box-title">Game (.cat-game)</div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Channel</span>
+              <div class="scc-setting-control">
+                <div class="scc-dropdown" data-value="live"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">LIVE</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">LIVE</button><button class="scc-dropdown-item" type="button">PTU</button><button class="scc-dropdown-item" type="button">EPTU</button></div></div>
+              </div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Auto-detect</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox" checked></label></div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Game Version</span>
+              <div class="scc-setting-control"><span style="font-size:11px;color:var(--text-tertiary)">4.0.2-live.9415554</span></div>
+            </div>
+          </div>
+          <div class="scc-settings-box has-category cat-ai">
+            <div class="scc-box-title">AI (.cat-ai)</div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">AI Assistant</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox" checked></label></div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Provider</span>
+              <div class="scc-setting-control">
+                <div class="scc-dropdown" data-value="anthropic"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Anthropic</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Anthropic</button><button class="scc-dropdown-item" type="button">OpenAI</button></div></div>
+              </div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Voice Input</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox"></label></div>
+            </div>
+          </div>
+          <div class="scc-settings-box has-category cat-overlay">
+            <div class="scc-box-title">Overlay (.cat-overlay)</div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Overlay Enabled</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox" checked></label></div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Position</span>
+              <div class="scc-setting-control">
+                <div class="scc-dropdown" data-value="top-right"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Top Right</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Top Right</button><button class="scc-dropdown-item" type="button">Top Left</button></div></div>
+              </div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Opacity</span>
+              <div class="scc-setting-control">
+                <div class="scc-slider-wrap"><input class="scc-slider" type="range" min="20" max="100" value="85"><span class="scc-slider-value">85%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Outlined -->
+        <h4 class="ds-label" style="margin:24px 0 8px">Outlined — transparent (use inside glass parent)</h4>
+        <p class="ds-note" style="margin-bottom:12px">No background, no glow, minimal padding. For use inside a parent that already provides the glass container.</p>
+        <div style="max-width:480px;background:var(--surface-input,rgba(15,35,50,0.6));border:1px solid rgba(82,193,230,0.08);border-radius:var(--radius-md,4px);padding:16px 18px">
+          <div class="scc-settings-box outlined">
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Language</span>
+              <div class="scc-setting-control">
+                <div class="scc-dropdown" data-value="en"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">English</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">English</button><button class="scc-dropdown-item" type="button">Deutsch</button></div></div>
+              </div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Auto-detect</span>
+              <div class="scc-setting-control"><label class="scc-toggle"><input type="checkbox" checked></label></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- Finetune --- -->
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Finetune Section</h3>
+        <p class="ds-note">Collapsible advanced settings. Click the separator to toggle. Uses <code>grid-template-rows</code> for symmetric open/close animation.</p>
+
+        <div class="ds-grid-2col" style="gap:24px;margin-top:16px">
+          <div>
+            <h4 class="ds-label" style="margin-bottom:8px">In a Box</h4>
+            <div class="scc-settings-box has-category cat-ai">
+              <div class="scc-box-title">Voice Assistant</div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Enable Voice</span>
+                <div class="scc-setting-control">
+                  <label class="scc-toggle"><input type="checkbox" checked></label>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">AI Model</span>
+                <div class="scc-setting-control">
+                  <div class="scc-dropdown" data-value="sonnet"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Claude Sonnet</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Claude Sonnet</button><button class="scc-dropdown-item" type="button">Claude Haiku</button></div></div>
+                </div>
+              </div>
+
+              <div class="scc-finetune-sep" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('open')">
+                <div class="scc-ft-inner">
+                  <span class="scc-ft-tri left"></span>
+                  <span class="scc-ft-text">Finetune</span>
+                  <span class="scc-ft-tri right"></span>
+                </div>
+              </div>
+              <div class="scc-ft-content">
+                <div class="scc-ft-inner-wrap">
+                  <div class="scc-setting-row">
+                    <span class="scc-setting-label">Silence Threshold<span class="scc-setting-desc">— Wait time before processing speech<span class="scc-tip">How long to wait for silence before processing speech input. Higher values = more patience.</span></span></span>
+                    <div class="scc-setting-control">
+                      <div class="scc-slider-wrap">
+                        <input type="range" class="scc-slider" min="0" max="100" value="35">
+                        <span class="scc-slider-value">35%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="scc-setting-row">
+                    <span class="scc-setting-label">Response Timeout</span>
+                    <div class="scc-setting-control">
+                      <input class="scc-input" value="5000" style="width:80px">
+                    </div>
+                  </div>
+                  <div class="scc-setting-row">
+                    <span class="scc-setting-label">Debug Logging</span>
+                    <div class="scc-setting-control">
+                      <label class="scc-toggle"><input type="checkbox"></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="ds-label" style="margin-bottom:8px">Inline</h4>
+            <div class="scc-settings-inline">
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Voice Activation</span>
+                <div class="scc-setting-control">
+                  <label class="scc-toggle"><input type="checkbox" checked></label>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">AI Model</span>
+                <div class="scc-setting-control">
+                  <div class="scc-dropdown" data-value="sonnet"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Claude Sonnet</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Claude Sonnet</button><button class="scc-dropdown-item" type="button">Claude Haiku</button></div></div>
+                </div>
+              </div>
+
+              <div class="scc-finetune-sep" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('open')">
+                <div class="scc-ft-inner">
+                  <span class="scc-ft-tri left"></span>
+                  <span class="scc-ft-text">Finetune</span>
+                  <span class="scc-ft-tri right"></span>
+                </div>
+              </div>
+              <div class="scc-ft-content">
+                <div class="scc-ft-inner-wrap">
+                  <div class="scc-setting-row">
+                    <span class="scc-setting-label">Silence Threshold</span>
+                    <div class="scc-setting-control">
+                      <div class="scc-slider-wrap">
+                        <input type="range" class="scc-slider" min="0" max="100" value="35">
+                        <span class="scc-slider-value">35%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="scc-setting-row">
+                    <span class="scc-setting-label">Response Timeout</span>
+                    <div class="scc-setting-control">
+                      <input class="scc-input" value="5000" style="width:80px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- Disabled State --- -->
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Disabled / Dependency State</h3>
+        <p class="ds-note">Wrap dependent settings in <code>.scc-settings-disabled</code>. Toggle <code>.enabled</code> class via the master control. Click "Enable Overlay" to test.</p>
+
+        <div style="max-width:480px;margin-top:16px">
+          <div class="scc-settings-box has-category cat-game">
+            <div class="scc-box-title">In-Game Overlay</div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Enable Overlay<span class="scc-setting-desc">— Shows companion during gameplay<span class="scc-tip">Shows the companion overlay during Star Citizen gameplay sessions.</span></span></span>
+              <div class="scc-setting-control">
+                <label class="scc-toggle"><input type="checkbox" onchange="var d=document.getElementById('ds-ov-deps'); d.classList.toggle('scc-settings-disabled',!this.checked); d.classList.toggle('enabled',this.checked)"></label>
+              </div>
+            </div>
+            <div id="ds-ov-deps" class="scc-settings-disabled">
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Opacity</span>
+                <div class="scc-setting-control">
+                  <div class="scc-slider-wrap">
+                    <input type="range" class="scc-slider" min="0" max="100" value="80">
+                    <span class="scc-slider-value">80%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Position</span>
+                <div class="scc-setting-control">
+                  <div class="scc-dropdown" data-value="tr"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Top Right</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Top Right</button><button class="scc-dropdown-item" type="button">Top Left</button></div></div>
+                </div>
+              </div>
+              <div class="scc-setting-row">
+                <span class="scc-setting-label">Toggle Hotkey</span>
+                <div class="scc-setting-control">
+                  <div class="scc-hotkey">Shift + Tab</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- Description --- -->
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Description Text</h3>
+        <p class="ds-note">
+          Optional inline description after the label. Hidden by default, fades in on row hover/focus.
+          Truncated with ellipsis — hover the description text itself for a full tooltip.
+          Markup: <code>&lt;span class="scc-setting-desc"&gt;— short text&lt;span class="scc-tip"&gt;full text&lt;/span&gt;&lt;/span&gt;</code> inside <code>.scc-setting-label</code>.
+        </p>
+
+        <div style="max-width:480px;margin-top:16px">
+          <div class="scc-settings-box">
+            <div class="scc-box-title">Description Demo</div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Hardware Acceleration<span class="scc-setting-desc">— Uses GPU for rendering, disable if glitches<span class="scc-tip">Uses your GPU for rendering. Disable if you experience visual glitches or rendering artifacts.</span></span></span>
+              <div class="scc-setting-control">
+                <label class="scc-toggle"><input type="checkbox" checked></label>
+              </div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">Update Channel<span class="scc-setting-desc">— Beta may contain breaking changes<span class="scc-tip">Beta channel receives early updates that may contain breaking changes. Use at your own risk.</span></span></span>
+              <div class="scc-setting-control">
+                <div class="scc-dropdown" data-value="stable"><button class="scc-dropdown-trigger" type="button"><span class="scc-dropdown-value">Stable</span><span class="scc-dropdown-caret"></span></button><div class="scc-dropdown-menu"><button class="scc-dropdown-item is-selected" type="button">Stable</button><button class="scc-dropdown-item" type="button">Beta</button><button class="scc-dropdown-item" type="button">Canary</button></div></div>
+              </div>
+            </div>
+            <div class="scc-setting-row">
+              <span class="scc-setting-label">No Description Here</span>
+              <div class="scc-setting-control">
+                <label class="scc-toggle"><input type="checkbox"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid ratio note -->
+      <p class="ds-note" style="margin-top:8px">
+        <strong>Grid ratio:</strong> Default is 50:50 (<code>--col-label: 1fr; --col-control: 1fr</code>).
+        Override per block via CSS custom properties. Controls stretch to uniform width within the control column, max 200px.
+      </p>
+
+    </section>
+
+    <!-- ==================== PROGRESS & LOADING ==================== -->
+    <section id="progress" class="ds-section">
+      <h2 class="ds-section-title">Progress & Loading</h2>
+      <p class="ds-section-desc">Source: <code>modules/loading/ui-angular/src/app/app.component.css</code></p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Ship-Trail Progress Bar (Loading Screen — Leading)</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:16px">Rail (1px baseline) + Trail (2px gradient) + Ship (bloom → glow → core) + Percent text</p>
+        <div class="ds-demo" style="background:#0a1520">
+          <!-- Animated: 0% → pause at 25% → run to 100% -->
+          <div style="display:flex; align-items:center; gap:12px">
+            <div id="shipTrackDemo" style="position:relative; flex:1; height:14px; display:flex; align-items:center">
+              <!-- Rail -->
+              <div style="position:absolute; top:50%; left:0; right:0; height:1px; background:rgba(82,193,230,0.08); transform:translateY(-50%)"></div>
+              <!-- Trail -->
+              <div id="shipTrail" style="position:absolute; top:50%; left:0; height:2px; width:0%; transform:translateY(-50%); border-radius:1px; background:linear-gradient(90deg, transparent 0%, rgba(82,193,230,0.05) 40%, rgba(125,213,240,0.25) 100%); animation:trail-shimmer 1.8s ease-in-out infinite; transition:width 0.15s linear"></div>
+              <!-- Particles (JS-driven, clamped to ship position) -->
+              <!-- Ship -->
+              <div id="shipEl" style="position:absolute; top:50%; left:0%; width:6px; height:6px; transform:translate(-50%,-50%); z-index:3; transition:left 0.15s linear">
+                <div style="position:absolute; top:50%; left:50%; width:22px; height:22px; border-radius:50%; transform:translate(-50%,-50%); background:radial-gradient(circle, rgba(82,193,230,0.15) 0%, transparent 70%); animation:bloom-pulse 2s ease-in-out infinite"></div>
+                <div style="position:absolute; top:50%; left:50%; width:10px; height:10px; border-radius:50%; transform:translate(-50%,-50%); background:radial-gradient(circle, rgba(125,213,240,0.6) 0%, rgba(82,193,230,0.2) 50%, transparent 100%)"></div>
+                <div style="position:absolute; top:50%; left:50%; width:3px; height:3px; border-radius:50%; background:#fff; transform:translate(-50%,-50%); box-shadow:0 0 3px 1px rgba(255,255,255,0.8)"></div>
+              </div>
+            </div>
+            <span id="shipPercent" style="font-family:Orbitron; font-size:11px; font-weight:500; color:#7dd5f0; letter-spacing:1px; min-width:36px; text-align:right">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Dot-Comet Progress Bar (Setup Wizard)</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">
+          Canvas-rendered progress bar with 5 star-like dots, a comet with trailing light particles, and hover labels.
+          All dots are clickable (jump to any step). The comet always flies from dot 0 to the active step.
+          Implementation: <code>setup-wizard-canvas.ts</code> (ProgressDotState, CometState, CometParticle).
+        </p>
+        <div class="ds-demo" style="background:#060a10; padding:40px 24px 32px; position:relative">
+          <canvas id="ds-comet-canvas" width="280" height="40" style="display:block; margin:0 auto; cursor:pointer"></canvas>
+          <div style="display:flex; justify-content:center; gap:8px; margin-top:12px">
+            <button class="ds-comet-step-btn" data-step="0" style="font-size:10px; padding:2px 8px; background:rgba(82,193,230,0.12); border:1px solid rgba(82,193,230,0.3); border-radius:3px; color:#7dd5f0; cursor:pointer">Identity</button>
+            <button class="ds-comet-step-btn" data-step="1" style="font-size:10px; padding:2px 8px; background:rgba(82,193,230,0.12); border:1px solid rgba(82,193,230,0.3); border-radius:3px; color:#7dd5f0; cursor:pointer">AI</button>
+            <button class="ds-comet-step-btn" data-step="2" style="font-size:10px; padding:2px 8px; background:rgba(82,193,230,0.12); border:1px solid rgba(82,193,230,0.3); border-radius:3px; color:#7dd5f0; cursor:pointer">Audio</button>
+            <button class="ds-comet-step-btn" data-step="3" style="font-size:10px; padding:2px 8px; background:rgba(82,193,230,0.12); border:1px solid rgba(82,193,230,0.3); border-radius:3px; color:#7dd5f0; cursor:pointer">Radar</button>
+            <button class="ds-comet-step-btn" data-step="4" style="font-size:10px; padding:2px 8px; background:rgba(82,193,230,0.12); border:1px solid rgba(82,193,230,0.3); border-radius:3px; color:#7dd5f0; cursor:pointer">Overlay</button>
+          </div>
+          <p style="font-size:10px; color:#5a7a94; text-align:center; margin-top:8px">Click a button to fire the comet (always from dot 0). Hover dots for labels.</p>
+        </div>
+        <script>
+        (function() {
+          const canvas = document.getElementById('ds-comet-canvas');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const W = 280, H = 40, DOT_COUNT = 5, DOT_SPACING = 56;
+          const dotX = i => 28 + i * DOT_SPACING;
+          const dotY = H / 2;
+          const LABELS = ['Identity','AI','Audio','Radar','Overlay'];
+          let currentStep = 0, highestStep = 0;
+          const dotStates = Array.from({length:5}, () => ({chargeFlash:0, pulsePhase:Math.random()*Math.PI*2}));
+          const comet = {active:false, fromDot:0, toDot:0, progress:0, speed:0.076, particles:[]};
+          let hoveredDot = -1;
+
+          function fireComet(toStep) {
+            if (toStep === 0) { dotStates[0].chargeFlash = 1; currentStep = 0; return; }
+            comet.active = true;
+            comet.fromDot = 0;
+            comet.toDot = toStep;
+            comet.progress = 0;
+            comet.particles = [];
+            comet.speed = 0.076 / toStep;
+            currentStep = toStep;
+            if (toStep > highestStep) highestStep = toStep;
+          }
+
+          function spawnParticles(cx, cy, dir) {
+            for (let i = 0; i < 2; i++) {
+              comet.particles.push({
+                x: cx + (Math.random()-0.5)*2, y: cy + (Math.random()-0.5)*4,
+                vx: -dir*(0.3+Math.random()*0.6), vy: (Math.random()-0.5)*0.8,
+                life: 1, maxLife: 12+Math.random()*10, size: 0.3+Math.random()*0.8
+              });
+            }
+          }
+
+          function draw() {
+            ctx.clearRect(0, 0, W, H);
+            // Dots — A) upcoming=dim  B) visited=steady bright  C) current=breathing
+            for (let i = 0; i < DOT_COUNT; i++) {
+              const x = dotX(i), y = dotY, ds = dotStates[i];
+              const isCurrent = i === currentStep, isVisited = i < currentStep, isUpcoming = i > currentStep;
+              ds.pulsePhase += 0.03;
+              const breathe = isCurrent ? 0.7 + Math.sin(ds.pulsePhase)*0.3 : 1;
+              if (ds.chargeFlash > 0) ds.chargeFlash *= 0.96;
+              const haloR = isCurrent ? 12 : isVisited ? 10 : 7;
+              const haloA = isCurrent ? 0.22*breathe + ds.chargeFlash*0.3 : isVisited ? 0.15 + ds.chargeFlash*0.3 : 0.04 + ds.chargeFlash*0.2;
+              const hg = ctx.createRadialGradient(x,y,0,x,y,haloR);
+              hg.addColorStop(0, `rgba(125,213,240,${haloA})`);
+              hg.addColorStop(0.6, `rgba(125,213,240,${haloA*0.4})`);
+              hg.addColorStop(1, 'rgba(125,213,240,0)');
+              ctx.beginPath(); ctx.arc(x,y,haloR,0,Math.PI*2); ctx.fillStyle = hg; ctx.fill();
+              const coreR = isCurrent ? 2.5 : isVisited ? 1.8 : 0.5;
+              const coreA = isCurrent ? 0.9*breathe + ds.chargeFlash*0.5 : isVisited ? 0.7 + ds.chargeFlash*0.5 : 0.12 + ds.chargeFlash*0.3;
+              const cg = ctx.createRadialGradient(x,y,0,x,y,coreR);
+              cg.addColorStop(0, `rgba(200,240,255,${coreA})`);
+              cg.addColorStop(1, `rgba(125,213,240,${coreA*0.3})`);
+              ctx.beginPath(); ctx.arc(x,y,coreR,0,Math.PI*2); ctx.fillStyle = cg; ctx.fill();
+            }
+            // Particles
+            for (let pi = comet.particles.length-1; pi >= 0; pi--) {
+              const p = comet.particles[pi];
+              p.x += p.vx; p.y += p.vy; p.vy *= 0.96; p.life++;
+              const t = p.life / p.maxLife;
+              if (t >= 1) { comet.particles.splice(pi,1); continue; }
+              const a = (1-t)*0.7, r = p.size*(1-t*0.5);
+              const pg = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r+1.5);
+              pg.addColorStop(0, `rgba(200,240,255,${a})`);
+              pg.addColorStop(0.5, `rgba(125,213,240,${a*0.4})`);
+              pg.addColorStop(1, 'rgba(125,213,240,0)');
+              ctx.beginPath(); ctx.arc(p.x,p.y,r+1.5,0,Math.PI*2); ctx.fillStyle = pg; ctx.fill();
+            }
+            // Comet head
+            if (comet.active) {
+              comet.progress += comet.speed;
+              if (comet.progress >= 1) {
+                comet.active = false;
+                dotStates[comet.toDot].chargeFlash = 1;
+              } else {
+                const fx = dotX(comet.fromDot), tx = dotX(comet.toDot);
+                const cx = fx + (tx-fx)*comet.progress, cy = dotY;
+                const dir = tx > fx ? 1 : -1;
+                spawnParticles(cx, cy, dir);
+                const g1 = ctx.createRadialGradient(cx,cy,0,cx,cy,14);
+                g1.addColorStop(0,'rgba(125,213,240,0.15)'); g1.addColorStop(1,'rgba(125,213,240,0)');
+                ctx.beginPath(); ctx.arc(cx,cy,14,0,Math.PI*2); ctx.fillStyle = g1; ctx.fill();
+                const tLen = 18, tg = ctx.createLinearGradient(cx-dir*tLen,cy,cx,cy);
+                tg.addColorStop(0,'rgba(125,213,240,0)'); tg.addColorStop(1,'rgba(125,213,240,0.3)');
+                ctx.strokeStyle = tg; ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.moveTo(cx-dir*tLen,cy); ctx.lineTo(cx,cy); ctx.stroke();
+                const g3 = ctx.createRadialGradient(cx,cy,0,cx,cy,3);
+                g3.addColorStop(0,'rgba(220,245,255,0.9)'); g3.addColorStop(1,'rgba(125,213,240,0)');
+                ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2); ctx.fillStyle = g3; ctx.fill();
+                ctx.beginPath(); ctx.arc(cx,cy,1,0,Math.PI*2); ctx.fillStyle = 'rgba(255,255,255,0.95)'; ctx.fill();
+              }
+            }
+            // Hover label
+            if (hoveredDot >= 0) {
+              ctx.font = '9px Orbitron, sans-serif';
+              ctx.fillStyle = 'rgba(125,213,240,0.55)';
+              ctx.textAlign = 'center';
+              ctx.fillText(LABELS[hoveredDot], dotX(hoveredDot), dotY - 12);
+            }
+            requestAnimationFrame(draw);
+          }
+
+          canvas.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+            hoveredDot = -1;
+            for (let i = 0; i < DOT_COUNT; i++) {
+              if (Math.hypot(mx - dotX(i), my - dotY) <= 12) { hoveredDot = i; break; }
+            }
+          });
+          canvas.addEventListener('mouseleave', () => { hoveredDot = -1; });
+          canvas.addEventListener('click', e => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            for (let i = 0; i < DOT_COUNT; i++) {
+              if (Math.abs(mx - dotX(i)) <= 12) { fireComet(i); break; }
+            }
+          });
+
+          document.querySelectorAll('.ds-comet-step-btn').forEach(btn => {
+            btn.addEventListener('click', () => fireComet(parseInt(btn.dataset.step)));
+          });
+
+          // Start with comet flying to step 2
+          requestAnimationFrame(draw);
+          setTimeout(() => fireComet(2), 500);
+        })();
+        </script>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Quantum Ring Spinner (Installer)</h3>
+        <div class="ds-demo" style="display:flex; align-items:center; justify-content:center; min-height:120px">
+          <div style="position:relative; width:80px; height:80px">
+            <div style="position:absolute; inset:0; border:2px solid transparent; border-top-color:#52c1e6; border-right-color:#52c1e6; border-radius:50%; animation:ds-spin 2s linear infinite"></div>
+            <div style="position:absolute; inset:8px; border:2px solid transparent; border-bottom-color:#c8a84b; border-left-color:#c8a84b; border-radius:50%; animation:ds-spin 3s linear infinite reverse"></div>
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:Orbitron; font-size:14px; color:#e8ebed">72%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BACKGROUNDS & FX ==================== -->
+    <section id="backgrounds" class="ds-section">
+      <h2 class="ds-section-title">Backgrounds & FX</h2>
+      <p class="ds-section-desc">Nebula backgrounds, atmospheric effects, and section-specific FX patterns from the setup wizard concepts.</p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Nebula Backgrounds</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">5 nebula variants + warp variant. Crossfade: <code>opacity 4.5s cubic-bezier(.4,0,.2,1)</code>. Source: <code>docs/ui/concepts/mockup-setup-wizard.html</code></p>
+        <div class="ds-demo-grid" style="grid-template-columns: repeat(3, 1fr)">
+          <div>
+            <div style="height:160px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 35% 30%,rgba(30,110,150,.44) 0%,transparent 52%),radial-gradient(ellipse at 68% 68%,rgba(30,110,150,.20) 0%,transparent 48%),radial-gradient(ellipse at 20% 62%,rgba(25,65,140,.20) 0%,transparent 46%),radial-gradient(ellipse at 80% 25%,rgba(20,90,100,.18) 0%,transparent 42%),radial-gradient(ellipse at 58% 78%,rgba(20,100,80,.15) 0%,transparent 40%),radial-gradient(ellipse at 85% 55%,rgba(50,30,100,.16) 0%,transparent 38%),radial-gradient(ellipse at 12% 40%,rgba(40,25,90,.10) 0%,transparent 35%),radial-gradient(ellipse at 45% 45%,rgba(8,25,40,.42) 0%,transparent 82%),#060a10"></div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">.neb-0 — Identity (teal focus)</div>
+          </div>
+          <div>
+            <div style="height:160px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 55% 35%,rgba(25,65,140,.44) 0%,transparent 52%),radial-gradient(ellipse at 25% 68%,rgba(25,65,140,.18) 0%,transparent 48%),radial-gradient(ellipse at 75% 52%,rgba(30,110,150,.20) 0%,transparent 46%),radial-gradient(ellipse at 35% 80%,rgba(50,30,100,.18) 0%,transparent 42%),radial-gradient(ellipse at 12% 35%,rgba(20,90,100,.16) 0%,transparent 40%),radial-gradient(ellipse at 68% 20%,rgba(20,100,80,.14) 0%,transparent 38%),radial-gradient(ellipse at 82% 72%,rgba(30,110,150,.10) 0%,transparent 35%),radial-gradient(ellipse at 48% 48%,rgba(8,20,45,.42) 0%,transparent 82%),#060a10"></div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">.neb-1 — Game (blue shift)</div>
+          </div>
+          <div>
+            <div style="height:160px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 45% 48%,rgba(20,90,100,.42) 0%,transparent 52%),radial-gradient(ellipse at 70% 30%,rgba(20,90,100,.18) 0%,transparent 48%),radial-gradient(ellipse at 22% 62%,rgba(30,110,150,.20) 0%,transparent 46%),radial-gradient(ellipse at 75% 72%,rgba(25,65,140,.18) 0%,transparent 42%),radial-gradient(ellipse at 55% 18%,rgba(20,100,80,.15) 0%,transparent 40%),radial-gradient(ellipse at 15% 45%,rgba(50,30,100,.14) 0%,transparent 38%),radial-gradient(ellipse at 85% 50%,rgba(30,110,150,.10) 0%,transparent 35%),radial-gradient(ellipse at 48% 50%,rgba(8,25,38,.42) 0%,transparent 82%),#060a10"></div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">.neb-2 — AI (deep teal)</div>
+          </div>
+          <div>
+            <div style="height:160px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 50% 50%,rgba(20,100,80,.40) 0%,transparent 52%),radial-gradient(ellipse at 30% 32%,rgba(20,100,80,.17) 0%,transparent 48%),radial-gradient(ellipse at 70% 65%,rgba(20,90,100,.20) 0%,transparent 46%),radial-gradient(ellipse at 20% 55%,rgba(30,110,150,.18) 0%,transparent 42%),radial-gradient(ellipse at 80% 35%,rgba(25,65,140,.16) 0%,transparent 40%),radial-gradient(ellipse at 42% 78%,rgba(50,30,100,.14) 0%,transparent 38%),radial-gradient(ellipse at 65% 15%,rgba(30,110,150,.10) 0%,transparent 35%),radial-gradient(ellipse at 50% 50%,rgba(8,28,32,.42) 0%,transparent 82%),#060a10"></div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">.neb-3 — Audio (green-teal)</div>
+          </div>
+          <div>
+            <div style="height:160px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 48% 38%,rgba(50,30,100,.42) 0%,transparent 52%),radial-gradient(ellipse at 65% 68%,rgba(50,30,100,.18) 0%,transparent 48%),radial-gradient(ellipse at 25% 52%,rgba(25,65,140,.20) 0%,transparent 46%),radial-gradient(ellipse at 75% 30%,rgba(30,110,150,.18) 0%,transparent 42%),radial-gradient(ellipse at 40% 75%,rgba(20,90,100,.16) 0%,transparent 40%),radial-gradient(ellipse at 82% 60%,rgba(20,100,80,.14) 0%,transparent 38%),radial-gradient(ellipse at 15% 30%,rgba(25,65,140,.10) 0%,transparent 35%),radial-gradient(ellipse at 50% 45%,rgba(15,12,30,.42) 0%,transparent 82%),#060a10"></div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">.neb-4 — Overlay (purple)</div>
+          </div>
+          <div>
+            <div style="height:160px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 50% 50%,rgba(30,110,150,.28) 0%,transparent 52%),radial-gradient(ellipse at 32% 32%,rgba(25,65,140,.25) 0%,transparent 50%),radial-gradient(ellipse at 68% 68%,rgba(20,90,100,.22) 0%,transparent 48%),radial-gradient(ellipse at 38% 65%,rgba(50,30,100,.20) 0%,transparent 45%),radial-gradient(ellipse at 65% 35%,rgba(20,100,80,.18) 0%,transparent 42%),radial-gradient(ellipse at 50% 50%,rgba(10,18,30,.45) 0%,transparent 82%),#060a10"></div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">.neb-warp — centered convergence</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Atmospheric Overlays</h3>
+        <div class="ds-demo-grid" style="grid-template-columns: repeat(3, 1fr)">
+          <!-- Scanlines -->
+          <div>
+            <div style="height:100px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px), #0d2635; position:relative">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9fb3c8">Scanlines</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">2px repeating-linear-gradient</div>
+          </div>
+          <!-- Vignette -->
+          <div>
+            <div style="height:100px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0,0,0,0.6) 100%), #0d2635; position:relative">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9fb3c8">Vignette</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">radial-gradient edge darkening</div>
+          </div>
+          <!-- Window border glow -->
+          <div>
+            <div style="height:100px; border-radius:4px; border:1px solid rgba(82,193,230,0.25); box-shadow:inset 0 0 30px rgba(82,193,230,0.04); background:#0d2635; position:relative">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9fb3c8">Window border</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px; text-align:center">1px cyan border + inset glow</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Section-Specific FX</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">Each setup wizard step has a unique ambient FX layer. Production uses canvas rendering — these are the extracted visual patterns. Source: <code>docs/ui/concepts/mockup-setup-wizard.html</code></p>
+        <div class="ds-demo-grid" style="grid-template-columns: repeat(2, 1fr); gap:20px">
+          <!-- Identity — cloud breathe (CSS, exact from concept) -->
+          <div>
+            <div style="height:240px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 35% 30%,rgba(30,110,150,.44) 0%,transparent 52%),radial-gradient(ellipse at 68% 68%,rgba(30,110,150,.20) 0%,transparent 48%),radial-gradient(ellipse at 20% 62%,rgba(25,65,140,.20) 0%,transparent 46%),radial-gradient(ellipse at 80% 25%,rgba(20,90,100,.18) 0%,transparent 42%),radial-gradient(ellipse at 58% 78%,rgba(20,100,80,.15) 0%,transparent 40%),radial-gradient(ellipse at 85% 55%,rgba(50,30,100,.16) 0%,transparent 38%),radial-gradient(ellipse at 12% 40%,rgba(40,25,90,.10) 0%,transparent 35%),radial-gradient(ellipse at 45% 45%,rgba(8,25,40,.42) 0%,transparent 82%),#060a10; position:relative; overflow:hidden">
+              <div style="position:absolute; inset:0; background:radial-gradient(circle at 38% 33%,rgba(30,110,150,.08) 0%,transparent 35%); animation:cloudBreathe 8s ease-in-out infinite"></div>
+              <div style="position:absolute; inset:0; background:repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)"></div>
+              <div style="position:absolute; bottom:8px; left:10px; font-family:Orbitron; font-size:9px; color:rgba(125,213,240,0.4)">FX-IDENTITY</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Step 1: Identity — Cloud breathe (8s ease-in-out), radial-gradient at 38% 33%, opacity 0.4→1→0.4, scale 1→1.04→1</div>
+          </div>
+
+          <!-- Game — radar sweep (real canvas from mockup) -->
+          <div>
+            <div style="height:240px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); position:relative; overflow:hidden">
+              <canvas id="fxRadarCanvas" style="position:absolute; inset:0; width:100%; height:100%"></canvas>
+              <div style="position:absolute; bottom:8px; left:10px; font-family:Orbitron; font-size:9px; color:rgba(125,213,240,0.4); z-index:1">FX-GAME</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Step 2: Game — Radar sweep, rgba(60,190,150), pulsing size 20%→100%→20% over 4 rotations</div>
+          </div>
+
+          <!-- AI — neural blobs + lightning (real canvas from mockup) -->
+          <div>
+            <div style="height:240px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); position:relative; overflow:hidden">
+              <canvas id="fxAiCanvas" style="position:absolute; inset:0; width:100%; height:100%"></canvas>
+              <div style="position:absolute; bottom:8px; left:10px; font-family:Orbitron; font-size:9px; color:rgba(125,213,240,0.4); z-index:1">FX-AI</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Step 3: AI — 10 drifting neurons + zigzag lightning flashes between them</div>
+          </div>
+
+          <!-- Audio — expanding gradient rings (real canvas from mockup) -->
+          <div>
+            <div style="height:240px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); position:relative; overflow:hidden">
+              <canvas id="fxAudioCanvas" style="position:absolute; inset:0; width:100%; height:100%"></canvas>
+              <div style="position:absolute; bottom:8px; left:10px; font-family:Orbitron; font-size:9px; color:rgba(125,213,240,0.4); z-index:1">FX-AUDIO</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Step 4: Audio — Thick gradient rings expand from center every 2.8s</div>
+          </div>
+
+          <!-- Overlay — alpha patches (CSS, exact from concept) -->
+          <div>
+            <div style="height:240px; border-radius:4px; border:1px solid rgba(82,193,230,0.12); background:radial-gradient(ellipse at 48% 38%,rgba(50,30,100,.42) 0%,transparent 52%),radial-gradient(ellipse at 65% 68%,rgba(50,30,100,.18) 0%,transparent 48%),radial-gradient(ellipse at 25% 52%,rgba(25,65,140,.20) 0%,transparent 46%),radial-gradient(ellipse at 75% 30%,rgba(30,110,150,.18) 0%,transparent 42%),radial-gradient(ellipse at 40% 75%,rgba(20,90,100,.16) 0%,transparent 40%),radial-gradient(ellipse at 82% 60%,rgba(20,100,80,.14) 0%,transparent 38%),radial-gradient(ellipse at 15% 30%,rgba(25,65,140,.10) 0%,transparent 35%),radial-gradient(ellipse at 50% 45%,rgba(15,12,30,.42) 0%,transparent 82%),#060a10; position:relative; overflow:hidden">
+              <div style="position:absolute; left:28%; top:22%; width:100px; height:75px; border-radius:50%; background:radial-gradient(circle,rgba(100,60,180,.14) 0%,transparent 60%); animation:ovAlpha 5s ease-in-out infinite"></div>
+              <div style="position:absolute; left:62%; top:50%; width:80px; height:60px; border-radius:50%; background:radial-gradient(circle,rgba(100,60,180,.14) 0%,transparent 60%); animation:ovAlpha 7s ease-in-out 2s infinite"></div>
+              <div style="position:absolute; left:18%; top:68%; width:65px; height:55px; border-radius:50%; background:radial-gradient(circle,rgba(100,60,180,.14) 0%,transparent 60%); animation:ovAlpha 4.5s ease-in-out 3.5s infinite"></div>
+              <div style="position:absolute; left:75%; top:28%; width:70px; height:50px; border-radius:50%; background:radial-gradient(circle,rgba(100,60,180,.14) 0%,transparent 60%); animation:ovAlpha 6s ease-in-out 1.5s infinite"></div>
+              <div style="position:absolute; inset:0; background:repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)"></div>
+              <div style="position:absolute; bottom:8px; left:10px; font-family:Orbitron; font-size:9px; color:rgba(125,213,240,0.4)">FX-OVERLAY</div>
+            </div>
+            <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Step 5: Overlay — 4 purple patches (rgba(100,60,180,.14)), sizes 65–100px, staggered 4.5–7s cycle, opacity 0.12→0.9→0.12</div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Warp Finale</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">Nebula vortex zoom-in with spiral arcs, core glow, and whiteout. Auto-plays on loop. Click to restart.</p>
+        <!-- Live warp canvas -->
+        <div style="height:500px; border-radius:4px; border:1px solid rgba(82,193,230,0.18); position:relative; overflow:hidden; margin-bottom:16px; cursor:var(--scc-cursor-pointer, pointer)" onclick="if(typeof restartWarpDemo==='function')restartWarpDemo()">
+          <canvas id="fxWarpCanvas" style="position:absolute; inset:0; width:100%; height:100%"></canvas>
+          <div id="warpWhiteout" style="position:absolute; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at 50% 50%, rgba(238,246,255,1) 0%, rgba(225,240,255,.97) 15%, rgba(195,222,248,.88) 50%, rgba(165,208,240,.75) 100%); transition:opacity .1s"></div>
+          <div style="position:absolute; bottom:8px; right:12px; font-family:Orbitron; font-size:9px; color:rgba(125,213,240,0.3); z-index:2">CLICK TO RESTART</div>
+        </div>
+        <div class="ds-demo" style="background:#060a10; overflow:hidden">
+          <table class="ds-table" style="margin-bottom:16px">
+            <thead><tr><th>Phase</th><th>Duration</th><th>Zoom</th><th>Rotation</th><th>Core</th><th>Whiteout</th></tr></thead>
+            <tbody>
+              <tr><td>Opening</td><td>1.5s</td><td><code>1.0 → 1.08</code></td><td>Slow start</td><td>0.3 → 0.5</td><td>0</td></tr>
+              <tr><td>Zooming</td><td>10s</td><td><code>1.08 → 5.08</code> (t⁴ accel)</td><td>Accelerating</td><td>0.5 → 1.0</td><td>0 → 0.25</td></tr>
+              <tr><td>Exploding</td><td>1.3s</td><td><code>5 → 25</code></td><td>Fast spin</td><td>1.0</td><td>0.3 → 1.0</td></tr>
+              <tr><td>White</td><td>∞</td><td>—</td><td>—</td><td>—</td><td>1.0</td></tr>
+            </tbody>
+          </table>
+
+          <!-- Visual: Warp phases as timeline -->
+          <div style="display:flex; gap:4px; height:60px; align-items:end">
+            <div style="flex:1.5; background:linear-gradient(to top, rgba(30,110,150,0.3), rgba(30,110,150,0.1)); border-radius:2px 2px 0 0; position:relative; height:20%">
+              <div style="position:absolute; bottom:-16px; left:50%; transform:translateX(-50%); font-size:8px; color:#9fb3c8; white-space:nowrap">Opening 1.5s</div>
+            </div>
+            <div style="flex:10; background:linear-gradient(to top, rgba(82,193,230,0.4), rgba(82,193,230,0.08)); border-radius:2px 2px 0 0; position:relative; height:60%">
+              <div style="position:absolute; bottom:-16px; left:50%; transform:translateX(-50%); font-size:8px; color:#9fb3c8; white-space:nowrap">Zooming 10s (t⁴ acceleration)</div>
+            </div>
+            <div style="flex:1.3; background:linear-gradient(to top, rgba(255,255,255,0.5), rgba(82,193,230,0.3)); border-radius:2px 2px 0 0; position:relative; height:100%">
+              <div style="position:absolute; bottom:-16px; left:50%; transform:translateX(-50%); font-size:8px; color:#9fb3c8; white-space:nowrap">Explode 1.3s</div>
+            </div>
+            <div style="flex:2; background:linear-gradient(to top, rgba(255,255,255,0.7), rgba(255,255,255,0.3)); border-radius:2px 2px 0 0; position:relative; height:90%">
+              <div style="position:absolute; bottom:-16px; left:50%; transform:translateX(-50%); font-size:8px; color:#9fb3c8; white-space:nowrap">White</div>
+            </div>
+          </div>
+          <div style="height:24px"></div>
+
+          <!-- Key components -->
+          <div style="font-size:10px; color:#9fb3c8; margin-top:16px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px">Vortex Components</div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px">
+            <div style="padding:12px; background:rgba(30,110,150,0.08); border:1px solid rgba(82,193,230,0.12); border-radius:4px">
+              <div style="font-family:Orbitron; font-size:9px; color:#7dd5f0; letter-spacing:0.08em; margin-bottom:6px">SPIRAL ARCS</div>
+              <div style="font-size:10px; color:#9fb3c8; line-height:1.5">12 primary + 16 secondary<br>HSL: hue 185–220, sat 35–60<br>Width: 12–70px<br>Orbit: 0.003–0.28 (core-adjacent)<br>Inner sectors rotate faster (twist)</div>
+            </div>
+            <div style="padding:12px; background:rgba(30,110,150,0.08); border:1px solid rgba(82,193,230,0.12); border-radius:4px">
+              <div style="font-family:Orbitron; font-size:9px; color:#7dd5f0; letter-spacing:0.08em; margin-bottom:6px">NEBULA CLOUDS</div>
+              <div style="font-size:10px; color:#9fb3c8; line-height:1.5">25 clouds, 5 hue groups<br>Teal (195), Blue (225), Cyan (185),<br>Green (160), Purple (270)<br>Breathe: 0.8 + sin(phase) × 0.2<br>Orbit: 0.03–0.33</div>
+            </div>
+            <div style="padding:12px; background:rgba(30,110,150,0.08); border:1px solid rgba(82,193,230,0.12); border-radius:4px">
+              <div style="font-family:Orbitron; font-size:9px; color:#7dd5f0; letter-spacing:0.08em; margin-bottom:6px">ETHEREAL CORE</div>
+              <div style="font-size:10px; color:#9fb3c8; line-height:1.5">Spectral hue rotation<br>3-layer glow (bloom, mid, hot)<br>Scale: min(1 + (zoom-1)×2.5, 30)<br>Whiteout: radial gradient<br>Perspective: scale(z, z×0.92) rotate(7°)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ANIMATIONS ==================== -->
+    <section id="animations" class="ds-section">
+      <h2 class="ds-section-title">Animations & Motion</h2>
+      <p class="ds-section-desc">GPU-safe only: transform, opacity, filter. Source: <code>modules/shared/design-system/lib/logo-animations.css</code></p>
+
+      <div class="ds-demo">
+        <table class="ds-table">
+          <thead>
+            <tr><th>Name</th><th>Duration</th><th>Easing</th><th>Usage</th><th>Preview</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Button hover</code></td><td>0.2s</td><td>ease</td><td>All interactive controls</td>
+              <td><div class="ds-anim-box" style="animation: ds-demo-hover 2s ease infinite">hover</div></td>
+            </tr>
+            <tr>
+              <td><code>Breathing</code></td><td>4s</td><td>ease-in-out</td><td>Logo idle, status pulse</td>
+              <td><div class="ds-anim-box" style="animation: ds-breathe 4s ease-in-out infinite">breathe</div></td>
+            </tr>
+            <tr>
+              <td><code>Glow pulse</code></td><td>3s</td><td>ease-in-out</td><td>Logo glow, installer logo</td>
+              <td><div class="ds-anim-box" style="animation: ds-glow 3s ease-in-out infinite">glow</div></td>
+            </tr>
+            <tr>
+              <td><code>Entrance zoom</code></td><td>3s</td><td>cubic-bezier</td><td>Loading screen, Cloud Compass</td>
+              <td><div class="ds-anim-box" style="animation: ds-entrance 3s cubic-bezier(0.22,1,0.36,1) infinite">zoom</div></td>
+            </tr>
+            <tr>
+              <td><code>Spring bounce</code></td><td>0.6s</td><td>cubic-bezier</td><td>Success checkmark (installer)</td>
+              <td><div class="ds-anim-box" style="animation: ds-spring 2s cubic-bezier(0.175,0.885,0.32,1.275) infinite">spring</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== ICONS & BRAND ==================== -->
+    <section id="icons" class="ds-section">
+      <h2 class="ds-section-title">Icons & Brand Assets</h2>
+      <p class="ds-section-desc">All icons, logos, and brand assets. Replaces the standalone asset-preview.</p>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">App Icons</h3>
+
+        <div style="font-size:10px; color:#9fb3c8; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.1em">Animated</div>
+        <div class="ds-demo" style="margin-bottom:24px">
+          <div style="display:flex; gap:32px; align-items:end; justify-content:center; flex-wrap:wrap; margin-bottom:24px">
+            <div style="text-align:center">
+              <img src="../../../loading/ui-angular/src/assets/logo-loading-full.svg" width="256" height="256" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Full · 256px</div>
+            </div>
+            <div style="text-align:center">
+              <img src="../../../loading/ui-angular/src/assets/logo-loading-minimal.svg" width="256" height="256" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Minimal · 256px</div>
+            </div>
+            <div style="text-align:center">
+              <img src="../../../loading/ui-angular/src/assets/logo-loading-full.svg" width="128" height="128" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Full · 128px</div>
+            </div>
+            <div style="text-align:center">
+              <img src="../../../loading/ui-angular/src/assets/logo-loading-minimal.svg" width="128" height="128" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">Minimal · 128px</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:32px; align-items:end; justify-content:center; flex-wrap:wrap; margin-bottom:24px">
+            <div style="text-align:center">
+              <img src="../../../desktop/resources/app-logo.svg" width="200" height="200" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">app-logo · 200px</div>
+            </div>
+            <div style="text-align:center">
+              <img src="../../../desktop/resources/app-logo.svg" width="128" height="128" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">app-logo · 128px</div>
+            </div>
+            <div style="text-align:center">
+              <img src="../../../desktop/resources/app-logo.svg" width="64" height="64" onerror="this.style.display='none'">
+              <div style="font-size:10px; color:#9fb3c8; margin-top:6px">app-logo · 64px</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">On different backgrounds</div>
+          <div style="display:flex; gap:16px; flex-wrap:wrap">
+            <div style="width:140px;height:140px;background:repeating-conic-gradient(#1a2f45 0% 25%, #0d2035 0% 50%) 0 0/16px 16px;display:flex;align-items:center;justify-content:center;border-radius:4px">
+              <img src="../../../desktop/resources/app-logo.svg" width="120" height="120" onerror="this.style.display='none'">
+            </div>
+            <div style="width:140px;height:140px;background:#000;display:flex;align-items:center;justify-content:center;border-radius:4px">
+              <img src="../../../desktop/resources/app-logo.svg" width="120" height="120" onerror="this.style.display='none'">
+            </div>
+            <div style="width:140px;height:140px;background:#123246;display:flex;align-items:center;justify-content:center;border-radius:4px">
+              <img src="../../../desktop/resources/app-logo.svg" width="120" height="120" onerror="this.style.display='none'">
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:10px; color:#9fb3c8; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.1em">Image</div>
+        <div class="ds-demo">
+          <div style="display:flex; gap:24px; align-items:end; flex-wrap:wrap">
+            <div style="text-align:center"><img src="../../../desktop/resources/icons/app-icon-16.png" width="16" height="16" style="image-rendering:pixelated"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">16px</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/icons/app-icon-32.png" width="32" height="32"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">32px</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/icons/app-icon-48.png" width="48" height="48"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">48px</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/icons/app-icon-128.png" width="128" height="128"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">128px</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/icons/app-icon-256.png" width="256" height="256"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">256px</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Windows Icons</h3>
+        <p style="font-size:11px; color:#9fb3c8; margin-bottom:12px">Unified design: cloud ring + core + accretion disk. Taskbar = 24px, Tray = 16px.</p>
+        <div class="ds-demo">
+          <!-- App icon files -->
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">App Icon Files</div>
+          <div style="display:flex; gap:24px; align-items:center; margin-bottom:24px">
+            <div style="text-align:center"><img src="../../../desktop/resources/app-icon.ico" width="48" height="48"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">app-icon.ico</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/app-icon.png" width="48" height="48"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">app-icon.png</div></div>
+          </div>
+          <!-- Size comparison -->
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">Size comparison (default state)</div>
+          <div style="display:flex; gap:24px; align-items:end; margin-bottom:24px">
+            <div style="text-align:center"><img src="../../../desktop/resources/app-icon-taskbar.svg" width="64" height="64"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">64px detail</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/app-icon-taskbar.svg" width="48" height="48"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">48px</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/tray/tray-default.svg" width="24" height="24"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">24px taskbar</div></div>
+            <div style="text-align:center"><img src="../../../desktop/resources/tray/tray-default.svg" width="16" height="16"><div style="font-size:9px;color:#9fb3c8;margin-top:4px">16px tray</div></div>
+          </div>
+
+          <!-- All states at 24px -->
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">All states (24px)</div>
+          <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px">
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-default.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">default</div></div>
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-default-glow.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">default-glow</div></div>
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-active.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">active</div></div>
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-idle.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">idle</div></div>
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-error.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">error</div></div>
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-notification.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">notification</div></div>
+            <div style="text-align:center"><div style="background:#000;padding:8px;border-radius:4px"><img src="../../../desktop/resources/tray/tray-notification-glow.svg" width="24" height="24"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">notif-glow</div></div>
+          </div>
+
+          <!-- Simulated Windows Taskbar — Dark theme -->
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">Simulated Windows Taskbar — Dark Theme</div>
+          <div style="background:#202020;border-radius:6px;padding:6px 20px;display:inline-flex;gap:16px;align-items:center;margin-bottom:16px">
+            <img src="../../../desktop/resources/app-icon-taskbar.svg" width="24" height="24" title="Taskbar icon">
+            <span style="color:#4a6a8a;font-size:16px">|</span>
+            <span style="color:#6b8bad;font-size:9px;letter-spacing:.05em">TRAY</span>
+            <img src="../../../desktop/resources/tray/tray-default.svg" width="16" height="16" title="default">
+            <img src="../../../desktop/resources/tray/tray-active.svg" width="16" height="16" title="active">
+            <img src="../../../desktop/resources/tray/tray-idle.svg" width="16" height="16" title="idle">
+            <img src="../../../desktop/resources/tray/tray-error.svg" width="16" height="16" title="error">
+            <img src="../../../desktop/resources/tray/tray-notification.svg" width="16" height="16" title="notification">
+          </div>
+          <br>
+
+          <!-- Simulated Windows Taskbar — Light theme -->
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">Simulated Windows Taskbar — Light Theme</div>
+          <div style="background:#f3f3f3;border-radius:6px;padding:6px 20px;display:inline-flex;gap:16px;align-items:center;margin-bottom:16px">
+            <img src="../../../desktop/resources/app-icon-taskbar.svg" width="24" height="24" title="Taskbar icon">
+            <span style="color:#bbb;font-size:16px">|</span>
+            <span style="color:#888;font-size:9px;letter-spacing:.05em">TRAY</span>
+            <img src="../../../desktop/resources/tray/tray-default.svg" width="16" height="16" title="default">
+            <img src="../../../desktop/resources/tray/tray-active.svg" width="16" height="16" title="active">
+            <img src="../../../desktop/resources/tray/tray-idle.svg" width="16" height="16" title="idle">
+            <img src="../../../desktop/resources/tray/tray-error.svg" width="16" height="16" title="error">
+            <img src="../../../desktop/resources/tray/tray-notification.svg" width="16" height="16" title="notification">
+          </div>
+          <br>
+
+          <!-- All states on light vs dark -->
+          <div style="font-size:10px; color:#9fb3c8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em">All states — Dark vs Light (24px)</div>
+          <div style="display:flex;gap:24px;flex-wrap:wrap">
+            <div>
+              <div style="color:#6b8bad;font-size:10px;margin-bottom:6px">Dark taskbar</div>
+              <div style="background:#202020;border-radius:6px;padding:10px 16px;display:inline-flex;gap:12px;align-items:center">
+                <img src="../../../desktop/resources/tray/tray-default.svg" width="24" height="24" title="default">
+                <img src="../../../desktop/resources/tray/tray-default-glow.svg" width="24" height="24" title="default-glow">
+                <img src="../../../desktop/resources/tray/tray-active.svg" width="24" height="24" title="active">
+                <img src="../../../desktop/resources/tray/tray-idle.svg" width="24" height="24" title="idle">
+                <img src="../../../desktop/resources/tray/tray-error.svg" width="24" height="24" title="error">
+                <img src="../../../desktop/resources/tray/tray-notification.svg" width="24" height="24" title="notification">
+                <img src="../../../desktop/resources/tray/tray-notification-glow.svg" width="24" height="24" title="notification-glow">
+              </div>
+            </div>
+            <div>
+              <div style="color:#6b8bad;font-size:10px;margin-bottom:6px">Light taskbar</div>
+              <div style="background:#f3f3f3;border-radius:6px;padding:10px 16px;display:inline-flex;gap:12px;align-items:center">
+                <img src="../../../desktop/resources/tray/tray-default.svg" width="24" height="24" title="default">
+                <img src="../../../desktop/resources/tray/tray-default-glow.svg" width="24" height="24" title="default-glow">
+                <img src="../../../desktop/resources/tray/tray-active.svg" width="24" height="24" title="active">
+                <img src="../../../desktop/resources/tray/tray-idle.svg" width="24" height="24" title="idle">
+                <img src="../../../desktop/resources/tray/tray-error.svg" width="24" height="24" title="error">
+                <img src="../../../desktop/resources/tray/tray-notification.svg" width="24" height="24" title="notification">
+                <img src="../../../desktop/resources/tray/tray-notification-glow.svg" width="24" height="24" title="notification-glow">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Third-Party Provider Icons</h3>
+        <div class="ds-icon-grid">
+          <div class="ds-icon-cell">
+            <img src="../../../desktop/resources/icon-anthropic.svg" alt="Anthropic" style="width:32px; height:32px" onerror="this.alt='Anthropic'">
+            <span>Anthropic</span>
+          </div>
+          <div class="ds-icon-cell">
+            <img src="../../../desktop/resources/icon-google.svg" alt="Google" style="width:32px; height:32px" onerror="this.alt='Google'">
+            <span>Google</span>
+          </div>
+          <div class="ds-icon-cell">
+            <img src="../../../desktop/resources/icon-openai.svg" alt="OpenAI" style="width:32px; height:32px" onerror="this.alt='OpenAI'">
+            <span>OpenAI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection">
+        <h3 class="ds-subsection-title">Community Badge</h3>
+        <div class="ds-demo">
+          <div style="display:flex; gap:24px; flex-wrap:wrap">
+            <div style="text-align:center"><div style="padding:16px;background:#000;border-radius:4px"><img src="../../../desktop/resources/community-made-white.png" height="40" onerror="this.alt='community-made-white.png'"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">On black</div></div>
+            <div style="text-align:center"><div style="padding:16px;background:#0d2635;border-radius:4px"><img src="../../../desktop/resources/community-made-white.png" height="40" onerror="this.alt='community-made-white.png'"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">On surface-canvas</div></div>
+            <div style="text-align:center"><div style="padding:16px;background:#e8ebed;border-radius:4px"><img src="../../../desktop/resources/community-made-white.png" height="40" onerror="this.alt='community-made-white.png'"></div><div style="font-size:9px;color:#9fb3c8;margin-top:4px">On light (visibility check)</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast notification for copy feedback -->
+  <div class="ds-toast" id="toast">Copied!</div>
+
+  <!-- Keyframe animations for demos -->
+  <style>
+    /* Particle — energy pulse flying toward ship (matches loading.component) */
+    .ds-particle {
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      border-radius: 1px;
+      pointer-events: none;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, transparent 5%, #7dd5f0 50%, transparent 95%);
+      box-shadow: 0 0 5px rgba(125,213,240,0.6), 0 0 10px rgba(82,193,230,0.25);
+      animation: ds-particle-fly 1.4s ease-in infinite;
+    }
+
+    /* Particle base style (JS positions these) */
+    .ds-particle-js {
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      border-radius: 1px;
+      pointer-events: none;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, transparent 5%, #7dd5f0 50%, transparent 95%);
+      box-shadow: 0 0 5px rgba(125,213,240,0.6), 0 0 10px rgba(82,193,230,0.25);
+      opacity: 0;
+      will-change: left, opacity;
+    }
+
+    /* --- Neuron blobs (AI FX) --- */
+    /* AI Neurons — exact concept: rgba(70,130,220,...) blobs, rgba(120,180,255,...) flashes */
+    .ds-neuron {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(70,130,220,0.18) 0%, rgba(60,110,200,0.08) 35%, rgba(50,90,180,0.02) 70%, transparent 100%);
+      box-shadow: 0 0 6px rgba(70,130,220,0.15);
+      animation: ds-neuron-pulse var(--dur) ease-in-out var(--delay) infinite;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes ds-neuron-pulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(0.7); }
+      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.5); }
+    }
+
+    /* Neural flash connections — lightning bolts between blobs */
+    .ds-flash {
+      stroke: rgba(120,180,255,0.4);
+      stroke-width: 1.5;
+      stroke-linejoin: bevel;
+      opacity: 0;
+      animation: ds-flash-fire 4s ease-out infinite;
+      filter: drop-shadow(0 0 2px rgba(140,205,255,0.4));
+    }
+
+    @keyframes ds-flash-fire {
+      0% { opacity: 0; }
+      3% { opacity: 0.7; stroke: rgba(140,205,255,0.6); }
+      8% { opacity: 0.5; }
+      18% { opacity: 0.15; }
+      30% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* --- Audio rings (Audio FX) --- */
+    /* Audio rings — exact concept: rgba(60,170,190,...) base, rgba(80,200,210,...) peak */
+    .ds-audio-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(60,170,190,0.25);
+      box-shadow: 0 0 8px rgba(80,200,210,0.12);
+      transform: translate(-50%, -50%) scale(1);
+      animation: ds-ring-expand 2.8s ease-out infinite;
+    }
+
+    @keyframes ds-ring-expand {
+      0% { transform: translate(-50%,-50%) scale(1); opacity: 0.4; }
+      70% { opacity: 0.15; }
+      100% { transform: translate(-50%,-50%) scale(10); opacity: 0; }
+    }
+
+    /* Dot-comet progress bar (legacy CSS — the live component is canvas-rendered in setup-wizard-canvas.ts) */
+    @keyframes ds-dot-charge { 0%,100% { box-shadow:0 0 12px rgba(125,213,240,0.7), 0 0 24px rgba(82,193,230,0.3); } 50% { box-shadow:0 0 18px rgba(125,213,240,0.9), 0 0 32px rgba(82,193,230,0.5); } }
+    @keyframes ds-dot-pulse { 0%,100% { opacity:0.85; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.9); } }
+
+    /* Wizard dot hover labels — each dot shows its own label */
+    .ds-wizard-dot-label {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: Orbitron;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: rgba(125,213,240,0.8);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .ds-wizard-dot:hover .ds-wizard-dot-label { opacity: 1; }
+
+    /* Background FX */
+    @keyframes cloudBreathe { 0%,100% { opacity:.4; transform:scale(1); } 50% { opacity:1; transform:scale(1.04); } }
+    @keyframes ovAlpha { 0%,100% { opacity:.12; } 50% { opacity:.9; } }
+    @keyframes ds-ring-expand { 0% { transform:translate(-50%,-50%) scale(0.2); opacity:0.3; } 100% { transform:translate(-50%,-50%) scale(2); opacity:0; } }
+    @keyframes ds-radar-sweep { to { transform:translate(-50%,-50%) rotate(360deg); } }
+
+    @keyframes ds-spin { to { transform: rotate(360deg); } }
+    @keyframes trail-shimmer { 0%,100% { opacity:1; } 30% { opacity:0.82; } 55% { opacity:0.94; } 75% { opacity:0.78; } }
+    @keyframes bloom-pulse { 0%,100% { opacity:1; transform:translate(-50%,-50%) scale(1); } 50% { opacity:0.65; transform:translate(-50%,-50%) scale(1.2); } }
+    @keyframes ds-breathe { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(0.95); } }
+    @keyframes ds-glow { 0%,100% { box-shadow:0 0 8px rgba(82,193,230,0.2); } 50% { box-shadow:0 0 20px rgba(82,193,230,0.5); } }
+    @keyframes ds-entrance { 0% { transform:scale(0.1); opacity:0; filter:blur(8px); } 100% { transform:scale(1); opacity:1; filter:blur(0); } }
+    @keyframes ds-spring { 0% { transform:scale(0); } 60% { transform:scale(1.15); } 100% { transform:scale(1); } }
+    @keyframes ds-demo-hover { 0%,100% { box-shadow:none; border-color:rgba(82,193,230,0.15); } 50% { box-shadow:0 0 14px rgba(82,193,230,0.36); border-color:rgba(125,213,240,0.6); } }
+  </style>
+
+  <script>
+    // --- Copy to clipboard ---
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.textContent = `Copied: ${text}`;
+        toast.classList.add('is-visible');
+        setTimeout(() => toast.classList.remove('is-visible'), 1500);
+      });
+    }
+
+    // --- Active nav tracking ---
+    const navLinks = document.querySelectorAll('.ds-nav a');
+    const sections = document.querySelectorAll('.ds-section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('is-active'));
+          const active = document.querySelector(`.ds-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    // --- Animated cursor transitions (imported from cursor-animator.js) ---
+    import('../lib/cursor-animator.js').then(mod => {
+      const anim = new mod.CursorAnimator();
+      const isClickable = el => el.matches('button,a,.scc-checkbox,.scc-toggle,.scc-select,.scc-dropdown-trigger,.scc-dropdown-item,.scc-finetune-sep,[data-tooltip],.ds-cursor-cell,.ui-control-primary,.ui-control-secondary,.ui-control-icon,.ui-control-link');
+
+      document.addEventListener('mouseenter', e => {
+        const el = e.target.closest && e.target.closest('button,a,.scc-checkbox,.scc-toggle,.scc-select,.scc-finetune-sep,[data-tooltip],.ds-cursor-cell');
+        if (el && !el.disabled) anim.hoverIn(el);
+      }, true);
+
+      document.addEventListener('mouseleave', e => {
+        const el = e.target.closest && e.target.closest('button,a,.scc-checkbox,.scc-toggle,.scc-select,.scc-finetune-sep,[data-tooltip],.ds-cursor-cell');
+        if (el) anim.hoverOut(el);
+      }, true);
+
+      document.addEventListener('mousedown', e => {
+        const el = e.target.closest && e.target.closest('button,a,.scc-checkbox,.scc-toggle,.scc-select,.scc-finetune-sep,[data-tooltip],.ds-cursor-cell');
+        if (el && !el.disabled) anim.mouseDown(el, false);
+      });
+
+      document.addEventListener('mouseup', e => {
+        const el = e.target.closest && e.target.closest('button,a,.scc-checkbox,.scc-toggle,.scc-select,.scc-finetune-sep,[data-tooltip],.ds-cursor-cell');
+        if (el) anim.mouseUp(el);
+      });
+    }).catch(e => console.warn('cursor-animator not loaded:', e));
+
+    // --- Ship trail animated demo (progress + JS-driven particles) ---
+    (function() {
+      const trail = document.getElementById('shipTrail');
+      const ship = document.getElementById('shipEl');
+      const pct = document.getElementById('shipPercent');
+      const track = document.getElementById('shipTrackDemo');
+      if (!trail || !ship || !pct || !track) return;
+
+      // Create 4 particle elements
+      const MAX_P = 4;
+      const particles = [];
+      for (let i = 0; i < MAX_P; i++) {
+        const el = document.createElement('div');
+        el.className = 'ds-particle-js';
+        track.appendChild(el);
+        particles.push({ el, active: false, pos: 0, speed: 0, born: 0, brightness: 0.5 + Math.random() * 0.3 });
+      }
+      let lastSpawn = 0;
+
+      // Progress animation steps
+      const steps = [
+        { target: 25, duration: 3000 },
+        { target: 25, duration: 1500 },
+        { target: 100, duration: 5000 },
+        { target: 100, duration: 2000 },
+        { target: 0, duration: 0 },
+      ];
+
+      let current = 0, stepIdx = 0, stepStart = performance.now(), startVal = 0;
+
+      function update(now) {
+        const step = steps[stepIdx];
+        const elapsed = now - stepStart;
+
+        if (step.duration === 0) {
+          current = step.target;
+        } else {
+          const t = Math.min(elapsed / step.duration, 1);
+          current = startVal + (step.target - startVal) * t;
+        }
+
+        const p = Math.round(current);
+        trail.style.width = p + '%';
+        ship.style.left = p + '%';
+        pct.textContent = p + '%';
+
+        // Spawn particles when progress > 1%
+        if (current > 1 && now - lastSpawn > 500 + Math.random() * 400) {
+          const idle = particles.find(pp => !pp.active);
+          if (idle) {
+            idle.active = true;
+            idle.pos = 0;
+            idle.speed = 0.3 + Math.random() * 0.4; // % per frame
+            idle.born = now;
+            idle.brightness = 0.4 + Math.random() * 0.4;
+            lastSpawn = now;
+          }
+        }
+
+        // Update particles — clamp to ship position, never overshoot
+        for (const pp of particles) {
+          if (!pp.active) { pp.el.style.opacity = '0'; continue; }
+
+          pp.pos += pp.speed;
+
+          // Hard clamp: never exceed current ship position
+          if (pp.pos >= current) {
+            pp.pos = current;
+            pp.active = false;
+            pp.el.style.opacity = '0';
+            continue;
+          }
+
+          // Fade in/out
+          const age = now - pp.born;
+          const distToShip = current - pp.pos;
+          let alpha = pp.brightness;
+          if (age < 150) alpha *= age / 150; // fade in
+          if (distToShip < 5) alpha *= distToShip / 5; // fade out near ship
+
+          pp.el.style.left = pp.pos + '%';
+          pp.el.style.opacity = String(Math.max(0, alpha));
+        }
+
+        // Reset on step 0
+        if (elapsed >= step.duration || step.duration === 0) {
+          startVal = step.target;
+          stepIdx = (stepIdx + 1) % steps.length;
+          stepStart = now;
+          if (stepIdx === 0) {
+            current = 0; startVal = 0;
+            particles.forEach(pp => { pp.active = false; pp.el.style.opacity = '0'; });
+          }
+        }
+
+        requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    })();
+
+    // === WARP VORTEX (extracted 1:1 from mockup-setup-wizard-warp.html) ===
+    (function() {
+      const c = document.getElementById('fxWarpCanvas');
+      const whiteout = document.getElementById('warpWhiteout');
+      if (!c || !whiteout) return;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = c.parentElement.getBoundingClientRect();
+      c.width = rect.width * dpr; c.height = rect.height * dpr;
+      const ctx = c.getContext('2d');
+      const cssW = rect.width, cssH = rect.height;
+
+      // Nebula texture (3x supersample + dither + downsample)
+      const SUPERSAMPLE = 2; // 2x for perf in design system (original: 3x)
+      const nebTex = document.createElement('canvas');
+      const nebTexCtx = nebTex.getContext('2d');
+      const _nebHi = document.createElement('canvas');
+      const _nebHiCtx = _nebHi.getContext('2d');
+
+      function generateNebula() {
+        const w = c.width, h = c.height;
+        const sw = w * SUPERSAMPLE, sh = h * SUPERSAMPLE;
+        _nebHi.width = sw; _nebHi.height = sh;
+        _nebHiCtx.fillStyle = '#000'; _nebHiCtx.fillRect(0, 0, sw, sh);
+        const nebColors = [
+          {x:.3,y:.25,r:.4,color:[30,110,150]},{x:.7,y:.6,r:.35,color:[25,65,140]},
+          {x:.2,y:.7,r:.3,color:[20,90,100]},{x:.8,y:.3,r:.32,color:[50,30,100]},
+          {x:.5,y:.5,r:.45,color:[30,110,150]},{x:.15,y:.4,r:.28,color:[20,90,100]},
+          {x:.65,y:.2,r:.3,color:[25,65,140]},{x:.85,y:.65,r:.25,color:[50,30,100]},
+          {x:.4,y:.8,r:.33,color:[30,110,150]},{x:.55,y:.35,r:.38,color:[20,90,100]},
+        ];
+        for (const nc of nebColors) {
+          const cx=nc.x*sw, cy=nc.y*sh, radius=nc.r*Math.max(sw,sh);
+          const g=_nebHiCtx.createRadialGradient(cx,cy,0,cx,cy,radius);
+          const [r,gr,b]=nc.color;
+          g.addColorStop(0,`rgba(${r},${gr},${b},.65)`);
+          g.addColorStop(.3,`rgba(${r},${gr},${b},.40)`);
+          g.addColorStop(.6,`rgba(${r},${gr},${b},.15)`);
+          g.addColorStop(1,`rgba(${r},${gr},${b},0)`);
+          _nebHiCtx.beginPath(); _nebHiCtx.arc(cx,cy,radius,0,Math.PI*2);
+          _nebHiCtx.fillStyle=g; _nebHiCtx.fill();
+        }
+        const cloudLayers = [
+          {x:.15,y:.25,r:.28,color:[40,150,130],a:.35},{x:.72,y:.42,r:.26,color:[35,140,120],a:.30},
+          {x:.45,y:.75,r:.24,color:[30,130,110],a:.28},{x:.62,y:.22,r:.32,color:[50,15,95],a:.55},
+          {x:.28,y:.58,r:.28,color:[42,12,85],a:.50},{x:.80,y:.72,r:.26,color:[58,20,105],a:.45},
+          {x:.38,y:.18,r:.20,color:[70,200,235],a:.55},{x:.58,y:.62,r:.22,color:[65,190,225],a:.48},
+          {x:.12,y:.68,r:.18,color:[75,210,240],a:.45},{x:.50,y:.35,r:.38,color:[4,12,40],a:.65},
+          {x:.25,y:.42,r:.32,color:[3,10,35],a:.58},{x:.75,y:.55,r:.34,color:[6,15,45],a:.52},
+        ];
+        for (const cl of cloudLayers) {
+          const lx=cl.x*sw, ly=cl.y*sh, lr=cl.r*Math.max(sw,sh);
+          const g=_nebHiCtx.createRadialGradient(lx,ly,0,lx,ly,lr);
+          const [cr,cg,cb]=cl.color;
+          g.addColorStop(0,`rgba(${cr},${cg},${cb},${cl.a})`);
+          g.addColorStop(.25,`rgba(${cr},${cg},${cb},${cl.a*.6})`);
+          g.addColorStop(.55,`rgba(${cr},${cg},${cb},${cl.a*.25})`);
+          g.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
+          _nebHiCtx.beginPath(); _nebHiCtx.arc(lx,ly,lr,0,Math.PI*2);
+          _nebHiCtx.fillStyle=g; _nebHiCtx.fill();
+        }
+        // Dither
+        const imgData=_nebHiCtx.getImageData(0,0,sw,sh); const d=imgData.data;
+        for (let i=0;i<d.length;i+=4) {
+          const dither=Math.random()+Math.random()-1;
+          d[i]=Math.max(0,Math.min(255,d[i]+dither));
+          d[i+1]=Math.max(0,Math.min(255,d[i+1]+dither));
+          d[i+2]=Math.max(0,Math.min(255,d[i+2]+dither));
+        }
+        _nebHiCtx.putImageData(imgData,0,0);
+        nebTex.width=w; nebTex.height=h;
+        nebTexCtx.imageSmoothingEnabled=true; nebTexCtx.imageSmoothingQuality='high';
+        nebTexCtx.drawImage(_nebHi,0,0,sw,sh,0,0,w,h);
+      }
+      generateNebula();
+
+      // Vortex state
+      const NUM_SECTORS=14;
+      const sectorBounds=[];
+      for (let i=0;i<=NUM_SECTORS;i++) sectorBounds.push(Math.pow(i/NUM_SECTORS,1.6));
+      let coreHuePhase=Math.random()*360, vortexAngle=0, breathePhase=Math.random()*Math.PI*2;
+      let warpPhase='idle', warpStart=0;
+
+      window.restartWarpDemo = function() {
+        warpPhase='opening'; warpStart=performance.now();
+        vortexAngle=.8; // start with visible rotation so spiral arms are immediately apparent
+        whiteout.style.opacity='0';
+        setTimeout(()=>{warpPhase='zooming';warpStart=performance.now()},1500);
+        setTimeout(()=>{warpPhase='exploding';warpStart=performance.now()},11500);
+        setTimeout(()=>{warpPhase='white'},12800);
+        setTimeout(()=>{
+          warpPhase='idle';
+          whiteout.style.transition='opacity 1.5s ease'; whiteout.style.opacity='0';
+          setTimeout(()=>{whiteout.style.transition='opacity .1s'},1700);
+        },16500);
+      };
+      // Auto-start
+      setTimeout(restartWarpDemo, 500);
+
+      function drawWarp(ts) {
+        if (warpPhase==='idle') { requestAnimationFrame(drawWarp); return; }
+        const w=cssW, h=cssH, cx=w/2, cy=h/2;
+        ctx.save(); ctx.setTransform(dpr,0,0,dpr,0,0);
+        ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+        ctx.clearRect(0,0,w,h);
+
+        const el=ts-warpStart;
+        let phaseT=0, rotSpeed=0, coreIntensity=.3, zoom=1, twistMul=1;
+
+        if (warpPhase==='opening') {
+          phaseT=Math.min(el/1500,1);
+          rotSpeed=.001*(.5+phaseT*.5); coreIntensity=.3+phaseT*.2;
+          zoom=1+phaseT*.08; twistMul=1.5;
+        } else if (warpPhase==='zooming') {
+          phaseT=Math.min(el/10000,1);
+          const accel=Math.pow(phaseT,4);
+          const baseZoom=1.08+accel*4;
+          const osc=Math.sin(phaseT*4.5*Math.PI)*0.15*(1-phaseT);
+          zoom=Math.max(1.08,baseZoom+osc);
+          rotSpeed=.001+accel*.035;
+          coreIntensity=.5+phaseT*.5; twistMul=1.5+accel*10;
+          if (phaseT>.88) whiteout.style.opacity=Math.pow((phaseT-.88)/.12,3)*.25;
+        } else if (warpPhase==='exploding') {
+          phaseT=Math.min(el/1300,1);
+          const eased=1-Math.pow(1-phaseT,3);
+          rotSpeed=.03+eased*.08; coreIntensity=1;
+          zoom=5+eased*20; twistMul=10;
+          whiteout.style.opacity=.3+eased*.7;
+        } else if (warpPhase==='white') {
+          whiteout.style.opacity='1';
+          ctx.restore(); requestAnimationFrame(drawWarp); return;
+        }
+
+        vortexAngle+=rotSpeed;
+        breathePhase+=Math.PI*2/(60*3);
+        const effectiveZoom=zoom*(1+Math.sin(breathePhase)*.03);
+
+        // 3-pass nebula vortex
+        ctx.globalCompositeOperation='source-over';
+        const passes=[
+          {rot:vortexAngle, sx:effectiveZoom, sy:effectiveZoom*.94, alpha:.85},
+          {rot:vortexAngle*(1+twistMul*.4), sx:effectiveZoom*1.05, sy:effectiveZoom*.99, alpha:.2},
+          {rot:vortexAngle*(1+twistMul*1.2), sx:effectiveZoom*1.15, sy:effectiveZoom*1.08, alpha:.1},
+        ];
+        for (const p of passes) {
+          ctx.save(); ctx.translate(cx,cy); ctx.rotate(p.rot);
+          ctx.scale(p.sx,p.sy); ctx.translate(-cx,-cy);
+          ctx.globalAlpha=p.alpha;
+          ctx.drawImage(nebTex,0,0,nebTex.width,nebTex.height,-w*1.5,-h*1.5,w*4,h*4);
+          ctx.globalAlpha=1; ctx.restore();
+        }
+
+        // Core glow
+        if (coreIntensity>.05) {
+          coreHuePhase+=.036;
+          const coreHue=(coreHuePhase*(180/Math.PI))%360;
+          const coreScale=Math.min(1+(effectiveZoom-1)*2.5,30);
+          const ci=coreIntensity;
+          const bloomR=(100+ci*60)*coreScale;
+          const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,bloomR);
+          bg.addColorStop(0,`hsla(${coreHue},25%,95%,${ci*.6})`);
+          bg.addColorStop(.1,`hsla(${(coreHue+20)%360},22%,90%,${ci*.4})`);
+          bg.addColorStop(.25,`hsla(${(coreHue+40)%360},18%,82%,${ci*.2})`);
+          bg.addColorStop(.5,`hsla(${(coreHue+70)%360},14%,70%,${ci*.06})`);
+          bg.addColorStop(1,'hsla(200,10%,60%,0)');
+          ctx.beginPath(); ctx.arc(cx,cy,bloomR,0,Math.PI*2);
+          ctx.fillStyle=bg; ctx.fill();
+          const coreR=(25+ci*15)*coreScale;
+          const cg2=ctx.createRadialGradient(cx,cy,0,cx,cy,coreR);
+          cg2.addColorStop(0,`rgba(250,252,255,${ci})`);
+          cg2.addColorStop(.08,`hsla(${coreHue},15%,96%,${ci*.85})`);
+          cg2.addColorStop(.4,`hsla(${(coreHue+60)%360},18%,80%,${ci*.2})`);
+          cg2.addColorStop(1,'hsla(200,10%,60%,0)');
+          ctx.beginPath(); ctx.arc(cx,cy,coreR,0,Math.PI*2);
+          ctx.fillStyle=cg2; ctx.fill();
+          const hotR=(8+ci*6)*coreScale;
+          const hg=ctx.createRadialGradient(cx,cy,0,cx,cy,hotR);
+          hg.addColorStop(0,`rgba(255,255,255,${ci})`);
+          hg.addColorStop(.3,`rgba(245,250,255,${ci*.7})`);
+          hg.addColorStop(1,'rgba(180,220,245,0)');
+          ctx.beginPath(); ctx.arc(cx,cy,hotR,0,Math.PI*2);
+          ctx.fillStyle=hg; ctx.fill();
+        }
+        ctx.restore();
+        requestAnimationFrame(drawWarp);
+      }
+      requestAnimationFrame(drawWarp);
+    })();
+
+    // --- FX Canvases (extracted 1:1 from mockup-setup-wizard.html) ---
+    (function() {
+      function initCanvas(id) {
+        const c = document.getElementById(id);
+        if (!c) return null;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = c.parentElement.getBoundingClientRect();
+        c.width = rect.width * dpr;
+        c.height = rect.height * dpr;
+        const ctx = c.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { c, ctx, w: rect.width, h: rect.height };
+      }
+
+      // === RADAR SWEEP (Game FX) ===
+      const radar = initCanvas('fxRadarCanvas');
+      if (radar) {
+        let radarAngle = 0;
+        const nebBg = radar.ctx;
+        function drawRadarBg() {
+          const { ctx, w, h } = radar;
+          ctx.clearRect(0, 0, w, h);
+          // Nebula bg
+          const bg = ctx.createRadialGradient(w*.55, h*.35, 0, w*.55, h*.35, w*.52);
+          bg.addColorStop(0, 'rgba(25,65,140,0.44)'); bg.addColorStop(1, 'transparent');
+          ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = '#060a10'; ctx.globalCompositeOperation = 'destination-over'; ctx.fillRect(0, 0, w, h);
+          ctx.globalCompositeOperation = 'source-over';
+        }
+        function drawRadar(ts) {
+          const { ctx, w, h } = radar;
+          ctx.clearRect(0, 0, w, h);
+          drawRadarBg();
+          const cx = w/2, cy = h/2;
+          radarAngle += .012;
+          const cycleLen = Math.PI * 8;
+          const pulse = (radarAngle % cycleLen) / cycleLen;
+          const sizeCurve = pulse < .5 ? .2 + .8 * (pulse / .5) : 1.0 - .8 * ((pulse - .5) / .5);
+          const opCurve = pulse < .08 ? pulse / .08 : pulse < .5 ? 1 : 1 - ((pulse - .5) / .5);
+          const maxR = Math.max(w, h) * .75 * sizeCurve;
+          const sweepOp = .06 * Math.max(opCurve, 0);
+          ctx.save(); ctx.translate(cx, cy); ctx.rotate(radarAngle);
+          ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0, 0, maxR, 0, .5); ctx.closePath();
+          const g = ctx.createConicGradient(0, 0, 0);
+          g.addColorStop(0, 'rgba(60,190,150,0)');
+          g.addColorStop(.02, `rgba(60,190,150,${sweepOp})`);
+          g.addColorStop(.08, 'rgba(60,190,150,0)');
+          g.addColorStop(.081, 'rgba(60,190,150,0)');
+          g.addColorStop(1, 'rgba(60,190,150,0)');
+          ctx.fillStyle = g; ctx.fill();
+          ctx.restore();
+          requestAnimationFrame(drawRadar);
+        }
+        requestAnimationFrame(drawRadar);
+      }
+
+      // === AI NEURONS + LIGHTNING (AI FX) ===
+      const ai = initCanvas('fxAiCanvas');
+      if (ai) {
+        const blobs = [];
+        for (let i = 0; i < 10; i++) {
+          blobs.push({ x:.15+Math.random()*.7, y:.15+Math.random()*.7,
+            baseR: 14+Math.random()*26, phase: Math.random()*Math.PI*2,
+            speed: .005+Math.random()*.008,
+            dx: (Math.random()-.5)*.00025, dy: (Math.random()-.5)*.00025 });
+        }
+        const flashes = []; let lastFlash = 0;
+        function drawAi(ts) {
+          const { ctx, w, h } = ai;
+          ctx.clearRect(0, 0, w, h);
+          // Nebula bg
+          ctx.fillStyle = '#060a10'; ctx.fillRect(0, 0, w, h);
+          const bg = ctx.createRadialGradient(w*.45, h*.48, 0, w*.45, h*.48, w*.52);
+          bg.addColorStop(0, 'rgba(20,90,100,0.42)'); bg.addColorStop(1, 'transparent');
+          ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+          // Blobs
+          for (const b of blobs) {
+            b.phase += b.speed; b.x += b.dx; b.y += b.dy;
+            if (b.x < .1 || b.x > .9) b.dx *= -1;
+            if (b.y < .1 || b.y > .9) b.dy *= -1;
+            const pulse = Math.sin(b.phase);
+            const r = b.baseR * (.7 + pulse * .5);
+            const alpha = .05 + pulse * .04;
+            const g = ctx.createRadialGradient(b.x*w, b.y*h, 0, b.x*w, b.y*h, r);
+            g.addColorStop(0, `rgba(70,130,220,${alpha*2.2})`);
+            g.addColorStop(.35, `rgba(60,110,200,${alpha*1.2})`);
+            g.addColorStop(.7, `rgba(50,90,180,${alpha*.3})`);
+            g.addColorStop(1, 'rgba(50,90,180,0)');
+            ctx.beginPath(); ctx.arc(b.x*w, b.y*h, r, 0, Math.PI*2);
+            ctx.fillStyle = g; ctx.fill();
+          }
+          // Flash spawn
+          if (ts - lastFlash > 800 + Math.random() * 2400) {
+            lastFlash = ts;
+            const a = Math.floor(Math.random() * blobs.length);
+            let b2 = a; while (b2 === a) b2 = Math.floor(Math.random() * blobs.length);
+            flashes.push({ fromIdx: a, toIdx: b2, birth: ts,
+              holdEnd: ts + 200 + Math.random() * 300, fadeEnd: ts + 600 + Math.random() * 800 });
+          }
+          // Draw flashes
+          for (let fi = flashes.length - 1; fi >= 0; fi--) {
+            const fl = flashes[fi];
+            if (ts > fl.fadeEnd) { flashes.splice(fi, 1); continue; }
+            const from = blobs[fl.fromIdx], to = blobs[fl.toIdx];
+            const fx1 = from.x*w, fy1 = from.y*h, fx2 = to.x*w, fy2 = to.y*h;
+            if (!fl.zigzag) {
+              const dx = fx2-fx1, dy = fy2-fy1, dist = Math.hypot(dx, dy);
+              if (dist < 1) { fl.zigzag = [[fx1,fy1],[fx2,fy2]]; continue; }
+              const perpX = -dy/dist, perpY = dx/dist;
+              fl.zigzag = [[fx1, fy1]]; let progress = 0;
+              while (progress < .92) {
+                const step = .08 + Math.random() * .22;
+                progress = Math.min(progress + step, .95);
+                const midFactor = Math.sin(progress * Math.PI);
+                const offset = (Math.random()-.5) * dist * .25 * midFactor;
+                fl.zigzag.push([fx1+dx*progress+perpX*offset, fy1+dy*progress+perpY*offset]);
+              }
+              fl.zigzag.push([fx2, fy2]);
+            }
+            let alpha = ts < fl.holdEnd ? 1 : 1 - (ts-fl.holdEnd)/(fl.fadeEnd-fl.holdEnd);
+            alpha = Math.max(0, Math.min(1, alpha));
+            const buildT = Math.min((ts-fl.birth)/60, 1);
+            const ptCount = Math.ceil(buildT * fl.zigzag.length);
+            if (ptCount > 1) {
+              ctx.save();
+              const lg = ctx.createLinearGradient(fx1, fy1, fx2, fy2);
+              lg.addColorStop(0, `rgba(120,180,255,${alpha*.12})`);
+              lg.addColorStop(.5, `rgba(140,205,255,${alpha*.28})`);
+              lg.addColorStop(1, `rgba(120,180,255,${alpha*.12})`);
+              ctx.strokeStyle = lg; ctx.lineWidth = 1.5+alpha*1.5; ctx.lineJoin = 'bevel';
+              ctx.filter = `blur(${.5+alpha*1.5}px)`;
+              ctx.beginPath(); ctx.moveTo(fl.zigzag[0][0], fl.zigzag[0][1]);
+              for (let p = 1; p < ptCount; p++) ctx.lineTo(fl.zigzag[p][0], fl.zigzag[p][1]);
+              ctx.stroke();
+              ctx.strokeStyle = `rgba(180,220,255,${alpha*.1})`; ctx.lineWidth = .8+alpha*.5; ctx.stroke();
+              ctx.restore();
+            }
+          }
+          // Faint connections
+          ctx.strokeStyle = 'rgba(80,150,230,.008)'; ctx.lineWidth = .5;
+          for (let i = 0; i < blobs.length; i++)
+            for (let j = i+1; j < blobs.length; j++) {
+              const d = Math.hypot((blobs[i].x-blobs[j].x)*w, (blobs[i].y-blobs[j].y)*h);
+              if (d < 160) { ctx.beginPath(); ctx.moveTo(blobs[i].x*w, blobs[i].y*h);
+                ctx.lineTo(blobs[j].x*w, blobs[j].y*h); ctx.stroke(); }
+            }
+          requestAnimationFrame(drawAi);
+        }
+        requestAnimationFrame(drawAi);
+      }
+
+      // === AUDIO RINGS (Audio FX) ===
+      const audio = initCanvas('fxAudioCanvas');
+      if (audio) {
+        const rings = []; let lastSpawn = 0;
+        function drawAudio(ts) {
+          const { ctx, w, h } = audio;
+          ctx.clearRect(0, 0, w, h);
+          // Nebula bg
+          ctx.fillStyle = '#060a10'; ctx.fillRect(0, 0, w, h);
+          const bg = ctx.createRadialGradient(w*.5, h*.5, 0, w*.5, h*.5, w*.52);
+          bg.addColorStop(0, 'rgba(20,100,80,0.40)'); bg.addColorStop(1, 'transparent');
+          ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+          const cx = w/2, cy = h/2;
+          // Spawn rings
+          if (ts - lastSpawn > 2800) { rings.push({ r: 5 }); lastSpawn = ts; }
+          const maxR = Math.max(w, h) * .65;
+          for (let i = rings.length-1; i >= 0; i--) {
+            const ring = rings[i]; ring.r += .4;
+            const t = ring.r / maxR;
+            if (t > 1) { rings.splice(i, 1); continue; }
+            const alpha = .06 * (1-t);
+            const thick = 18 + ring.r * .05;
+            const g = ctx.createRadialGradient(cx, cy, Math.max(0, ring.r-thick), cx, cy, ring.r+thick);
+            g.addColorStop(0, 'rgba(60,170,190,0)');
+            g.addColorStop(.3, `rgba(60,170,190,${alpha*.3})`);
+            g.addColorStop(.5, `rgba(80,200,210,${alpha})`);
+            g.addColorStop(.7, `rgba(60,170,190,${alpha*.3})`);
+            g.addColorStop(1, 'rgba(60,170,190,0)');
+            ctx.beginPath(); ctx.arc(cx, cy, ring.r+thick, 0, Math.PI*2);
+            ctx.fillStyle = g; ctx.fill();
+          }
+          requestAnimationFrame(drawAudio);
+        }
+        requestAnimationFrame(drawAudio);
+      }
+    })();
+
+    // --- Simple tooltip for demo ---
+    document.querySelectorAll('[data-tooltip]').forEach(el => {
+      let tip = null;
+      el.addEventListener('mouseenter', e => {
+        tip = document.createElement('div');
+        tip.className = 'scc-tooltip' + (el.dataset.tooltipVariant === 'gold' ? ' scc-tooltip--gold' : '');
+        tip.textContent = el.dataset.tooltip;
+        document.body.appendChild(tip);
+        const rect = el.getBoundingClientRect();
+        tip.style.left = rect.left + 'px';
+        tip.style.top = (rect.bottom + 6) + 'px';
+        requestAnimationFrame(() => tip.classList.add('is-visible'));
+      });
+      el.addEventListener('mouseleave', () => {
+        if (tip) { tip.remove(); tip = null; }
+      });
+    });
+
+    // --- SCC Custom Dropdown Behavior ---
+    (function() {
+      const dropdowns = document.querySelectorAll('.scc-dropdown:not(.is-single):not(.is-disabled)');
+
+      dropdowns.forEach(dd => {
+        const trigger = dd.querySelector('.scc-dropdown-trigger');
+        const menu = dd.querySelector('.scc-dropdown-menu');
+        if (!trigger || !menu) return;
+
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const wasOpen = dd.classList.contains('is-open');
+          // close all other dropdowns first
+          document.querySelectorAll('.scc-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+          if (!wasOpen) dd.classList.add('is-open');
+        });
+
+        menu.querySelectorAll('.scc-dropdown-item').forEach(item => {
+          item.addEventListener('click', () => {
+            // update selected state
+            menu.querySelectorAll('.scc-dropdown-item').forEach(i => i.classList.remove('is-selected'));
+            item.classList.add('is-selected');
+
+            // update trigger display
+            const valueEl = trigger.querySelector('.scc-dropdown-value');
+            const iconEl = item.querySelector('.scc-dropdown-icon');
+            const triggerIcon = trigger.querySelector('.scc-dropdown-icon');
+
+            // build new value HTML from item content (exclude icon)
+            const clone = item.cloneNode(true);
+            const cloneIcon = clone.querySelector('.scc-dropdown-icon');
+            if (cloneIcon) cloneIcon.remove();
+            valueEl.innerHTML = clone.innerHTML.trim();
+            valueEl.classList.remove('scc-dropdown-hint');
+
+            // update trigger icon if present
+            if (iconEl && triggerIcon) {
+              triggerIcon.innerHTML = iconEl.innerHTML;
+            }
+
+            // remove placeholder class
+            dd.classList.remove('is-placeholder');
+            dd.dataset.value = item.dataset.val || '';
+            dd.classList.remove('is-open');
+          });
+        });
+      });
+
+      // close dropdown on outside click
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.scc-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      });
+
+      // close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.scc-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

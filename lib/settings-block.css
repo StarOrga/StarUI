@@ -1,0 +1,378 @@
+/* ============================================================
+   SCC Design System — Settings Block
+   Source of truth for settings layout: inline blocks, boxed
+   containers, finetune sections, grid alignment, descriptions.
+   Form element appearance is in forms.css.
+   Interaction states are in control-states.css.
+
+   VARIANTS:
+     .scc-settings-inline   — No container, no title, parent-width
+     .scc-settings-box      — Glass container with glow title
+       + .outlined           — Transparent bg, no border/glow (use
+                               inside a parent that is already a glass
+                               container, e.g. compass-panel)
+       + .has-category       — Adds left gradient accent bar
+       + .cat-app / .cat-game / .cat-ai / .cat-overlay
+
+   BOX STYLES (all share glass bg + category-tinted glow):
+     Default (no .cat-*)    — Cyan accent glow on box + title
+     .cat-app               — App-category tinted glow + title
+     .cat-game              — Game-category tinted glow + title
+     .cat-ai                — AI-category tinted glow + title
+     .cat-overlay           — Overlay-category tinted glow + title
+       + .has-category      — Adds left vertical gradient accent bar
+     .outlined              — Transparent bg, no border/glow, minimal
+                               padding. Use inside glass parent.
+
+   GRID RATIO (default 60:40, override via CSS vars):
+     --col-label:   3fr   (label column)
+     --col-control: 2fr   (control column)
+     --ctrl-width:  100%  (uniform control width within column)
+
+   FINETUNE:
+     .scc-finetune-sep     — Clickable separator line
+     .scc-ft-content       — Collapsible content (grid-rows animation)
+
+   DESCRIPTION:
+     .scc-setting-desc     — Inline truncated text after label
+       > .scc-tip           — Tooltip with full text on hover
+
+   USAGE EXAMPLES:
+
+   Without category (default glow box):
+     <div class="scc-settings-box">
+       <div class="scc-box-title">Audio</div>
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Input Device</span>
+         <div class="scc-setting-control">
+           <select class="scc-select">...</select>
+         </div>
+       </div>
+     </div>
+
+   With category accent:
+     <div class="scc-settings-box has-category cat-game">
+       <div class="scc-box-title">Game Version</div>
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Channel</span>
+         <div class="scc-setting-control">
+           <select class="scc-select">
+             <option>LIVE</option>
+             <option>PTU</option>
+           </select>
+         </div>
+       </div>
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Auto-detect</span>
+         <div class="scc-setting-control">
+           <label class="scc-toggle">
+             <input type="checkbox" checked />
+             <span class="scc-toggle-slider"></span>
+           </label>
+         </div>
+       </div>
+     </div>
+
+   Outlined (inside a glass parent):
+     <div class="scc-settings-box outlined">
+       <div class="scc-setting-row">
+         <span class="scc-setting-label">Language</span>
+         <div class="scc-setting-control">
+           <select class="scc-select">...</select>
+         </div>
+       </div>
+     </div>
+   ============================================================ */
+
+
+/* === Setting Row — CSS Grid, 2 columns ===================== */
+
+.scc-setting-row {
+  display: grid;
+  grid-template-columns: var(--col-label, 3fr) var(--col-control, 2fr);
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  position: relative;
+}
+
+.scc-setting-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary, #e8ebed);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+
+.scc-setting-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* Uniform control widths — selects, inputs, sliders stretch
+   to fill the control column. Toggles and hotkeys stay intrinsic. */
+.scc-setting-control .scc-select,
+.scc-setting-control .scc-input {
+  width: var(--ctrl-width, 100%);
+  min-width: 0;
+  max-width: 200px;
+}
+
+.scc-setting-control .scc-slider-wrap {
+  width: var(--ctrl-width, 100%);
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scc-setting-control .scc-slider-wrap .scc-slider {
+  flex: 1;
+  min-width: 0;
+}
+
+.scc-setting-control .scc-slider-wrap .scc-slider-value {
+  font-family: var(--font-monospace, "Share Tech Mono", monospace);
+  font-size: 11px;
+  color: var(--text-secondary, #9fb3c8);
+  min-width: 30px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+
+/* === Description — inline after label, truncated =========== */
+
+.scc-setting-desc {
+  font-size: 11px;
+  color: var(--text-tertiary, #5a7a94);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+  opacity: 0;
+  display: inline;
+  margin-left: 0;
+  transition:
+    max-width 0.35s ease,
+    opacity 0.3s ease,
+    margin-left 0.3s ease;
+  position: relative;
+  cursor: var(--scc-cursor-help, help);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Show on row hover or when any control inside has focus */
+.scc-setting-row:hover .scc-setting-desc,
+.scc-setting-row:focus-within .scc-setting-desc {
+  max-width: 100%;
+  opacity: 1;
+  margin-left: 8px;
+}
+
+/* Full-text tooltip on description hover */
+.scc-setting-desc .scc-tip {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  background: var(--surface-panel-strong, #164664);
+  border: 1px solid var(--border-default, rgba(82, 193, 230, 0.3));
+  border-radius: var(--radius-md, 4px);
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary, #9fb3c8);
+  white-space: normal;
+  width: 260px;
+  line-height: 1.4;
+  z-index: 20;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.scc-setting-desc .scc-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 5px solid transparent;
+  border-top-color: var(--border-default, rgba(82, 193, 230, 0.3));
+}
+
+.scc-setting-desc:hover .scc-tip {
+  display: block;
+}
+
+
+/* === Inline — no container ================================= */
+
+.scc-settings-inline {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* === Box — glass container with ambient glow =============== */
+
+.scc-settings-box {
+  background: rgba(12, 32, 48, 0.35);
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  padding: 14px 16px;
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 2px 16px color-mix(in srgb, var(--_cat-color, var(--accent-primary, #52c1e6)) 12%, transparent);
+}
+
+/* Box title — glow header */
+.scc-settings-box .scc-box-title {
+  font-family: var(--font-heading-category, "Orbitron", sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--_cat-color, var(--accent-strong, #7dd5f0));
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px color-mix(in srgb, var(--_cat-color, var(--accent-primary, #52c1e6)) 40%, transparent);
+}
+
+/* Category variants — set accent color + left gradient bar.
+   The glow (box-shadow, text-shadow) uses --_cat-color so it
+   tints automatically. Without a category class the default
+   cyan accent applies. */
+.scc-settings-box.cat-app     { --_cat-color: var(--cat-app); }
+.scc-settings-box.cat-game    { --_cat-color: var(--cat-game); }
+.scc-settings-box.cat-ai      { --_cat-color: var(--cat-ai); }
+.scc-settings-box.cat-overlay { --_cat-color: var(--cat-overlay); }
+
+/* Category accent bar — left gradient */
+.scc-settings-box.has-category::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--_cat-color, var(--accent-primary, #52c1e6)) 0%,
+    transparent 100%
+  );
+  border-radius: var(--radius-md, 4px) 0 0 var(--radius-md, 4px);
+}
+
+
+/* === Finetune — separator + collapsible content ============ */
+
+.scc-finetune-sep {
+  display: flex;
+  align-items: center;
+  margin: 8px 0 4px;
+  cursor: var(--scc-cursor-pointer, pointer);
+  user-select: none;
+}
+
+.scc-finetune-sep::before,
+.scc-finetune-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(82, 193, 230, 0.1);
+}
+
+.scc-finetune-sep .scc-ft-inner {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+}
+
+/* Thick triangle chevrons */
+.scc-finetune-sep .scc-ft-tri {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
+  opacity: 0.25;
+}
+
+.scc-finetune-sep .scc-ft-tri.left {
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent var(--accent-primary, #52c1e6);
+}
+
+.scc-finetune-sep .scc-ft-tri.right {
+  border-width: 4px 6px 4px 0;
+  border-color: transparent var(--accent-primary, #52c1e6) transparent transparent;
+}
+
+.scc-finetune-sep .scc-ft-text {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(82, 193, 230, 0.25);
+  transition: color 0.2s ease;
+}
+
+.scc-finetune-sep:hover .scc-ft-tri  { opacity: 0.55; }
+.scc-finetune-sep:hover .scc-ft-text { color: rgba(82, 193, 230, 0.55); }
+
+.scc-finetune-sep.open .scc-ft-tri.left  { transform: rotate(90deg); }
+.scc-finetune-sep.open .scc-ft-tri.right { transform: rotate(-90deg); }
+
+/* Collapsible content — symmetric ease via grid-template-rows */
+.scc-ft-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scc-ft-content.open {
+  grid-template-rows: 1fr;
+}
+
+.scc-ft-content > .scc-ft-inner-wrap {
+  overflow: hidden;
+}
+
+.scc-ft-content .scc-setting-row:first-child {
+  padding-top: 8px;
+}
+
+
+/* Outlined variant — transparent bg, no border, no glow.
+   Use inside a parent that already provides the glass container (e.g. compass-panel).
+   The accent bar from .has-category still works if needed. */
+.scc-settings-box.outlined {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 2px 0;
+}
+
+
+/* === Disabled state — dependency group ===================== */
+
+.scc-settings-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.scc-settings-disabled.enabled {
+  opacity: 1;
+  pointer-events: auto;
+}

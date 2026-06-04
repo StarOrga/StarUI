@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=Share+Tech+Mono&display=swap");
+
+:root {
+  /* Surface */
+  --surface-canvas: #0d2635;
+  --surface-canvas-alt: #103246;
+  --surface-panel: #123246;
+  --surface-panel-strong: #164664;
+  --surface-overlay: rgba(8, 20, 28, 0.95);
+  --surface-glass: rgba(12, 32, 48, 0.65);
+  --surface-input: rgba(12, 28, 40, 0.8);
+
+  /* Text */
+  --text-primary: #e8ebed;
+  --text-secondary: #9fb3c8;
+  --text-tertiary: #5a7a94;
+  --text-inverse: #0d2635;
+  --text-accent: #cfefff;
+
+  /* Accent */
+  --accent-primary: #52c1e6;
+  --accent-strong: #7dd5f0;
+  --accent-gold: #c8a84b;
+  --accent-gold-strong: #e8c96b;
+  --accent-gold-light: #f3d7a2;
+  --accent-warning: #f0c27b;
+  --accent-danger: #c0392b;
+  --accent-danger-light: #ff8282;
+
+  /* Border */
+  --border-subtle: rgba(82, 193, 230, 0.18);
+  --border-default: rgba(82, 193, 230, 0.3);
+  --border-strong: rgba(82, 193, 230, 0.45);
+
+  /* Radius — RSI uses sharp edges (0–4px max) */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+
+  /* Shadow — border glows only, no positive-Y drop shadows */
+  --shadow-soft: 0 0 0 1px rgba(82, 193, 230, 0.2);
+  --shadow-elevated: 0 0 0 1px rgba(82, 193, 230, 0.3), 0 0 12px rgba(82, 193, 230, 0.12);
+  --shadow-glow: 0 0 16px rgba(82, 193, 230, 0.25);
+
+  /* Scatter tile — image treatment (desat+dim with hover restore) */
+  --scatter-tile-img-filter: saturate(0.45) brightness(0.75);
+  --scatter-tile-img-filter-hover: saturate(0.7) brightness(0.85);
+  --scatter-tile-overlay-gradient: linear-gradient(to bottom, transparent 25%, rgba(4, 12, 22, 0.92) 100%);
+
+  /* Spacing — base values (fixed px); desktop-theme.css overrides with clamp() */
+  --space-xs: 8px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 18px;
+
+  /* Font */
+  --font-body-text: "Inter", sans-serif;
+  --font-heading-category: "Orbitron", sans-serif;
+  --font-handwritten-accent: "Caveat", cursive;
+  --font-monospace: "Share Tech Mono", monospace;
+
+  /* Category colors — Settings (Cloud Compass) + Setup Wizard */
+  /* RULE: Must not overlap with status or theme base colors    */
+  --cat-game: #c07888;
+  --cat-game-rgb: 192, 120, 136;
+  --cat-ai: #9b8cc8;
+  --cat-ai-rgb: 155, 140, 200;
+  --cat-app: #4a9e96;
+  --cat-app-rgb: 74, 158, 150;
+  --cat-overlay: #c4856c;
+  --cat-overlay-rgb: 196, 133, 108;
+
+  /* Status */
+  --status-success: #5fd698;
+  --status-success-glow: rgba(95, 214, 152, 0.4);
+
+  /* Oval window — reference values (hardcoded in gradients because
+     CSS var() inside radial-gradient shape syntax is unsupported).
+     Vignette: ellipse 68% 56% at 50% 46%, transparent 50%, canvas 100%
+     Stage mask: ellipse 92% 82% at 50% 46%, black 78%, transparent 100% */
+
+  /* Blur scale */
+  --blur-sm: 6px;
+  --blur-md: 12px;
+  --blur-lg: 20px;
+
+  /* Backward-compatible color aliases */
+  --bg: var(--surface-canvas);
+  --bg-alt: var(--surface-canvas-alt);
+  --surface: var(--surface-panel);
+  --surface-strong: var(--surface-panel-strong);
+  --text: var(--text-primary);
+  --muted: var(--text-secondary);
+  --accent: var(--accent-primary);
+  --danger: var(--accent-danger);
+  --official: var(--accent-strong);
+  --community: var(--accent-warning);
+  --stroke: var(--border-subtle);
+  --mono: var(--font-monospace);
+  --cyan: var(--accent-primary);
+  --canvas: var(--surface-canvas);
+}
+
+body,
+.typography-body-text {
+  font-family: var(--font-body-text);
+}
+
+:where(h1, h2, h3, h4, h5, h6),
+.typography-heading-category {
+  font-family: var(--font-heading-category);
+}
+
+.typography-handwritten-accent {
+  font-family: var(--font-handwritten-accent);
+}
+
+/* Global text selection — muted teal instead of OS default blue */
+::selection {
+  background: rgba(159, 179, 200, 0.35);
+  color: var(--text-primary, #e8ebed);
+}

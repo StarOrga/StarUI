@@ -1,0 +1,11 @@
+:root {
+  --window-radius: 4px;
+  --window-border: 1px solid rgba(82, 193, 230, 0.25);
+  --window-bg: var(--surface-canvas);
+}
+
+.window-surface {
+  background: var(--window-bg);
+  border: var(--window-border);
+  border-radius: var(--window-radius);
+}

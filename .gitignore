@@ -1,0 +1,8 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+# dist/ is intentionally committed so git-dependency consumers get the
+# prebuilt bundle without running a build step.

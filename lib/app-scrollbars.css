@@ -1,0 +1,127 @@
+:root {
+  --app-scrollbar-size: 10px;
+  --app-scrollbar-gap: 4px;
+  --app-scrollbar-radius: 2px;
+  --app-scrollbar-thumb-min-size: 36px;
+  --app-scrollbar-track: rgba(6, 18, 28, 0.08);
+  --app-scrollbar-track-visible: rgba(6, 18, 28, 0.2);
+  --app-scrollbar-thumb-idle: rgba(164, 223, 242, 0.34);
+  --app-scrollbar-thumb-hover: rgba(164, 223, 242, 0.52);
+  --app-scrollbar-thumb-active: rgba(164, 223, 242, 0.72);
+  --app-scrollbar-shadow: inset 0 0 0 1px rgba(193, 240, 252, 0.1);
+}
+
+.app-custom-scroll-host {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none;
+}
+
+.app-custom-scroll-host::-webkit-scrollbar,
+.app-custom-scroll-host::-webkit-scrollbar-thumb,
+.app-custom-scroll-host::-webkit-scrollbar-track,
+.app-custom-scroll-host::-webkit-scrollbar-button,
+.app-custom-scroll-host::-webkit-scrollbar-corner {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  opacity: 0 !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.app-custom-scrollbar {
+  position: absolute;
+  z-index: 8;
+  opacity: 0;
+  transition: opacity 0.18s ease, background-color 0.18s ease;
+  pointer-events: none;
+  cursor: var(--cursor-default, default) !important;
+  user-select: none;
+}
+
+.app-custom-scroll-host:hover > .app-custom-scrollbar,
+.app-custom-scroll-host.app-custom-scroll-host--visible > .app-custom-scrollbar,
+.app-custom-scroll-host.app-custom-scroll-host--dragging > .app-custom-scrollbar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app-custom-scroll-host--active-x > .app-custom-scrollbar--y {
+  bottom: calc(var(--app-scrollbar-size) + (var(--app-scrollbar-gap) * 2));
+}
+
+.app-custom-scroll-host--active-y > .app-custom-scrollbar--x {
+  right: calc(var(--app-scrollbar-size) + (var(--app-scrollbar-gap) * 2));
+}
+
+.app-custom-scrollbar--y {
+  top: var(--app-scrollbar-gap);
+  right: var(--app-scrollbar-gap);
+  bottom: var(--app-scrollbar-gap);
+  width: var(--app-scrollbar-size);
+}
+
+.app-custom-scrollbar--x {
+  left: var(--app-scrollbar-gap);
+  right: var(--app-scrollbar-gap);
+  bottom: var(--app-scrollbar-gap);
+  height: var(--app-scrollbar-size);
+}
+
+.app-custom-scrollbar__track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--app-scrollbar-radius);
+  background: var(--app-scrollbar-track);
+  cursor: var(--cursor-default, default) !important;
+}
+
+.app-custom-scroll-host:hover > .app-custom-scrollbar > .app-custom-scrollbar__track,
+.app-custom-scroll-host.app-custom-scroll-host--visible > .app-custom-scrollbar > .app-custom-scrollbar__track,
+.app-custom-scroll-host.app-custom-scroll-host--dragging > .app-custom-scrollbar > .app-custom-scrollbar__track {
+  background: var(--app-scrollbar-track-visible);
+}
+
+.app-custom-scrollbar__thumb {
+  position: absolute;
+  border-radius: var(--app-scrollbar-radius);
+  background: var(--app-scrollbar-thumb-idle);
+  box-shadow: var(--app-scrollbar-shadow);
+  cursor: var(--cursor-default, default) !important;
+  touch-action: none;
+}
+
+.app-custom-scrollbar--y .app-custom-scrollbar__thumb {
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: var(--app-scrollbar-thumb-min-size);
+}
+
+.app-custom-scrollbar--x .app-custom-scrollbar__thumb {
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-width: var(--app-scrollbar-thumb-min-size);
+}
+
+.app-custom-scrollbar__thumb:hover {
+  background: var(--app-scrollbar-thumb-hover);
+}
+
+.app-custom-scroll-host.app-custom-scroll-host--dragging .app-custom-scrollbar__thumb,
+.app-custom-scrollbar__thumb.is-dragging,
+.app-custom-scrollbar__thumb:active {
+  background: var(--app-scrollbar-thumb-active);
+}
+
+.ornamental-scroll-surface {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ornamental-scroll-surface::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}

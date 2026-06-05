@@ -19,13 +19,21 @@
 
   /* Accent */
   --accent-primary: #52c1e6;
+  --accent-primary-rgb: 82, 193, 230;
   --accent-strong: #7dd5f0;
   --accent-gold: #c8a84b;
+  --accent-gold-rgb: 200, 168, 75;
   --accent-gold-strong: #e8c96b;
   --accent-gold-light: #f3d7a2;
   --accent-warning: #f0c27b;
+  --accent-warning-rgb: 240, 194, 123;
   --accent-danger: #c0392b;
   --accent-danger-light: #ff8282;
+  --accent-danger-light-rgb: 255, 130, 130;
+  /* Hot — warm counterpoint to the cyan accent (the cyan<->orange duotone used
+     for ambient glows and the hottest channel/state tints). */
+  --accent-hot: #ff5722;
+  --accent-hot-rgb: 255, 87, 34;
 
   /* Border */
   --border-subtle: rgba(82, 193, 230, 0.18);
@@ -73,6 +81,7 @@
 
   /* Status */
   --status-success: #5fd698;
+  --status-success-rgb: 95, 214, 152;
   --status-success-glow: rgba(95, 214, 152, 0.4);
 
   /* Oval window — reference values (hardcoded in gradients because

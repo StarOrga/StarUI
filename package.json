@@ -1,6 +1,6 @@
 {
   "name": "@starorga/star-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "StarUI — shared design system for the StarOrga / Star Citizen Companion ecosystem. RSI-inspired tokens, control states, forms, scrollbars, tooltips, status, and motion.",
   "license": "MIT",
   "author": "Jeremy Treder",

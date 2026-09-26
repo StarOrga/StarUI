@@ -4,7 +4,7 @@
 
 The Verse News page arranges content tiles (videos, blog posts, patch info) in a **concentric ring layout** around a central refresh button. The layout creates an organic, space-themed aesthetic where tiles appear scattered yet structured — suggesting orbiting objects in the verse.
 
-**Interactive reference:** [`mockup-debug-zones.html`](../../mockup-debug-zones.html) — open in a browser and resize to see zones, rings, and slot validation in real-time. Click to re-randomize.
+**Interactive reference:** `mockup-debug-zones.html` (in the SC-App repository root) — open in a browser and resize to see zones, rings, and slot validation in real-time. Click to re-randomize.
 
 ## Layout Principles
 

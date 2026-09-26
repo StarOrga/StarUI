@@ -16,7 +16,7 @@
 - [`cursor-guidelines.md`](cursor-guidelines.md) — Cursor policy & CI lint rules
 - [`radius-guidelines.md`](radius-guidelines.md) — Radius scale (max 4px, RSI sharp-edges)
 - [`scrollbar-visibility-guidelines.md`](scrollbar-visibility-guidelines.md) — Scrollbar behavior
-- [`settings-cloud-compass.md`](settings-cloud-compass.md) — Cloud Compass navigation pattern
+- [`settings-cloud-compass.md`](settings/settings-cloud-compass.md) — Cloud Compass navigation pattern
 
 ---
 
@@ -312,7 +312,7 @@ Layout algorithm: [`verse-news-scatter-layout.md`](verse-news-scatter-layout.md)
 - Panel spawn: `scale(0.05) → scale(1)` with blur transition
 - Color morphing between categories
 - Keyboard: Escape to retract
-- See [`settings-cloud-compass.md`](settings-cloud-compass.md) for full specification
+- See [`settings-cloud-compass.md`](settings/settings-cloud-compass.md) for full specification
 
 ### 3.5 Tooltips
 

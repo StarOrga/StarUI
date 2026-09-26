@@ -34,7 +34,7 @@
 
 ## 1. Color System
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css`
+**Source:** `@starorga/star-ui/lib/design-tokens.css`
 
 ### 1.1 Surface Palette
 
@@ -127,7 +127,7 @@ These aliases exist in `design-tokens.css` for legacy code. **New code should us
 
 ## 2. Typography
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css`
+**Source:** `@starorga/star-ui/lib/design-tokens.css`
 
 ### 2.1 Font Families (60:30:10 Strategy)
 
@@ -172,7 +172,7 @@ The app uses exactly **three** font families in a 60:30:10 ratio. No other fonts
 
 ## 3. Spacing & Layout
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css` (shared spacing), `modules/desktop/shared/styles/desktop-theme.css` (layout), `desktop-shell-base.css` (shell)
+**Source:** `@starorga/star-ui/lib/design-tokens.css` (shared spacing), `@starorga/star-ui/shell/desktop-theme.css` (layout), `desktop-shell-base.css` (shell)
 
 ### 3.1 Spacing Tokens
 
@@ -237,7 +237,7 @@ The app uses exactly **three** font families in a 60:30:10 ratio. No other fonts
 
 ## 4. Border & Radius
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css`, `modules/desktop/shared/styles/desktop-theme.css`
+**Source:** `@starorga/star-ui/lib/design-tokens.css`, `@starorga/star-ui/shell/desktop-theme.css`
 
 ### 4.1 Radius Scale
 
@@ -273,7 +273,7 @@ The app uses exactly **three** font families in a 60:30:10 ratio. No other fonts
 
 ## 5. Shadows & Glows
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css`
+**Source:** `@starorga/star-ui/lib/design-tokens.css`
 
 ### 5.1 Shadow Tokens
 
@@ -305,7 +305,7 @@ See [Section 7.2 (Interactive States)](#72-interactive-states-all-buttons) for p
 
 ## 6. Cursors
 
-**Source:** `modules/shared/design-system/lib/cursor-tokens.css`, `modules/desktop/shared/styles/desktop-theme.css`, `modules/desktop/ui-angular/src/app/cursor-animator.service.ts`
+**Source:** `@starorga/star-ui/lib/cursor-tokens.css`, `@starorga/star-ui/shell/desktop-theme.css`, `modules/desktop/ui-angular/src/app/cursor-animator.service.ts`
 
 ### 6.1 Cursor Color Palette
 
@@ -400,7 +400,7 @@ See [`cursor-guidelines.md`](cursor-guidelines.md) for the full enforcement poli
 
 ## 7. Buttons
 
-**Source:** `modules/shared/design-system/lib/control-states.css`, `modules/desktop/shared/styles/desktop-theme.css`, `spatial-nav.css`
+**Source:** `@starorga/star-ui/lib/control-states.css`, `@starorga/star-ui/shell/desktop-theme.css`, `spatial-nav.css`
 
 ### 7.1 Button Variants
 
@@ -611,7 +611,7 @@ Each `.sn-stagger` child gets `animation-delay` based on `--stagger-i` index.
 
 ## 10. Forms & Controls
 
-**Source:** `modules/desktop/shared/styles/desktop-theme.css`, `control-states.css`
+**Source:** `@starorga/star-ui/shell/desktop-theme.css`, `control-states.css`
 
 ### 10.1 Text Inputs
 
@@ -626,7 +626,7 @@ Each `.sn-stagger` child gets `animation-delay` based on `--stagger-i` index.
 
 ### 10.2 Select / Dropdown
 
-**Source:** `modules/shared/design-system/lib/forms.css`, `modules/desktop/shared/styles/desktop-theme.css`
+**Source:** `@starorga/star-ui/lib/forms.css`, `@starorga/star-ui/shell/desktop-theme.css`
 
 #### Design system base: `.scc-select`
 
@@ -668,7 +668,7 @@ Fully custom JS-driven dropdown component for setup wizard and complex selection
 
 #### Custom dropdown: `.scc-dropdown`
 
-**Source:** `modules/shared/design-system/lib/forms.css`
+**Source:** `@starorga/star-ui/lib/forms.css`
 
 JS-driven dropdown with trigger button, floating menu, and items. Use for custom dropdowns where native `<select>` is insufficient (icons, metadata, complex option rendering).
 
@@ -738,7 +738,7 @@ JS-driven dropdown with trigger button, floating menu, and items. Use for custom
 
 ## 11. Scrollbars
 
-**Source:** `modules/shared/design-system/lib/app-scrollbars.css`
+**Source:** `@starorga/star-ui/lib/app-scrollbars.css`
 
 ### 11.1 Custom Scrollbar Tokens
 
@@ -769,7 +769,7 @@ See [`scrollbar-visibility-guidelines.md`](scrollbar-visibility-guidelines.md) f
 
 ## 12. Animations & Transitions
 
-**Source:** `modules/shared/design-system/lib/logo-animations.css`, component CSS files
+**Source:** `@starorga/star-ui/lib/logo-animations.css`, component CSS files
 
 ### 12.1 Logo Animation System
 
@@ -895,22 +895,27 @@ The loading screen uses `@property --progress` registration to animate a CSS cus
 
 | Asset | Path | Format | Context |
 |---|---|---|---|
-| App Logo (current, v9) | `modules/desktop/resources/app-logo.svg` | SVG | Full vector logo, quantum-nebula brain-core |
+| App Logo (current, v9) | `assets/brand/app-logo.svg` | SVG | Full vector logo, quantum-nebula brain-core (artwork at 90% of canvas, matching the app icon) |
 | Logo v8 (legacy) | `assets/logo-v8-c.svg` | SVG | Kept for reference, not actively used |
-| Loading Logo (minimal) | `modules/loading/ui-angular/src/assets/logo-loading-minimal.svg` | SVG | Splash/loading screen |
-| Loading Logo (full) | `modules/loading/ui-angular/src/assets/logo-loading-full.svg` | SVG | Full loading variant |
+| Loading Logo (minimal) | `assets/logos/logo-loading-minimal.svg` | SVG | Splash/loading screen |
+| Loading Logo (full) | `assets/logos/logo-loading-full.svg` | SVG | Full loading variant |
 
 ### 13.2 App Icons (Window / Taskbar)
 
+Rendered from `assets/brand/app-icon-taskbar.svg` by `npm run gen:icons`
+(`scripts/gen-app-icons.js`). Never hand-edit the rasters — re-run the generator.
+
+The artwork is scaled to 90% of the canvas (`translate(15,15) scale(0.90)`) and the
+background disc stays solid out to 84% before it fades. Anything smaller reads as
+optically undersized next to other Windows taskbar icons, which fill 80–90% of their
+tile. `tests/unit/scripts/icon-assets.test.js` enforces the floor.
+
 | Asset | Path | Size | Context |
 |---|---|---|---|
-| `app-icon.png` | `modules/desktop/resources/app-icon.png` | 256px | Electron BrowserWindow icon, Angular UI header |
-| `app-icon.ico` | `modules/desktop/resources/icons/app-icon.ico` | Multi-res | Windows taskbar/explorer icon |
-| `app-icon-16.png` | `modules/desktop/resources/icons/app-icon-16.png` | 16px | Small icon contexts |
-| `app-icon-32.png` | `modules/desktop/resources/icons/app-icon-32.png` | 32px | Standard icon |
-| `app-icon-48.png` | `modules/desktop/resources/icons/app-icon-48.png` | 48px | Medium icon |
-| `app-icon-128.png` | `modules/desktop/resources/icons/app-icon-128.png` | 128px | Large icon |
-| `app-icon-256.png` | `modules/desktop/resources/icons/app-icon-256.png` | 256px | High-res icon |
+| `app-icon.png` | `assets/brand/app-icon.png` | 512px | Electron BrowserWindow icon, Angular UI header |
+| `app-icon.ico` | `assets/brand/app-icon.ico` | 16–256 multi-res | Windows taskbar/explorer icon |
+| `app-icon.ico` | `assets/icons/app-icon.ico` | 16–256 multi-res | Same file, icons/ copy |
+| `app-icon-<n>.png` | `assets/icons/` | 16, 24, 32, 48, 64, 128, 256, 512 | Per-size icon contexts |
 
 ### 13.3 Installer Icon
 
@@ -918,40 +923,48 @@ The loading screen uses `@property --progress` registration to animate a CSS cus
 |---|---|---|
 | `icon.ico` | `installer/SccInstaller/icon.ico` | Electron-builder, ow-electron branding via `scripts/brand-ow-electron.js` |
 
-### 13.4 System Tray Icons (12 states)
+Generated by `npm run gen:icons` from the same source as the app icon.
 
-All at `modules/desktop/resources/tray/`, each as both `.png` and `.svg`:
+### 13.4 System Tray Icons (7 states)
+
+The tray uses a **dedicated small-size mark**, not the app artwork. The full artwork
+does not survive a 16px render: its Gaussian-blur filters turn to mud and its dark
+`#0d2635` disc disappears on a dark Windows taskbar. The tray mark therefore drops
+every filter, fills the canvas, and carries a bright coloured rim so the silhouette
+reads on a dark *and* a light taskbar.
+
+Both the SVG sources and the PNGs are generated — edit `TRAY_STATES` in
+`scripts/gen-app-icons.js`, then run `npm run gen:icons`.
+
+Each state ships at **16, 20, 24 and 32px** (`tray-<state>-16.png` … and
+`tray-<state>.png` for the canonical 32px). Those are the sizes the Windows
+notification area requests at 100/125/150/200% scaling; `tray_app.py` loads all of
+them into one `QIcon` so Qt never rescales.
 
 | File stem | State | Visual | When shown |
 |---|---|---|---|
-| `tray-default` | Default/startup | Standard logo | App starting up |
-| `tray-default-glow` | Default + glow | Logo with cyan glow | App ready (initial) |
-| `tray-idle` | Idle/standby | Dimmed logo | ow-electron not running |
-| `tray-active` | Active/running | Bright logo | ow-electron is running |
-| `tray-error` | Error | Red-tinted logo | Error state (available, not yet wired) |
-| `tray-notification` | Notification | — | Notification pending (available, not yet wired) |
-| `tray-notification-glow` | Notification + glow | Glowing notification | Notification emphasis (available, not yet wired) |
-| `tray-processing-f1` | Processing frame 1 | Animated processing | Background task running |
-| `tray-processing-f2` | Processing frame 2 | " | " |
-| `tray-processing-f3` | Processing frame 3 | " | " |
-| `tray-processing-f4` | Processing frame 4 | " | " |
+| `tray-default` | Default/startup | Cyan rim, cyan core | App starting up, update check running |
+| `tray-default-glow` | Default + glow | Brighter cyan rim, larger core | Update downloading |
+| `tray-active` | Active/running | Cyan rim + gold accretion particle | ow-electron is running |
+| `tray-idle` | Idle/standby | Desaturated slate rim, dim core | ow-electron not running |
+| `tray-notification` | Notification | Gold rim, gold core | Update available |
+| `tray-notification-glow` | Notification + glow | Bright gold rim, larger core | Update ready to apply |
+| `tray-error` | Error | Red rim, red core | Update check/download failed |
 
-**Tray icon state mapping** (from `modules/desktop/src/main.js`):
-```
-getTrayIconForState('idle')    → tray-idle.png
-getTrayIconForState('active')  → tray-active.png
-(default)                      → tray-default.png
-(glow)                         → tray-default-glow.png
-```
+**Tray icon state mapping:** `TRAY_ICON_STEMS` in `modules/tray-daemon-qt/tray_app.py`.
+
+**Tray ownership:** the PySide6 daemon owns the notification area when it is present
+(`hasQtTrayDaemon()` in `modules/core/src/core/runtime.js`); otherwise the Electron
+host shell creates the tray itself.
 
 ### 13.5 Third-Party Brand Icons
 
 | Asset | Path | Context |
 |---|---|---|
-| `community-made-white.png` | `modules/desktop/resources/community-made-white.png` | RSI "Community Made" badge |
-| `icon-anthropic.svg` | `modules/desktop/resources/icon-anthropic.svg` | AI provider: Anthropic |
-| `icon-google.svg` | `modules/desktop/resources/icon-google.svg` | AI provider: Google |
-| `icon-openai.svg` | `modules/desktop/resources/icon-openai.svg` | AI provider: OpenAI |
+| `community-made-white.png` | `assets/brand/community-made-white.png` | RSI "Community Made" badge |
+| `icon-anthropic.svg` | `assets/provider-icons/icon-anthropic.svg` | AI provider: Anthropic |
+| `icon-google.svg` | `assets/provider-icons/icon-google.svg` | AI provider: Google |
+| `icon-openai.svg` | `assets/provider-icons/icon-openai.svg` | AI provider: OpenAI |
 
 ### 13.6 Cursors
 
@@ -972,7 +985,7 @@ The installer (`installer/ui/`) uses a **CSS-only logo** — no image file. It's
 
 ## 14. Window Surfaces & Backgrounds
 
-**Source:** `modules/shared/design-system/lib/window-surface.css`, `desktop-shell-base.css`
+**Source:** `@starorga/star-ui/lib/window-surface.css`, `desktop-shell-base.css`
 
 ### 14.1 Window Surface
 
@@ -1048,14 +1061,14 @@ radial-gradient(900px 700px at 80% 0%, rgba(22, 70, 100, 0.35), transparent 70%)
 
 | File | Tokens / Patterns defined |
 |---|---|
-| `modules/shared/design-system/lib/design-tokens.css` | Surface, text, accent, border, radius, shadow, font tokens |
-| `modules/shared/design-system/lib/cursor-tokens.css` | 25 cursor SVG data-URIs + 8 wait animation frames + short aliases |
-| `modules/shared/design-system/lib/control-states.css` | Universal button/control interactive states |
-| `modules/shared/design-system/lib/app-scrollbars.css` | Custom scrollbar tokens and behavior |
-| `modules/shared/design-system/lib/logo-animations.css` | Logo animation keyframes and timing tokens |
-| `modules/shared/design-system/lib/window-surface.css` | Window surface gradient background |
-| `modules/desktop/shared/styles/desktop-theme.css` | Spacing, radius, cursor cascade, input/select/settings styles |
-| `modules/desktop/shared/styles/desktop-shell-base.css` | Shell layout tokens, titlebar, notice bar |
+| `@starorga/star-ui/lib/design-tokens.css` | Surface, text, accent, border, radius, shadow, font tokens |
+| `@starorga/star-ui/lib/cursor-tokens.css` | 25 cursor SVG data-URIs + 8 wait animation frames + short aliases |
+| `@starorga/star-ui/lib/control-states.css` | Universal button/control interactive states |
+| `@starorga/star-ui/lib/app-scrollbars.css` | Custom scrollbar tokens and behavior |
+| `@starorga/star-ui/lib/logo-animations.css` | Logo animation keyframes and timing tokens |
+| `@starorga/star-ui/lib/window-surface.css` | Window surface gradient background |
+| `@starorga/star-ui/shell/desktop-theme.css` | Spacing, radius, cursor cascade, input/select/settings styles |
+| `@starorga/star-ui/shell/desktop-shell-base.css` | Shell layout tokens, titlebar, notice bar |
 | `modules/desktop/ui-angular/src/app/spatial-nav.css` | Spatial nav system, cards, grids, nav zones, corner chrome |
 | `modules/desktop/ui-angular/src/app/cursor-animator.service.ts` | Dynamic cursor animations (body sweep, gold dot, wait ring) |
 | `modules/desktop/ui-angular/src/app/nebula-canvas.service.ts` | Canvas nebula clouds and star field |

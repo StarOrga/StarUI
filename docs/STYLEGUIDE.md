@@ -52,6 +52,7 @@
 |---|---|---|
 | `--text-primary` | `#e8ebed` | Body text, primary labels |
 | `--text-secondary` | `#9fb3c8` | Muted text, descriptions, captions |
+| `--text-tertiary` | `#84a0b6` | De-emphasized text, placeholders, disabled labels — WCAG AA: 5.71:1 on `--surface-canvas`, 4.89:1 on `--surface-panel` (v0.2.0: raised from `#5a7a94`, which measured 3.45:1 / 2.96:1 and failed AA) |
 | `--text-inverse` | `#0d2635` | Text on light/accent backgrounds |
 
 ### 1.3 Accent Palette
@@ -64,9 +65,16 @@
 | `--accent-gold-strong` | `#e8c96b` | Bright gold — active gold states, selected items |
 | `--accent-success` | `#5fd698` | Success states, health-OK indicators, positive feedback |
 | `--accent-warning` | `#f0c27b` | Warning states, community content badge |
-| `--accent-danger` | `#c0392b` | Error states, destructive actions, close button hover |
+| `--accent-danger` | `#c0392b` | Error states, destructive actions, close button hover — reaches only 2.87:1 on `--surface-canvas`, so reserve it for fills and large surfaces (buttons, badges), never for text or icons on canvas/panel |
+| `--accent-danger-light` | `#ff8282` | Danger text and icons on `--surface-canvas`/`--surface-panel` — use instead of `--accent-danger` wherever the danger color sits directly on those backgrounds as text/iconography |
 
-### 1.4 Border Palette
+### 1.4 Keyboard Focus
+
+| Token | Value | Usage |
+|---|---|---|
+| `--keyboard-focus-glow` | `0 0 0 2px rgba(9, 25, 37, 0.9), 0 0 0 5px rgba(125, 213, 240, 0.42)` | Focus ring applied under keyboard modality (v0.2.0). The `:focus-visible`/modality-detection rule that decides when to apply it lives in the consuming app, not here. |
+
+### 1.5 Border Palette
 
 | Token | Value | Usage |
 |---|---|---|
@@ -74,7 +82,7 @@
 | `--border-default` | `rgba(82, 193, 230, 0.3)` | Standard input/panel borders |
 | `--border-strong` | `rgba(82, 193, 230, 0.45)` | Active/focused borders, select elements |
 
-### 1.5 Spatial Navigation Colors
+### 1.6 Spatial Navigation Colors
 
 **Source:** `modules/desktop/ui-angular/src/app/spatial-nav.css`
 
@@ -87,7 +95,7 @@
 | `--sn-teal` | `#52c8be` | Ship/vehicle content |
 | `--sn-blue` | `#6490e6` | Information/loadout views |
 
-### 1.6 Status Colors
+### 1.7 Status Colors
 
 | Context | Color | Hex | Usage |
 |---|---|---|---|
@@ -96,7 +104,7 @@
 | Error | Red | `#ff8282` / `rgba(255, 130, 130, 0.95)` | Error dots, action required |
 | Idle | Muted | `rgba(120, 150, 168, 0.55)` | Idle/unknown status |
 
-### 1.7 Backward-Compatible Aliases
+### 1.8 Backward-Compatible Aliases
 
 These aliases exist in `design-tokens.css` for legacy code. **New code should use the canonical token names above.**
 
@@ -115,7 +123,7 @@ These aliases exist in `design-tokens.css` for legacy code. **New code should us
 | `--community` | `--accent-warning` |
 | `--stroke` | `--border-subtle` |
 
-### 1.8 Do / Don't
+### 1.9 Do / Don't
 
 - **Do** use design tokens for all color values
 - **Do** use `rgba()` with cyan base (`82, 193, 230`) for transparent borders/glows
@@ -185,13 +193,36 @@ The app uses exactly **three** font families in a 60:30:10 ratio. No other fonts
 
 ### 3.2 Shell Layout Tokens
 
+**Source:** `@starorga/star-ui/shell/desktop-shell-base.css`
+
+Responsive layout set (v0.2.0 — replaces the old fixed-px `--layout-*` pair with a `clamp()`-scaled set of five):
+
 | Token | Value | Usage |
 |---|---|---|
-| `--layout-top-padding` | `32px` | Top padding of `.app` container |
-| `--layout-section-gap` | `16px` | Gap between major sections |
+| `--layout-top-padding` | `clamp(10px, 0.9vw, 14px)` | Top padding of `.app` container |
+| `--layout-section-gap` | `clamp(12px, 0.9vw, 16px)` | Gap between major sections |
+| `--layout-section-gap-outer` | `clamp(16px, 1.1vw, 22px)` | Gap around outer section groups |
+| `--layout-section-gap-inner` | `clamp(8px, 0.7vw, 12px)` | Gap between elements inside a section |
+| `--layout-divider-gap` | `clamp(12px, 0.9vw, 16px)` | Gap either side of a section divider |
 | `--shell-app-padding-inline` | `40px` | Left/right app padding |
 | `--shell-app-padding-bottom` | `16px` | Bottom app padding |
 | `--shell-app-radius` | `0` | App container radius (none) |
+
+### 3.2.1 Desktop Window Chrome Tokens
+
+**Source:** `@starorga/star-ui/shell/desktop-shell-base.css` (new in v0.2.0)
+
+| Token | Usage |
+|---|---|
+| `--window-desktop-accent-fog` | Soft accent haze over window chrome surfaces |
+| `--window-desktop-accent-fog-strong` | Stronger accent haze variant |
+| `--window-desktop-border-subtle` | Resting borders on window chrome elements |
+| `--window-desktop-border-default` | Standard borders on window chrome elements |
+| `--window-desktop-surface-hover` | Hover background for window chrome controls |
+| `--window-desktop-surface-strong` | Emphasized window chrome surface |
+| `--window-desktop-danger-soft` | Muted danger background in window chrome (e.g. close button rest state) |
+| `--window-desktop-community-soft` | Muted community-accent background in window chrome |
+| `--window-desktop-community-border` | Community-accent border in window chrome |
 
 ### 3.3 Spatial Navigation Margins
 

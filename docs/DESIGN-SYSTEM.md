@@ -602,7 +602,7 @@ Every data-displaying widget follows these states:
 | Production logo | `assets/logo-v8-c.svg` | In-app branding |
 | Full loading logo | `assets/logos/logo-loading-full.svg` | Loading screen |
 | Minimal loading logo | `assets/logos/logo-loading-minimal.svg` | Compact contexts |
-| Margin preview | `docs/ui/design-system/app-logo-margin-preview.svg` | Historical reference for the old 15% margin (superseded: icons now fill 90% of the canvas) |
+| Margin preview | consumer-side only, not shipped in this package | Historical reference for the old 15% margin (superseded: icons now fill 90% of the canvas) |
 
 **Design:** Quantum-nebula brain-core — abstract neural/quantum motif with cyan and gold palette.
 
@@ -781,26 +781,20 @@ Components that are needed but don't exist as reusable, documented elements:
 
 | File | Purpose |
 |------|---------|
-| `docs/ui/STYLEGUIDE.md` | Visual style guide (source of truth for token values) |
-| `docs/ui/DESIGN-SYSTEM.md` | **This document** — component catalog & system overview |
-| `docs/ui/design-token-layer.md` | 4-layer token architecture |
-| `docs/ui/cursor-guidelines.md` | Cursor policy & lint rules |
-| `docs/ui/radius-guidelines.md` | Radius scale & RSI sharp-edges principle |
-| `docs/ui/scrollbar-visibility-guidelines.md` | Scrollbar behavior rules |
-| `docs/ui/settings-cloud-compass.md` | Cloud Compass navigation specification |
-| `docs/ui/desktop-dropdown-behavior.md` | Dropdown position logic |
-| `docs/ui/desktop-widget-state-pattern.md` | Widget state machine (loading/empty/error/ready) |
-| `docs/ui/state-copy-guidelines.md` | Copy/text guidelines for states |
-| `docs/ui/verse-news-scatter-layout.md` | News layout algorithm |
+| `docs/STYLEGUIDE.md` | Visual style guide (source of truth for token values) |
+| `docs/DESIGN-SYSTEM.md` | **This document** — component catalog & system overview |
+| `docs/design-token-layer.md` | 4-layer token architecture |
+| `docs/cursor-guidelines.md` | Cursor policy & lint rules |
+| `docs/radius-guidelines.md` | Radius scale & RSI sharp-edges principle |
+| `docs/scrollbar-visibility-guidelines.md` | Scrollbar behavior rules |
+| `docs/settings/settings-cloud-compass.md` | Cloud Compass navigation specification |
+| `docs/desktop-dropdown-behavior.md` | Dropdown position logic |
+| `docs/desktop-widget-state-pattern.md` | Widget state machine (loading/empty/error/ready) |
+| `docs/state-copy-guidelines.md` | Copy/text guidelines for states |
+| `docs/verse-news-scatter-layout.md` | News layout algorithm |
 
 ### Prototypes & Concepts
 
-| File | Purpose |
-|------|---------|
-| `docs/ui/concepts/mockup-desktop-redesign.html` | Desktop redesign mockup |
-| `docs/ui/concepts/mockup-settings-nav-v3.html` | Cloud Compass prototype |
-| `docs/ui/concepts/mockup-setup-wizard.html` | Setup wizard flow |
-| `docs/ui/concepts/mockup-setup-wizard-warp.html` | Setup wizard warp effect |
-| `docs/ui/concepts/mockup-nav-concepts.html` | Navigation explorations |
-| `docs/ui/concepts/mockup-debug-zones.html` | Layout debug visualization |
-| `concepts/loading-screen-exploration.html` | Loading screen variants |
+Consumer-side only — StarUI does not ship HTML mockups/concept files. If a
+consuming app keeps its own exploratory prototypes, they live in that app's
+own `docs/ui/concepts/` (or equivalent), not in this package.

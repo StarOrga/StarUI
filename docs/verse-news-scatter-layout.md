@@ -132,4 +132,4 @@ Navigation waypoints are positioned at screen edges (left, right, bottom-left, b
 |------|---------|
 | `mockup-desktop-redesign.html` | Full interactive mockup with all features |
 | `mockup-debug-zones.html` | Layout algorithm debug visualization |
-| `docs/ui/verse-news-scatter-layout.md` | This document |
+| `docs/verse-news-scatter-layout.md` | This document |

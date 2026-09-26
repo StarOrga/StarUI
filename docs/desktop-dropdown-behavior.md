@@ -5,7 +5,7 @@ Desktop settings dropdowns use the native `<select>` as the source of truth and 
 ## Ownership
 
 - Runtime behavior: `modules/desktop/src/renderer.js`
-- Shared dropdown visuals: `modules/desktop/shared/styles/desktop-theme.css`
+- Shared dropdown visuals: `@starorga/star-ui/shell/desktop-theme.css`
 - Angular setup-step structural option copy: `modules/desktop/ui-angular/src/app/app.ts`
 
 ## Rules
@@ -21,3 +21,12 @@ Desktop settings dropdowns use the native `<select>` as the source of truth and 
 - The custom trigger value, native option text, and custom menu item text should come from the same normalized label pipeline.
 - Empty dropdowns surface a clear "no options" state.
 - Single-option dropdowns remain visually stable and non-interactive without pretending the owning feature disabled the field.
+
+## Angular `scc-select` option extensions
+
+`SccSelectOption` (Angular `scc-select`, `modules/desktop/ui-angular/src/app/scc-select.component.ts`) supports optional per-option fields — all additive, absent fields render exactly as before:
+
+- `disabled` — option is skipped by keyboard navigation, guarded against click, and exposed via `aria-disabled`.
+- `badge` / `badgeKind` (`recommended` | `warning` | `info`) — rendered via the global `.scc-dropdown-meta` slot (used for "Recommended", "Not installed", "Slow (reasoning)" markers in the AI model dropdowns).
+- `tooltip` — per-option tooltip via the shared `TooltipDirective`.
+- The menu flips upward when the space below is insufficient (prevents clipping inside `overflow: hidden` ancestors, e.g. the last finetune accordion card at the 1120×630 window floor) and scrolls internally via max-height.

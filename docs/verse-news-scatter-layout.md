@@ -89,6 +89,23 @@ Live and PTU tiles are placed first at fixed positions (top center, left/right o
 - Shows creator name + unsubscribe button
 - Fades out immediately on mouse leave
 
+## Centre Core — Fresh LIVE Patch
+
+The centre of the scatter view (`.core-area`) carries the LIVE and PTU patch
+versions with their launch buttons. While the LIVE patch is **freshly released**
+it leans forward, mirroring the RSI site, which foregrounds a brand-new patch:
+
+| Aspect | Value |
+|--------|-------|
+| Freshness window | `LIVE_PATCH_FRESH_DAYS = 3` days after release (`app.ts`) |
+| Source of the release date | `live.publishedAt` in the news payload, derived from the `Posted: X ago` stamp the RSI patch-notes listing carries per entry |
+| Treatment | `.core-area--fresh` (core `brightness(1.06)`, stronger nebula) + `.core-patch--fresh` (glowing LIVE tag with a pulsing dot, brighter version number) |
+
+Unknown release date means **not fresh** — the core keeps its resting look rather
+than lighting up on a guess. The highlight is purely additive: no layout shift
+when it turns on or off, and the pulse is covered by the global
+`prefers-reduced-motion` guard.
+
 ## Content Area Layout
 
 ```

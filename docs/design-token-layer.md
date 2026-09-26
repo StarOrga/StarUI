@@ -2,7 +2,7 @@
 
 This project uses a layered token/theme model so reusable styling stays centralized and module files only carry local overrides.
 
-## Layer 1: Shared global tokens (`modules/shared/design-system/lib/design-tokens.css`)
+## Layer 1: Shared global tokens (`@starorga/star-ui/lib/design-tokens.css`)
 
 Global semantic tokens live in one shared place and are consumed by every UI surface:
 
@@ -43,7 +43,7 @@ Compatibility aliases (`--bg`, `--text`, `--accent`, ...) remain available for i
 
 Shared semantic typography selectors (`.typography-body-text`, `.typography-heading-category`, `.typography-handwritten-accent`) are also defined in the same layer for consistent usage across Angular UI modules.
 
-## Layer 2: Shared cross-window tokens (`modules/shared/design-system/lib/cursor-tokens.css`)
+## Layer 2: Shared cross-window tokens (`@starorga/star-ui/lib/cursor-tokens.css`)
 
 Cross-window cursor tokens are centralized and reused by desktop/loading/overlay:
 
@@ -53,7 +53,7 @@ Cross-window cursor tokens are centralized and reused by desktop/loading/overlay
 
 Module styles should consume these tokens and only override variables when absolutely necessary.
 
-## Layer 3: Shared desktop shell + theme (`modules/desktop/shared/styles/*`)
+## Layer 3: Shared desktop shell + theme (`@starorga/star-ui/shell/*`)
 
 Desktop-wide shared styling is split into two reusable layers:
 

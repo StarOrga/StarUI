@@ -6,8 +6,20 @@
  */
 
 :root {
-  --layout-top-padding: 32px;
-  --layout-section-gap: 16px;
+  --window-desktop-accent-fog: rgba(82, 193, 230, 0.16);
+  --window-desktop-accent-fog-strong: rgba(22, 70, 100, 0.35);
+  --window-desktop-border-subtle: rgba(82, 193, 230, 0.12);
+  --window-desktop-border-default: rgba(82, 193, 230, 0.25);
+  --window-desktop-surface-hover: rgba(18, 50, 70, 0.45);
+  --window-desktop-surface-strong: rgba(18, 50, 70, 0.85);
+  --window-desktop-danger-soft: rgba(255, 111, 111, 0.14);
+  --window-desktop-community-soft: rgba(240, 194, 123, 0.16);
+  --window-desktop-community-border: rgba(240, 194, 123, 0.45);
+  --layout-top-padding: clamp(10px, 0.9vw, 14px);
+  --layout-section-gap: clamp(12px, 0.9vw, 16px);
+  --layout-section-gap-outer: clamp(16px, 1.1vw, 22px);
+  --layout-section-gap-inner: clamp(8px, 0.7vw, 12px);
+  --layout-divider-gap: clamp(12px, 0.9vw, 16px);
   --shell-app-padding-inline: 40px;
   --shell-app-padding-bottom: 16px;
   --shell-app-radius: 0;

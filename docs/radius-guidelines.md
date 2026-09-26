@@ -4,7 +4,7 @@
 
 The UI uses a fixed radius scale. RSI design principle: **sharp edges only (0–4px max)**.
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css` (canonical), `modules/desktop/shared/styles/desktop-theme.css` (extended)
+**Source:** `@starorga/star-ui/lib/design-tokens.css` (canonical), `@starorga/star-ui/shell/desktop-theme.css` (extended)
 
 ## Scale
 

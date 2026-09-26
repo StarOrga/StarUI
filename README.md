@@ -1,6 +1,6 @@
 # StarUI
 
-**Version: 0.1.1**
+**Version: 0.2.0**
 
 Shared design system for the **StarOrga / Star Citizen Companion** ecosystem.
 RSI-inspired visual language — sharp edges, cyan glows over drop shadows, dense

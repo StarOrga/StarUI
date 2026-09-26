@@ -5,8 +5,10 @@ RSI-inspired visual language — sharp edges, cyan glows over drop shadows, dens
 spacing, motion as feedback. One source of truth for every StarOrga surface
 (desktop app, web, uploader, installer).
 
-> **Master source:** the Star Citizen Companion desktop app. Tokens and styles
-> originate there and flow outward through this package — never the reverse.
+> **Master source:** StarUI. Tokens, shell styles, and brand assets are
+> authored here and flow outward through this package to every consuming
+> app — never the reverse. Change a value here first, release a tag, then
+> bump the consumers.
 
 ## Install
 
@@ -16,7 +18,7 @@ on Vercel and local builds out of the box):
 ```jsonc
 // package.json
 "dependencies": {
-  "@starorga/star-ui": "github:StarOrga/StarUI#v0.1.0"
+  "@starorga/star-ui": "github:StarOrga/StarUI#v0.2.0"
 }
 ```
 
@@ -67,6 +69,7 @@ Link the prebuilt single-file bundle:
 ```bash
 npm run build      # regenerate dist/star-ui.css from lib/
 npm run preview    # serve the Design System Explorer at http://localhost:4173
+npm run gen:icons  # regenerate app-icon/tray rasters from svg sources — never hand-edit assets/icons or assets/tray
 ```
 
 ## Versioning

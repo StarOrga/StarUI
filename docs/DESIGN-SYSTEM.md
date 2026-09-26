@@ -66,7 +66,7 @@ Foundations are the atomic building blocks. Full token values live in the [Style
 
 ### 2.1 Color System
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css`
+**Source:** `@starorga/star-ui/lib/design-tokens.css`
 
 | Layer | Tokens | Purpose |
 |-------|--------|---------|
@@ -86,7 +86,7 @@ Foundations are the atomic building blocks. Full token values live in the [Style
 
 ### 2.2 Typography
 
-**Source:** `modules/shared/design-system/lib/design-tokens.css` → `--font-*` tokens
+**Source:** `@starorga/star-ui/lib/design-tokens.css` → `--font-*` tokens
 
 | Family | Token | Role | Ratio | Weights |
 |--------|-------|------|-------|---------|
@@ -109,7 +109,7 @@ Foundations are the atomic building blocks. Full token values live in the [Style
 
 ### 2.3 Spacing
 
-**Source:** `modules/desktop/shared/styles/desktop-theme.css`
+**Source:** `@starorga/star-ui/shell/desktop-theme.css`
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -143,7 +143,7 @@ All spacing uses `clamp()` for responsive scaling. No fixed pixel values for lay
 
 ### 2.6 Cursors
 
-**Source:** `modules/shared/design-system/lib/cursor-tokens.css` (27 KB)
+**Source:** `@starorga/star-ui/lib/cursor-tokens.css` (27 KB)
 
 Custom **Sentinel Arrow** cursor system with 15+ states. Each cursor is an inline SVG data URI with gradient fills matching the SCC color palette.
 
@@ -172,7 +172,7 @@ Every UI component in the SCC ecosystem, organized by function. Each entry lists
 
 ### 3.1 Buttons
 
-**Source:** `modules/shared/design-system/lib/control-states.css`
+**Source:** `@starorga/star-ui/lib/control-states.css`
 
 | Variant | CSS Class | Visual | Usage |
 |---------|-----------|--------|-------|
@@ -281,14 +281,14 @@ Full-bleed 16:9 image tile used in the Verse News scatter layout. Image fills th
 |---------|-----|-------|
 | **Container** | `.scatter-tile` | `position: absolute`, sized by layout service (`tileW × tileH`) |
 | **Visual** | `.scatter-tile__visual` | `aspect-ratio: 16/9`, `overflow: hidden`, holds image + gradient + overlay |
-| **Image filter** | `--scatter-tile-img-filter` | `saturate(0.45) brightness(0.75)` — desaturate + dim to reduce visual noise |
-| **Image hover** | `--scatter-tile-img-filter-hover` | `saturate(0.7) brightness(0.85)` — partially restores on hover |
-| **Gradient** | `--scatter-tile-overlay-gradient` (via `::after`) | Bottom-heavy gradient for text readability over any thumbnail |
+| **Image filter** | `--scatter-tile-img-filter` | `saturate(0.9) brightness(0.97) contrast(1.03)` — near-native colour; the tile sits in the dark UI, it is not dimmed into it |
+| **Image hover** | `--scatter-tile-img-filter-hover` | `saturate(1) brightness(1)` — fully native on hover (the container adds `brightness(1.12)` on top) |
+| **Gradient** | `--scatter-tile-overlay-gradient` (via `::after`) | Transparent to 34%, `0.34` at 64%, `0.84` at the bottom — darkens only the title strip, leaves the image centre clear |
 | **Overlay** | `.scatter-tile__overlay` | `position: absolute; bottom: 0` — title + meta with `text-shadow` |
 | **Badge** | `.scatter-tile__badge` | LIVE/PTU pill, `position: absolute; top: -4px; left: -4px` |
 | **Duration** | `.scatter-tile__duration` | Bottom-right pill over image |
 
-Image treatment uses the Netflix/Spotify pattern: desaturate + dim at rest, partially restore on hover. This ensures consistent visual weight across all thumbnail types (bright, dark, colorful) and keeps the UI accent colors (cyan, gold) dominant.
+Image treatment follows the Netflix/Spotify pattern — but deliberately light-handed: the resting state stays close to native colour so the board reads as inviting content, and the tile integrates through the overlay gradient rather than through a darkening filter. Earlier, heavier passes (`saturate(0.45) brightness(0.75)`, then `saturate(0.8) brightness(0.9)`) plus a near-opaque gradient drained the board of colour. Hover still lifts the focused tile clearly via the container's `brightness(1.12)`.
 
 Variants: `--media` (standard), `--community` (inset shadow), `--live`/`--ptu` (special backgrounds).
 
@@ -384,7 +384,7 @@ Layout algorithm: [`verse-news-scatter-layout.md`](verse-news-scatter-layout.md)
 
 ### 3.10 Scrollbars
 
-**Source:** `modules/shared/design-system/lib/app-scrollbars.css`
+**Source:** `@starorga/star-ui/lib/app-scrollbars.css`
 
 | Property | Value |
 |----------|-------|
@@ -400,23 +400,17 @@ Layout algorithm: [`verse-news-scatter-layout.md`](verse-news-scatter-layout.md)
 
 | Category | Format | Location | Count |
 |----------|--------|----------|-------|
-| App icon | PNG (16–256px) + ICO + SVG | `modules/desktop/resources/icons/` | 7 sizes |
-| Tray icons | SVG + PNG pairs | `modules/desktop/resources/tray/` | 10 states |
-| Taskbar icon | SVG | `modules/desktop/resources/app-icon-taskbar.svg` | 1 |
-| Logo (full) | SVG | `modules/loading/ui-angular/src/assets/logo-loading-full.svg` | 1 |
-| Logo (minimal) | SVG | `modules/loading/ui-angular/src/assets/logo-loading-minimal.svg` | 1 |
-| Provider icons | SVG | `modules/desktop/resources/icon-*.svg` | 3 (Anthropic, Google, OpenAI) |
-| Community badge | PNG | `modules/desktop/resources/community-made-white.png` | 1 |
+| App icon | PNG (16-512px) + ICO + SVG | `assets/icons/` | 8 sizes |
+| Tray icons | SVG source + PNG at 16/20/24/32px | `assets/tray/` | 7 states |
+| Taskbar icon | SVG | `assets/brand/app-icon-taskbar.svg` | 1 |
+| Logo (full) | SVG | `assets/logos/logo-loading-full.svg` | 1 |
+| Logo (minimal) | SVG | `assets/logos/logo-loading-minimal.svg` | 1 |
+| Provider icons | SVG | `assets/provider-icons/icon-*.svg` | 3 (Anthropic, Google, OpenAI) |
+| Community badge | PNG | `assets/brand/community-made-white.png` | 1 |
 | Inline SVG icons | Embedded in templates | Various components | Category nodes, close, minimize, etc. |
 
-**Tray icon states:**
-- `default` — idle
-- `default-glow` — idle with glow
-- `active` — processing
-- `idle` — low-power idle
-- `error` — error/warning
-- `notification` — notification pending
-- `notification-glow` — notification with glow
+**Tray icon states:** `default`, `default-glow`, `active`, `idle`, `error`,
+`notification`, `notification-glow` -- see section 7.3.
 
 ### 3.12 Loading States
 
@@ -521,7 +515,7 @@ Every data-displaying widget follows these states:
 
 ### 5.1 Timing Tokens
 
-**Source:** `modules/shared/design-system/lib/logo-animations.css`
+**Source:** `@starorga/star-ui/lib/logo-animations.css`
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -606,9 +600,9 @@ Every data-displaying widget follows these states:
 | Asset | File | Usage |
 |-------|------|-------|
 | Production logo | `assets/logo-v8-c.svg` | In-app branding |
-| Full loading logo | `modules/loading/ui-angular/src/assets/logo-loading-full.svg` | Loading screen |
-| Minimal loading logo | `modules/loading/ui-angular/src/assets/logo-loading-minimal.svg` | Compact contexts |
-| Margin preview | `docs/ui/design-system/app-logo-margin-preview.svg` | Design reference (15% margin) |
+| Full loading logo | `assets/logos/logo-loading-full.svg` | Loading screen |
+| Minimal loading logo | `assets/logos/logo-loading-minimal.svg` | Compact contexts |
+| Margin preview | consumer-side only, not shipped in this package | Historical reference for the old 15% margin (superseded: icons now fill 90% of the canvas) |
 
 **Design:** Quantum-nebula brain-core — abstract neural/quantum motif with cyan and gold palette.
 
@@ -616,27 +610,41 @@ Every data-displaying widget follows these states:
 
 | Size | File | Usage |
 |------|------|-------|
-| 16px | `modules/desktop/resources/icons/app-icon-16.png` | Small UI, favicon |
-| 32px | `modules/desktop/resources/icons/app-icon-32.png` | Taskbar (standard) |
-| 48px | `modules/desktop/resources/icons/app-icon-48.png` | Alt+Tab |
-| 128px | `modules/desktop/resources/icons/app-icon-128.png` | App grid |
-| 256px | `modules/desktop/resources/icons/app-icon-256.png` | Store / high-DPI |
-| ICO | `modules/desktop/resources/icons/app-icon.ico` | Windows executable |
-| SVG (taskbar) | `modules/desktop/resources/app-icon-taskbar.svg` | Tray-adjacent |
+| 16px | `assets/icons/app-icon-16.png` | Small UI, favicon |
+| 24px | `assets/icons/app-icon-24.png` | Taskbar (125% scaling) |
+| 32px | `assets/icons/app-icon-32.png` | Taskbar (standard) |
+| 48px | `assets/icons/app-icon-48.png` | Alt+Tab |
+| 64px | `assets/icons/app-icon-64.png` | Large tiles |
+| 128px | `assets/icons/app-icon-128.png` | App grid |
+| 256px | `assets/icons/app-icon-256.png` | Store / high-DPI |
+| 512px | `assets/icons/app-icon-512.png` | Source-grade raster |
+| ICO | `assets/icons/app-icon.ico` | Windows executable |
+| SVG (taskbar) | `assets/brand/app-icon-taskbar.svg` | Vector source for all of the above |
+
+All rasters are generated by `npm run gen:icons` -- never hand-edit them. The
+artwork fills 90% of the canvas so it does not read as optically smaller than
+neighbouring Windows taskbar icons.
 
 ### 7.3 Tray Icon States
 
-10 SVG+PNG pairs in `modules/desktop/resources/tray/`:
+7 states in `assets/tray/`, each a generated SVG source plus
+PNGs at 16, 20, 24 and 32px -- the sizes the Windows notification area requests at
+100/125/150/200% scaling.
+
+The tray mark is **not** the app artwork. It is a dedicated small-size design: no
+blur filters, no margin, and a bright coloured rim around the dark disc so the
+silhouette reads on a dark taskbar as well as a light one. Edit `TRAY_STATES` in
+`scripts/gen-app-icons.js` and re-run `npm run gen:icons`.
 
 | State | Description | Color accent |
 |-------|-------------|-------------|
-| `default` | Idle | Standard |
-| `default-glow` | Idle with glow | Cyan glow |
-| `active` | Processing | Bright |
-| `idle` | Low-power | Dimmed |
-| `error` | Error/warning | Red |
-| `notification` | Notification | Gold |
-| `notification-glow` | Notification + glow | Gold glow |
+| `default` | Startup / update check | Cyan rim |
+| `default-glow` | Update downloading | Bright cyan rim, larger core |
+| `active` | ow-electron running | Cyan rim + gold accretion particle |
+| `idle` | ow-electron not running | Desaturated slate, dim core |
+| `error` | Update check/download failed | Red |
+| `notification` | Update available | Gold |
+| `notification-glow` | Update ready to apply | Bright gold, larger core |
 
 ---
 
@@ -736,19 +744,19 @@ Components that are needed but don't exist as reusable, documented elements:
 
 | File | Purpose |
 |------|---------|
-| `modules/shared/design-system/lib/design-tokens.css` | Global tokens: surfaces, text, accents, borders, radius, shadows, fonts |
-| `modules/shared/design-system/lib/cursor-tokens.css` | 15+ custom Sentinel cursor states (SVG data URIs) |
-| `modules/shared/design-system/lib/control-states.css` | Button/select/toggle hover/active/disabled/focus states |
-| `modules/shared/design-system/lib/app-scrollbars.css` | Custom scrollbar system (12 classes) |
-| `modules/shared/design-system/lib/logo-animations.css` | Logo animation keyframes (45+) |
-| `modules/shared/design-system/lib/window-surface.css` | `.window-surface` wrapper |
+| `@starorga/star-ui/lib/design-tokens.css` | Global tokens: surfaces, text, accents, borders, radius, shadows, fonts |
+| `@starorga/star-ui/lib/cursor-tokens.css` | 15+ custom Sentinel cursor states (SVG data URIs) |
+| `@starorga/star-ui/lib/control-states.css` | Button/select/toggle hover/active/disabled/focus states |
+| `@starorga/star-ui/lib/app-scrollbars.css` | Custom scrollbar system (12 classes) |
+| `@starorga/star-ui/lib/logo-animations.css` | Logo animation keyframes (45+) |
+| `@starorga/star-ui/lib/window-surface.css` | `.window-surface` wrapper |
 
 ### Desktop
 
 | File | Purpose |
 |------|---------|
-| `modules/desktop/shared/styles/desktop-shell-base.css` | Shell foundation: titlebar, header, notice |
-| `modules/desktop/shared/styles/desktop-theme.css` | Theme tokens: spacing, status colors, component overrides |
+| `@starorga/star-ui/shell/desktop-shell-base.css` | Shell foundation: titlebar, header, notice |
+| `@starorga/star-ui/shell/desktop-theme.css` | Theme tokens: spacing, status colors, component overrides |
 | `modules/desktop/ui-angular/src/styles.css` | Root stylesheet (imports all shared + desktop tokens) |
 | `modules/desktop/ui-angular/src/app/spatial-nav.css` | Spatial navigation styling (6 zone colors) |
 | `modules/desktop/ui-angular/src/app/settings-cloud-compass.component.scss` | Cloud Compass: nebula, atmosphere, scanlines, panels |
@@ -773,26 +781,20 @@ Components that are needed but don't exist as reusable, documented elements:
 
 | File | Purpose |
 |------|---------|
-| `docs/ui/STYLEGUIDE.md` | Visual style guide (source of truth for token values) |
-| `docs/ui/DESIGN-SYSTEM.md` | **This document** — component catalog & system overview |
-| `docs/ui/design-token-layer.md` | 4-layer token architecture |
-| `docs/ui/cursor-guidelines.md` | Cursor policy & lint rules |
-| `docs/ui/radius-guidelines.md` | Radius scale & RSI sharp-edges principle |
-| `docs/ui/scrollbar-visibility-guidelines.md` | Scrollbar behavior rules |
-| `docs/ui/settings-cloud-compass.md` | Cloud Compass navigation specification |
-| `docs/ui/desktop-dropdown-behavior.md` | Dropdown position logic |
-| `docs/ui/desktop-widget-state-pattern.md` | Widget state machine (loading/empty/error/ready) |
-| `docs/ui/state-copy-guidelines.md` | Copy/text guidelines for states |
-| `docs/ui/verse-news-scatter-layout.md` | News layout algorithm |
+| `docs/STYLEGUIDE.md` | Visual style guide (source of truth for token values) |
+| `docs/DESIGN-SYSTEM.md` | **This document** — component catalog & system overview |
+| `docs/design-token-layer.md` | 4-layer token architecture |
+| `docs/cursor-guidelines.md` | Cursor policy & lint rules |
+| `docs/radius-guidelines.md` | Radius scale & RSI sharp-edges principle |
+| `docs/scrollbar-visibility-guidelines.md` | Scrollbar behavior rules |
+| `docs/settings/settings-cloud-compass.md` | Cloud Compass navigation specification |
+| `docs/desktop-dropdown-behavior.md` | Dropdown position logic |
+| `docs/desktop-widget-state-pattern.md` | Widget state machine (loading/empty/error/ready) |
+| `docs/state-copy-guidelines.md` | Copy/text guidelines for states |
+| `docs/verse-news-scatter-layout.md` | News layout algorithm |
 
 ### Prototypes & Concepts
 
-| File | Purpose |
-|------|---------|
-| `docs/ui/concepts/mockup-desktop-redesign.html` | Desktop redesign mockup |
-| `docs/ui/concepts/mockup-settings-nav-v3.html` | Cloud Compass prototype |
-| `docs/ui/concepts/mockup-setup-wizard.html` | Setup wizard flow |
-| `docs/ui/concepts/mockup-setup-wizard-warp.html` | Setup wizard warp effect |
-| `docs/ui/concepts/mockup-nav-concepts.html` | Navigation explorations |
-| `docs/ui/concepts/mockup-debug-zones.html` | Layout debug visualization |
-| `concepts/loading-screen-exploration.html` | Loading screen variants |
+Consumer-side only — StarUI does not ship HTML mockups/concept files. If a
+consuming app keeps its own exploratory prototypes, they live in that app's
+own `docs/ui/concepts/` (or equivalent), not in this package.

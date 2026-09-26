@@ -2,16 +2,17 @@
 
 This project uses a layered token/theme model so reusable styling stays centralized and module files only carry local overrides.
 
-## Layer 1: Shared global tokens (`modules/shared/design-system/lib/design-tokens.css`)
+## Layer 1: Shared global tokens (`@starorga/star-ui/lib/design-tokens.css`)
 
 Global semantic tokens live in one shared place and are consumed by every UI surface:
 
 - **Surface** (`--surface-*`): canvas, panel, and overlay surfaces.
-- **Text** (`--text-*`): primary/secondary text.
-- **Accent** (`--accent-*`): primary accent, strong accent, warning, danger.
+- **Text** (`--text-*`): primary/secondary/tertiary text (`--text-tertiary` added v0.2.0).
+- **Accent** (`--accent-*`): primary accent, strong accent, warning, danger, and `--accent-danger-light` (danger text/icons on canvas or panel — see STYLEGUIDE.md §1.3).
 - **Border** (`--border-*`): subtle/default/strong borders.
 - **Radius** (`--radius-*`): standard radii (`sm` to `xl`).
 - **Shadow** (`--shadow-*`): soft/elevated/glow.
+- **Focus** (`--keyboard-focus-glow`, new v0.2.0): keyboard-modality focus ring; the modality-detection rule stays in each consumer.
 - **Font**: semantic typography tokens define the shared families: `--font-body-text` (Inter), `--font-heading-category` (Orbitron), and `--font-handwritten-accent` (Caveat).
 
 ### Approved font system (UI modules)
@@ -43,7 +44,7 @@ Compatibility aliases (`--bg`, `--text`, `--accent`, ...) remain available for i
 
 Shared semantic typography selectors (`.typography-body-text`, `.typography-heading-category`, `.typography-handwritten-accent`) are also defined in the same layer for consistent usage across Angular UI modules.
 
-## Layer 2: Shared cross-window tokens (`modules/shared/design-system/lib/cursor-tokens.css`)
+## Layer 2: Shared cross-window tokens (`@starorga/star-ui/lib/cursor-tokens.css`)
 
 Cross-window cursor tokens are centralized and reused by desktop/loading/overlay:
 
@@ -53,15 +54,15 @@ Cross-window cursor tokens are centralized and reused by desktop/loading/overlay
 
 Module styles should consume these tokens and only override variables when absolutely necessary.
 
-## Layer 3: Shared desktop shell + theme (`modules/desktop/shared/styles/*`)
+## Layer 3: Shared desktop shell + theme (`@starorga/star-ui/shell/*`)
 
 Desktop-wide shared styling is split into two reusable layers:
 
-- `desktop-shell-base.css`: shell/layout foundation (`.app`, `.titlebar`, `.header`, `.notice`, `.titlebar-btn`) with configurable `--shell-*` override variables.
+- `desktop-shell-base.css`: shell/layout foundation (`.app`, `.titlebar`, `.header`, `.notice`, `.titlebar-btn`) with configurable `--shell-*` override variables. v0.2.0 adds the 9 `--window-desktop-*` window-chrome tokens (accent-fog, accent-fog-strong, border-subtle, border-default, surface-hover, surface-strong, danger-soft, community-soft, community-border) and the 5-token responsive `--layout-*` set (see STYLEGUIDE.md §3.2).
 - `desktop-theme.css`: component/theme source of truth for settings/dropdown controls (`.settings-select`, `.space-select*`) and shared interactive states.
 
-Any desktop module-specific file should prefer variable overrides (`--shell-*`, `--settings-select-*`) instead of re-defining the same selectors.
-Desktop dropdown behavior details live in `docs/ui/desktop-dropdown-behavior.md`.
+Any desktop module-specific file should prefer variable overrides (`--shell-*`, `--settings-select-*`, `--window-desktop-*`) instead of re-defining the same selectors.
+Desktop dropdown behavior details live in [`desktop-dropdown-behavior.md`](desktop-dropdown-behavior.md).
 
 ## Layer 4: Module overrides (`modules/*/ui-angular/src/*.css`)
 

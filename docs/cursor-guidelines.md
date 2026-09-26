@@ -8,8 +8,8 @@ This policy defines **mandatory** cursor usage for the desktop UI.
 
 All cursor visuals are defined as SVG data-URI CSS custom properties in:
 
-- `modules/shared/design-system/lib/cursor-tokens.css` — token definitions (SVG arrow shapes, colors, hotspots)
-- `modules/desktop/shared/styles/desktop-theme.css` — global cascade rules (which elements get which cursor)
+- `@starorga/star-ui/lib/cursor-tokens.css` — token definitions (SVG arrow shapes, colors, hotspots)
+- `@starorga/star-ui/shell/desktop-theme.css` — global cascade rules (which elements get which cursor)
 - `modules/desktop/ui-angular/src/app/cursor-animator.service.ts` — JS-driven animated cursor transitions
 
 Do not hardcode cursor literals (`cursor: pointer;`, `cursor: default;`, `cursor: wait;`) or direct `url(...)` cursors in feature styles. Always use the token variables.
@@ -181,13 +181,20 @@ When adding a new interactive component:
 
 ## CI Enforcement
 
-`npm run lint:cursor-policy` blocks non-token `cursor: pointer;` and `cursor: default;` declarations outside the cursor token source file.
+`npm run lint:cursor-policy` blocks every hardcoded cursor keyword that has a
+token equivalent (pointer, default, grab/grabbing, move, text, wait, the full
+resize family, zoom, copy/alias, …) across `.css`, `.scss`, `.ts` (inline
+component styles), and `.html` (style attributes) under `modules/desktop`.
+Third-party trees (`node_modules`, `dist`) are skipped — the token source
+files live in `@starorga/star-ui` and are not scanned. The check runs in CI
+via `test-gate.yml` alongside `node --test scripts/check-cursor-policy.test.mjs`
+(fixture tests for the checker itself).
 
 ## File Map
 
 | File | Purpose |
 |------|---------|
-| `modules/shared/design-system/lib/cursor-tokens.css` | SVG cursor definitions as CSS custom properties |
-| `modules/desktop/shared/styles/desktop-theme.css` | Global cascade: which elements get which cursor token |
+| `@starorga/star-ui/lib/cursor-tokens.css` | SVG cursor definitions as CSS custom properties |
+| `@starorga/star-ui/shell/desktop-theme.css` | Global cascade: which elements get which cursor token |
 | `modules/desktop/ui-angular/src/app/cursor-animator.service.ts` | JS animation engine (body sweep, gold dot, wait ring) |
 | `scripts/check-cursor-policy.js` | CI lint script |

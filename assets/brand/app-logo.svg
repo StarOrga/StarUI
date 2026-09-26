@@ -127,8 +127,8 @@
 <circle class="star" cx="46" cy="294" r=".7" fill="#52c1e6" style="--d:4.6s;--dl:-2.6s"/>
 <circle class="star" cx="256" cy="296" r=".6" fill="#7dd5f0" style="--d:5.3s;--dl:-4.4s"/>
 
-<!-- ===== 15% MARGIN: scale core content to 70%, keep stars/bg at full size ===== -->
-<g transform="translate(45,45) scale(0.7)">
+<!-- ===== 5% MARGIN: scale core content to 90% so the mark fills the icon canvas ===== -->
+<g transform="translate(15,15) scale(0.90)">
 
 <!-- ===== CLOUD LAYER 1 — Broad rotation (fills corners via larger rx/ry) ===== -->
 <g class="cla phcl" filter="url(#fCl)">
@@ -222,5 +222,5 @@
   fill="#7dd5f0" text-anchor="middle" dominant-baseline="middle"
   filter="url(#fTx)" class="pht">SCC</text>
 
-</g><!-- end 15% margin scale group -->
+</g><!-- end 5% margin scale group -->
 </svg>

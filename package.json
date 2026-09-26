@@ -34,6 +34,10 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
-    "preview": "node scripts/serve-preview.mjs"
+    "preview": "node scripts/serve-preview.mjs",
+    "gen:icons": "node scripts/gen-app-icons.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

@@ -25,6 +25,9 @@
   ],
   "files": [
     "lib",
+    "layers",
+    "components",
+    "catalog",
     "shell",
     "assets",
     "dist",
@@ -35,7 +38,9 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "preview": "node scripts/serve-preview.mjs",
-    "gen:icons": "node scripts/gen-app-icons.js"
+    "gen:icons": "node scripts/gen-app-icons.js",
+    "catalog": "node scripts/catalog.mjs",
+    "inventory": "node scripts/ds-inventory.mjs"
   },
   "devDependencies": {
     "sharp": "^0.34.5"

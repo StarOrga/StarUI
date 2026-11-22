@@ -14,11 +14,25 @@ Consumed by StarOrga projects as a git dependency (`@starorga/star-ui`).
 - **Tag = release.** Bump `package.json` version + push a `vX.Y.Z` tag; consumers
   pin `#vX.Y.Z`. Patch = fix, minor = additive, major = breaking token change.
 
+- **Design rules: `docs/DESIGN-RULES.md`.** Four layers (core · components ·
+  desktop · web), two formats (CSS + tokens base, Web Components on top for
+  behaviour), status stable / experimental, the `ds-new: <reason>` pragma, and
+  promotion once two surfaces need something. Deviations are fine, hidden ones are not.
+- **Catalog: edit `catalog/catalog.json`, then `npm run catalog`.** Every new
+  building block gets an entry; `npm run catalog -- --check` fails on a stale
+  `docs/CATALOG.md`. New things start as `experimental`.
+- **Additive by default.** A new token or file is experimental and stays out of
+  `dist/` until promoted; an existing token value only changes with a release note.
+
 ## Layout
+`layers/` layer indexes over `lib/` · `catalog/` catalog source ·
+`components/` Web Components (level 2) ·
 `lib/` framework-agnostic CSS + JS utils · `shell/` desktop-app layout ·
 `assets/` icons/tray/brand · `docs/` styleguide + catalog · `preview/` explorer ·
 `dist/` generated bundle.
 
 ## Develop
 `npm run build` — rebuild bundle · `npm run preview` — serve explorer at :4173 ·
+`npm run catalog` — render the catalog · `npm run inventory -- --surface name=dir …` —
+list every deviation in the consumers (report in `docs/inventory/latest/`) ·
 `npm run gen:icons` — regenerate app-icon/tray rasters (never hand-edit `assets/icons` or `assets/tray`).

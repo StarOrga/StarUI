@@ -1,0 +1,8 @@
+/* StarUI layer 3a — desktop platform: Electron surfaces (Verse Companion App,
+   Data Uploader, installer). Window chrome, settings blocks, scrollbars, cursors.
+   Requires layers/core.css (and usually layers/components.css) first.
+   Desktop-app shell layout stays opt-in: shell/desktop-shell-base.css, shell/desktop-theme.css */
+@import "../lib/cursor-tokens.css";
+@import "../lib/window-surface.css";
+@import "../lib/settings-block.css";
+@import "../lib/app-scrollbars.css";

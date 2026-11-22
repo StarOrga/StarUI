@@ -1,0 +1,37 @@
+/* ============================================================
+   StarUI — shared scales (EXPERIMENTAL)
+   Status: experimental (docs/DESIGN-RULES.md, catalog/catalog.json → core.scale)
+
+   Additive tokens only: nothing in StarUI or a consumer reads them yet, so
+   importing this file changes no pixel. Not part of dist/star-ui.css until
+   it is promoted to stable. Consumers opt in with
+     @import "@starorga/star-ui/lib/scale.experimental.css";
+   ============================================================ */
+
+:root {
+  /* Radius scale — decided 2026-11-21: 2 / 4 / 8 / pill.
+     2 = small controls, chips, inputs · 4 = buttons, cards (desktop default) ·
+     8 = large surfaces, dialogs, web cards · pill = toggles, tags, web secondary actions. */
+  --ds-radius-xs: 2px;
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 8px;
+  --ds-radius-pill: 999px;
+
+  /* Type — 13px is the floor for readable UI text on every surface (decided 2026-11-21).
+     Smaller only for non-text marks (badge counts, keycaps), each with `ds-ok: <reason>`. */
+  --ds-font-floor: 13px;
+  --ds-font-sm: 13px;
+  --ds-font-md: 14px;
+  --ds-font-lg: 16px;
+  --ds-font-xl: 20px;
+  --ds-font-2xl: 26px;
+
+  /* Spacing steps on a 4px grid. Promotion counts steps per role, not single
+     paddings (docs/DESIGN-RULES.md § Promotion). */
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 24px;
+  --ds-space-6: 32px;
+}

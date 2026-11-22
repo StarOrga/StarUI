@@ -1,0 +1,8 @@
+/* StarUI layer 2 — shared components: building blocks used by web AND desktop.
+   Format: CSS classes on top of the core tokens. Components with behaviour may
+   additionally ship as Web Components under components/ (docs/DESIGN-RULES.md § Format).
+   Requires layers/core.css first. */
+@import "../lib/control-states.css";
+@import "../lib/forms.css";
+@import "../lib/status.css";
+@import "../lib/tooltips.css";

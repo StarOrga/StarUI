@@ -1,0 +1,5 @@
+/* StarUI layer 1 — core: tokens every surface shares (colour, type families,
+   radius, shadow, motion) plus the logo animation. Brand files: assets/brand.
+   Layer index only: it imports the existing lib/ files, which stay where they are. */
+@import "../lib/design-tokens.css";
+@import "../lib/logo-animations.css";

@@ -1,6 +1,6 @@
 # StarUI
 
-**Version: 0.2.0**
+**Version: 0.3.0**
 
 Shared design system for the **StarOrga / Star Citizen Companion** ecosystem.
 RSI-inspired visual language — sharp edges, cyan glows over drop shadows, dense
@@ -47,6 +47,27 @@ Import the individual layers you need from `lib/`:
 
 Desktop-shell layout (app-specific) lives under `shell/`.
 
+Or import by layer (same files, grouped — see [docs/DESIGN-RULES.md](docs/DESIGN-RULES.md)):
+
+```css
+@import "@starorga/star-ui/layers/core.css";        /* tokens + logo animation */
+@import "@starorga/star-ui/layers/components.css";  /* shared web + desktop building blocks */
+@import "@starorga/star-ui/layers/desktop.css";     /* Electron surfaces only */
+/* layers/web.css — web PWA only (empty until the first web block is promoted) */
+```
+
+Experimental shared scales (radius 2/4/8/pill, 13px type floor, 4px spacing
+steps) are opt-in: `@import "@starorga/star-ui/lib/scale.experimental.css";`
+
+## Catalog and rules
+
+- [docs/CATALOG.md](docs/CATALOG.md) — every building block with layer, status
+  (stable / experimental) and the surfaces that use it. Source: `catalog/catalog.json`.
+- [docs/DESIGN-RULES.md](docs/DESIGN-RULES.md) — layers, format, the `ds-new`
+  flow for new things, promotion rule.
+- [docs/inventory/latest/INVENTORY.md](docs/inventory/latest/INVENTORY.md) —
+  what the consumers currently do differently (`npm run inventory`).
+
 ### Plain-HTML consumers (e.g. installer)
 
 Link the prebuilt single-file bundle:
@@ -59,6 +80,9 @@ Link the prebuilt single-file bundle:
 
 | Path     | Contents                                                              |
 |----------|----------------------------------------------------------------------|
+| `layers/`| Layer indexes over `lib/`: core, components, desktop, web.            |
+| `catalog/`| Catalog source (`catalog.json`), rendered to `docs/CATALOG.md`.      |
+| `components/`| Web Components (level 2, behaviour) — none shipped yet.          |
 | `lib/`   | Framework-agnostic CSS: tokens, control states, forms, scrollbars, tooltips, status, motion, plus canvas/cursor JS utilities. |
 | `shell/` | Desktop-shell layout + theme overrides (desktop-app-specific).        |
 | `dist/`  | Generated single-file bundle (`star-ui.css`). Built from `lib/`.       |
@@ -71,6 +95,8 @@ Link the prebuilt single-file bundle:
 ```bash
 npm run build      # regenerate dist/star-ui.css from lib/
 npm run preview    # serve the Design System Explorer at http://localhost:4173
+npm run catalog    # render docs/CATALOG.md from catalog/catalog.json (--check to verify)
+npm run inventory  # scan consumers for deviations: -- --surface web=../web/src --surface app=../app/modules
 npm run gen:icons  # regenerate app-icon/tray rasters from svg sources — never hand-edit assets/icons or assets/tray
 ```
 

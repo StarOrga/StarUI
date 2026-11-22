@@ -1,0 +1,5 @@
+/* StarUI layer 3b — web platform: Verse Companion Web (Angular PWA).
+   Empty on purpose for now. The web's own building blocks (scAction primary /
+   secondary pill / tertiary, page shell, admin layout) are registered in
+   catalog/catalog.json as "experimental" with home "web"; they move here
+   once evaluated (docs/DESIGN-RULES.md § Experimental). */

@@ -3,27 +3,6 @@
 All notable changes to `@starorga/star-ui`. Each version is a git tag that
 consumers pin: `github:StarOrga/StarUI#vX.Y.Z`.
 
-## [Unreleased]
-
-Design-system layers, catalog and rules (concept "Design-System Angleichung",
-2026-11-21). Additive only: `dist/star-ui.css` and every `lib/` path are
-unchanged, so consumers see no visual change.
-
-### Added
-- `layers/core.css`, `layers/components.css`, `layers/desktop.css`,
-  `layers/web.css`: layer indexes over the existing `lib/` files.
-- `catalog/catalog.json` + `npm run catalog` → `docs/CATALOG.md`: every
-  building block with layer, format, status (stable / experimental) and usage.
-- `docs/DESIGN-RULES.md`: layers, two-level format (CSS + tokens, Web
-  Components on top), brand source, `ds-new` / `ds-ok` pragmas, promotion rule.
-- `lib/scale.experimental.css` (experimental, opt-in): radius 2/4/8/pill,
-  13px type floor and type steps, 4px spacing steps.
-- `npm run inventory` (`scripts/ds-inventory.mjs`): read-only scan of the
-  consumers for brand copies, StarUI CSS copies, off-scale radius, sub-13px
-  type, raw hex colours, button families and `ds-new` pragmas. First report in
-  `docs/inventory/latest/`.
-- `components/README.md`: Web Component conventions (`star-` prefix, light DOM).
-
 ## [0.2.0] — 2026-09-26
 
 StarUI is now the master of the design system: tokens, shell styles and brand
